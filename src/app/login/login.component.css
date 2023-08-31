@@ -1,6 +1,13 @@
 html {
   height: 100%;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .titulo-container {
   background-color: #316335; /* Color de fondo */
   text-align: center; /* Centrar el contenido */
@@ -33,10 +40,11 @@ html {
   font-family: serif; /* Fuente serif */
   font-size: 24px; /* Tamaño de fuente personalizado */
   font-family: serif; /* Fuente serif */
+  align-self: flex-start;
 }
 
 .form-input {
-  width: 30%; /* Opcional: ocupar todo el ancho disponible */
+  width: 100%; /* Opcional: ocupar todo el ancho disponible */
   padding: 10px; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
