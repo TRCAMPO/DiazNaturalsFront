@@ -17,6 +17,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatMenuModule} from '@angular/material/menu';
 import {HttpClientModule} from "@angular/common/http";
 import {NgxPaginationModule} from "ngx-pagination";
+import { RecuperarCuentaComponent } from './recuperar-cuenta/recuperar-cuenta.component';
+import { NuevaContrasenaComponent } from './nueva-contrasena/nueva-contrasena.component';
 
 
 
@@ -25,7 +27,9 @@ import {NgxPaginationModule} from "ngx-pagination";
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RecuperarCuentaComponent,
+    NuevaContrasenaComponent
 
   ],
     imports: [

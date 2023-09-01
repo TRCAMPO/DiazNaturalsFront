@@ -22,7 +22,7 @@ body {
 }
 
 .login-container img {
-  max-width: 150px; /* Ajusta el tamaño máximo del logo */
+  max-width: 140px; /* Ajusta el tamaño máximo del logo */
   display: block; /* Para centrar horizontalmente el logo */
   margin: 0 auto; /* Para centrar el logo horizontalmente */
   margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
@@ -50,7 +50,7 @@ body {
   border-radius: 5px; /* Bordes redondeados */
   background-color: #fff; /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
-  color: #fff; /* Color de texto */
+  color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */
 }
 
