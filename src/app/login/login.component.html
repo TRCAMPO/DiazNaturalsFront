@@ -17,7 +17,7 @@
 
       <div class="form-field">
         <label class="lock" for="login-username"><span class="hidden">Correo electrónico</span></label>
-        <input name="emailUser" id="login-username" #User="ngModel" [(ngModel)]="authService.formDataUser.correo"
+        <input name="emailUser" id="login-username" #User="ngModel" [(ngModel)]="authService.formDataUser.email"
                [class.invalid]="User.invalid && User.touched"
                type="text" class="form-input" placeholder="Correo" required>
       </div>
@@ -25,7 +25,7 @@
 
       <div class="form-field">
         <label class="lock" for="login-password"><span class="hidden">Contraseña</span></label>
-        <input name="password" id="login-password" #Password="ngModel" [(ngModel)]="authService.formDataUser.contrasena"
+        <input name="password" id="login-password" #Password="ngModel" [(ngModel)]="authService.formDataUser.password"
                type="password" class="form-input" placeholder="Contraseña" required>
       </div>
 
