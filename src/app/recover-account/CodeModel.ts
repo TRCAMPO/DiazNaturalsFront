@@ -1,7 +1,6 @@
 
 
-export class CodigoModel{
-  //id: number = 0;
+export class CodeModel {
   email: string = '';
   code: string = '';
 
