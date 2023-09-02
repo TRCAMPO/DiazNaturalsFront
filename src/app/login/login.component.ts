@@ -31,7 +31,8 @@ export class LoginComponent {
           this.authService.token = response.token;
           this.authService.isLog = true;
           console.log('Inicio de sesión exitoso');
-          this.route.navigate(['/menu']);
+          this.route.navigate(['/homePage']);
+          this.authService.formDataUser = new UserModel();
         },
         (error) => {
           this.error = 'Credenciales inválidas';

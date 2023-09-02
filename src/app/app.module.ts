@@ -19,6 +19,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgxPaginationModule} from "ngx-pagination";
 import { RecuperarCuentaComponent } from './recuperar-cuenta/recuperar-cuenta.component';
 import { NuevaContrasenaComponent } from './nueva-contrasena/nueva-contrasena.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 
@@ -29,7 +30,8 @@ import { NuevaContrasenaComponent } from './nueva-contrasena/nueva-contrasena.co
     AppComponent,
     LoginComponent,
     RecuperarCuentaComponent,
-    NuevaContrasenaComponent
+    NuevaContrasenaComponent,
+    HomePageComponent
 
   ],
     imports: [
