@@ -1,0 +1,99 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo-container {
+  background-color: #316335; /* Color de fondo */
+  text-align: center; /* Centrar el contenido */
+  padding: 20px 0; /* Agregar espacio alrededor del contenido */
+}
+
+.titulo {
+  color: white; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente personalizado */
+  margin: 0; /* Eliminar el margen predeterminado del título */
+}
+
+.login-container img {
+  max-width: 140px; /* Ajusta el tamaño máximo del logo */
+  display: block; /* Para centrar horizontalmente el logo */
+  margin: 0 auto; /* Para centrar el logo horizontalmente */
+  margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
+}
+
+.form-field {
+  display: flex; /* Cambiar la disposición a flexbox */
+  flex-direction: column; /* Mostrar los elementos en una columna */
+  align-items: center; /* Centrar horizontalmente */
+  padding: 15px 0; /* Espacio arriba y abajo */
+}
+
+.form-correo {
+  display: flex; /* Cambiar la disposición a flexbox */
+  flex-direction: initial; /* Mostrar los elementos en una columna */
+  align-items: flex-end;
+  margin-left: 36.5%;
+}
+
+.form2 {
+  display: flex; /* Cambiar la disposición a flexbox */
+  flex-direction: initial; /* Mostrar los elementos en una columna */
+}
+
+.lock {
+  color: #030303; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente personalizado */
+  font-family: serif; /* Fuente serif */
+  align-self: flex-start;
+}
+
+.form-input {
+  width: 100%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 10px; /* Espacio interno en el cuadro */
+  border: 1px solid #ccc; /* Borde del cuadro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  font-size: 17px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto */
+  font-family: serif; /* Fuente serif */
+}
+
+.form-olvido {
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente */
+  color: #3e7c95; /* Color de texto */
+  padding: 15px 0; /* Espacio arriba y abajo */
+  text-align: center; /* Centrar el texto horizontalmente */
+}
+
+.custom-button {
+  font-family: serif; /* Fuente serif */
+  font-size: 20px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto negro */
+  background-color: #6fa535; /* Fondo verde */
+  border: none; /* Quitar borde */
+  padding: 10px 20px; /* Espacio interno del botón */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5px; /* Agregar bordes redondeados */
+}
+
+.custom-button:hover {
+  background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 15px 0; /* Espacio arriba y abajo */
+}
+
+
