@@ -22,6 +22,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 //import {NgxPaginationModule} from "ngx-pagination";
 
@@ -32,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RecoverAccountComponent,
     NewPasswordComponent,
     HomePageComponent,
+    CreateProductComponent,
 
   ],
     imports: [
