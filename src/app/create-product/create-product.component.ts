@@ -1,17 +1,20 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
+import {CategoryModel} from "./category.model";
+import {PresentationsModel} from "./presentation.model";
+import {SuppliersModel} from "./suppliers.model";
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
-export class CreateProductComponent {
+export class CreateProductComponent implements OnInit{
   inputValue: string = '';
   username: string;
   password: string;
@@ -20,8 +23,21 @@ export class CreateProductComponent {
   imageUrl: string | null = null;
   // @ts-ignore
   @ViewChild('fileInput') fileInputRef: ElementRef;
+  categories: CategoryModel[] = [];
+  presentations: PresentationsModel[] = []
+  suppliers: SuppliersModel[] = [];
 
-
+  ngOnInit() {
+    this.authService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
+    this.authService.getPresentation().subscribe(data => {
+      this.presentations = data;
+    });
+    this.authService.getSuppliers().subscribe(data => {
+      this.suppliers = data;
+    });
+  }
   constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";

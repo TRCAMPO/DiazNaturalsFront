@@ -6,6 +6,9 @@ import {emailModel} from "./recover-account/EmailModel";
 import {CodeModel} from "./recover-account/CodeModel";
 import {SendPasswordModel} from "./new-password/SendPassword.Model";
 import {ProductModel} from "./create-product/product.model";
+import {CategoryModel} from "./create-product/category.model";
+import {PresentationsModel} from "./create-product/presentation.model";
+import {SuppliersModel} from "./create-product/suppliers.model";
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +44,17 @@ export class AuthService {
 
   changePassword(password: SendPasswordModel) {
     return this.http.post(`${this.apiUrl}/AccesControll/EditarContraseña`, password);
+  }
+
+  getCategories() {
+    return this.http.get<CategoryModel[]>(`${this.apiUrl}/`);
+  }
+
+  getPresentation() {
+    return this.http.get<PresentationsModel[]>(`${this.apiUrl}/`);
+  }
+
+  getSuppliers() {
+    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/`);
   }
 }

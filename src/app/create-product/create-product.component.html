@@ -24,19 +24,23 @@
 
       <form>
         <div class="form-row">
-          <div class="campo">
-            <label class="lock" for="nombre">Nombre</label>
+          <div class="campo select12">
+            <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;</label>
             <input class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
           </div>
           <div class="campo">
-            <label class="lock" for="proveedor">Proveedor</label>
-            <input class="form-input" type="text" id="proveedor" #supplier="ngModel" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+            <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select class="form-input" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier.name_supplier">{{ supplier.name_supplier }}</option>
+            </select>
           </div>
           <div class="campo">
-            <label class="lock" for="precio">Precio</label>
+            <label class="lock" for="precio">Precio&nbsp;&nbsp;</label>
             <input class="form-input" type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
           </div>
         </div>
+
 
           <div class="form-row">
             <div class="campo">
@@ -45,11 +49,17 @@
             </div>
             <div class="campo">
               <label class="lock" for="presentacion">Presentación</label>
-              <input class="form-input" type="text" id="presentacion" #presentation="ngModel" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+              <select class="form-input" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option *ngFor="let presentation of presentations" [value]="presentation.name_presentation">{{ presentation.name_presentation }}</option>
+              </select>
             </div>
             <div class="campo">
               <label class="lock" for="categoria">Categoria</label>
-              <input class="form-input" type="number" id="categoria" #category="ngModel" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+              <select class="form-input select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option *ngFor="let categoria of categories" [value]="categoria.name_category">{{ categoria.name_category }}</option>
+              </select>
             </div>
           </div>
         <div class="form-row">

@@ -222,4 +222,8 @@ footer a {
   margin: 1%;
 }
 
+.select-custom2 {
+  width: 250%; /* Establece el ancho al 100% para ocupar todo el espacio disponible */
+
+}
 
