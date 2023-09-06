@@ -48,7 +48,7 @@ body {
 }
 
 .form-input {
-  width: 100%; /* Opcional: ocupar todo el ancho disponible */
+  width: 200%; /* Opcional: ocupar todo el ancho disponible */
   padding: 10px; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
@@ -58,10 +58,16 @@ body {
   font-family: serif; /* Fuente serif */
 }
 
-#descripcion {
-  width: 300px; /* Ancho fijo */
-  height: 150px; /* Alto fijo */
-  resize: none; /* Desactiva el redimensionamiento */
+.form-input2 {
+  width: 168%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 10px; /* Espacio interno en el cuadro */
+  border: 1px solid #ccc; /* Borde del cuadro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  font-size: 17px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto */
+  font-family: serif; /* Fuente serif */
+  resize: none;
 }
 
 .custom-button {
@@ -100,6 +106,14 @@ body {
   justify-content: right; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
   padding: 20px 0; /* Espacio arriba y abajo */
+}
+
+.button-container-image {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+  width: 100%;
 }
 
 nav {
@@ -151,6 +165,7 @@ footer a {
   display: inline-grid;
   margin-bottom: 10px;
   margin-left: 10%;
+  margin-right: 10%;
 }
 
 .drop-box {
@@ -158,7 +173,9 @@ footer a {
   background-color: #f9f9f9; /* Un fondo gris claro */
   padding: 20px; /* Agrega un relleno interior para mejorar la apariencia */
   text-align: center; /* Centra el contenido dentro del área de soltar */
-  min-height: 50px; /* Establece una altura mínima para que el área sea visible */
+  min-height: 10px; /* Establece una altura mínima para que el área sea visible */
+  color: gray;
+  width: 100%;
 }
 
 
@@ -167,8 +184,9 @@ footer a {
   font-size: 12px; /* Tamaño de fuente */
   color: #030303; /* Color de texto negro */
   background-color: #918b8b; /* Fondo verde */
-  padding: 10px 50px; /* Espacio interno del botón */
+  padding: 1% 1%; /* Espacio interno del botón */
   cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5%;
 }
 
 .custom-buttonC-selec {
@@ -176,8 +194,10 @@ footer a {
   font-size: 12px; /* Tamaño de fuente */
   color: #030303; /* Color de texto negro */
   background-color: #918b8b;
-  padding: 10px 50px; /* Espacio interno del botón */
+  padding: 1% 1%; /* Espacio interno del botón */
   cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5%;
+  margin-left: 1%;
 }
 
 .custom-buttonC-selec:hover {
@@ -191,3 +211,7 @@ footer a {
 .button-container[_ngcontent-ng-c2445687857] {
   padding: 0px 0;
 }
+
+
+
+

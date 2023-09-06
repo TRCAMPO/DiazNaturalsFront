@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "recovery", component: RecoverAccountComponent},
   { path: "newPassword", component: NewPasswordComponent},
   { path: "homePage", component: HomePageComponent, canActivate: [AuthGuard]},
-  { path: "createClient", component: CreateProductComponent}
+  { path: "createProduct", component: CreateProductComponent}
 ];
 
 @NgModule({

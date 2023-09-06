@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-product',
@@ -15,12 +16,13 @@ export class CreateProductComponent {
   username: string;
   password: string;
   error: string;
-  sanitizer: any;
   imageFile: File | null = null;
   imageUrl: string | null = null;
+  // @ts-ignore
+  @ViewChild('fileInput') fileInputRef: ElementRef;
 
 
-  constructor(public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
     this.error = "";
@@ -84,5 +86,9 @@ export class CreateProductComponent {
 
   clearPreview() {
     this.imageUrl = null;
+    this.imageFile = null;
+    if (this.fileInputRef && this.fileInputRef.nativeElement) {
+      this.fileInputRef.nativeElement.value = null;
+    }
   }
 }

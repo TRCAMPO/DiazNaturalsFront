@@ -55,8 +55,10 @@
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="descripcion">Descripción</label>
-            <textarea class="form-input" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
+            <textarea class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
           </div>
+        </div>
+        <div class="form-row">
           <div class="campo">
             <div class="card p-3">
               <label class="lock" >Imágen</label>
@@ -70,7 +72,7 @@
                 </div>
                 <a>{{imageUrl}}</a>
               </div>
-              <div class="button-container">
+              <div class="button-container-image">
                 <button class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
                 <input type="file" #fileInput style="display:none" (change)="handleFileInput($event)">
                 <button class="custom-buttonC-selec" [disabled]="!imageUrl" (click)="clearPreview()">Eliminar imagen</button>
