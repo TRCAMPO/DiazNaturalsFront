@@ -1,0 +1,34 @@
+/* confirm-dialog.component.css o confirm-dialog.component.scss */
+
+/* Estilos para centrar el cuadro de diálogo verticalmente y horizontalmente */
+.container-dialog {
+  display: contents;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ajusta el cuadro de diálogo al 100% del alto de la ventana */
+}
+
+/* Estilos para el contenido del cuadro de diálogo */
+.container-dialog {
+  text-align: center;
+}
+
+/* Estilos para los botones del cuadro de diálogo */
+.container-dialog {
+  justify-content: center;
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: center;
+}
+
+.mat-mdc-dialog-container {
+  position: absolute;
+  display: flex;
+}
