@@ -23,6 +23,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { ConfirmDialogComponent } from './confirm-dialog-edit-product/confirm-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 //import {NgxPaginationModule} from "ngx-pagination";
 
@@ -34,27 +37,31 @@ import { CreateProductComponent } from './create-product/create-product.componen
     NewPasswordComponent,
     HomePageComponent,
     CreateProductComponent,
+    EditProductComponent,
+    ConfirmDialogComponent,
 
   ],
-    imports: [
-        BrowserModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatDividerModule,
-        AppRoutingModule,
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        NgxPaginationModule,
-        CommonModule,
-        BrowserAnimationsModule, // required animations module
-        ToastrModule.forRoot(), // ToastrModule added
-    ],
+  imports: [
+    BrowserModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule,
+    AppRoutingModule,
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgxPaginationModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
+    MatDialogModule,
+    // ToastrModule added
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

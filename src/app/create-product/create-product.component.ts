@@ -8,6 +8,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {CategoryModel} from "./category.model";
 import {PresentationsModel} from "./presentation.model";
 import {SuppliersModel} from "./suppliers.model";
+import {ProductModel} from "./product.model";
 
 @Component({
   selector: 'app-create-product',
@@ -46,31 +47,34 @@ export class CreateProductComponent implements OnInit{
   }
 
   onSubmit() {
-    this.authService.login(this.authService.formDataUser)
+
+    this.authService.uploadImg(this.imageFile).subscribe(
+      (res: any) => {
+        this.toast.success('Imagen subida con exito', 'Productos');
+        const imageUrl = res.blobUrl;
+        this.authService.formDataProduct.image = imageUrl.toString();
+      });
+
+    this.authService.postProduct(this.authService.formDataProduct)
       .subscribe(
         (response: any) => {
-          this.authService.token = response.token;
-          this.authService.isLog = true;
-          this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
-          this.route.navigate(['/homePage']);
-          //this.authService.formDataUser = new UserModel();
+          this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
+          this.clearPreview();
+          this.resetForm();
         },
         (error) => {
-          this.error = 'Credenciales inválidas';
-          this.toast.error('Credenciales inválidas', 'Error en el inicio de sesión');
+          this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
         }
       );
-
-
   }
 
   updateInputValue() {
     this.dataService.setInputValue(this.inputValue);
   }
 
-  resetForm(form: NgForm) {
-    form.form.reset();
-    //this.authService.formDataUser = new UserModel();
+  resetForm() {
+    this.authService.formDataProduct = new ProductModel();
+    this.clearPreview();
   }
 
   handleDragOver(event: DragEvent) {

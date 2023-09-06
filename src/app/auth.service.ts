@@ -57,4 +57,20 @@ export class AuthService {
   getSuppliers() {
     return this.http.get<SuppliersModel[]>(`${this.apiUrl}/`);
   }
+
+  postProduct(formDataProduct: ProductModel) {
+    return this.http.post(`${this.apiUrl}/`, formDataProduct);
+  }
+
+  uploadImg(imageFile: File|null) {
+    const formData = new FormData();
+    const newFileName = this.formDataProduct.name + ".jpg";
+    // @ts-ignore
+    formData.append('file', imageFile, newFileName);
+    return this.http.post<string>(this.apiUrl+'/', formData);
+  }
+
+  getProductById(number: number) {
+    return this.http.get<ProductModel>(`${this.apiUrl}/`);
+  }
 }
