@@ -212,6 +212,14 @@ footer a {
   padding: 0px 0;
 }
 
+.red-social-image {
+  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
+  height: auto; /* Mantendrá la relación de aspecto original */
+  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
+}
 
+.form-row22 {
+  margin: 1%;
+}
 
 
