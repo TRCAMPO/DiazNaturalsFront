@@ -1,13 +1,38 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+html {
+  height: 100%;
 }
 
-header {
-  background-color: #ffffff;
-  text-align: center;
-  padding: 15px 0;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo-container {
+  text-align: center; /* Centrar el contenido */
+  padding: 10px 0; /* Agregar espacio alrededor del contenido */
+}
+
+.titulo {
+  color: #100101; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente personalizado */
+  margin: 0; /* Eliminar el margen predeterminado del título */
+}
+
+.login-container img {
+  max-width: 140px; /* Ajusta el tamaño máximo del logo */
+  display: block; /* Para centrar horizontalmente el logo */
+  margin: 0 auto; /* Para centrar el logo horizontalmente */
+  margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
+}
+
+.button-container-image {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+  width: 100%;
 }
 
 nav {
@@ -42,15 +67,6 @@ nav a:nth-child(4) {
   background-color: #6FA535;
 }
 
-.main-content {
-  text-align: center;
-  padding: 50px 0;
-}
-
-.main-content img {
-  max-width: 100%;
-  height: auto;
-}
 
 footer {
   background-color: #3E7C95;
@@ -64,9 +80,23 @@ footer a {
   margin: 0 20px;
 }
 
-.login-container img {
-  max-width: 140px; /* Ajusta el tamaño máximo del logo */
-  display: block; /* Para centrar horizontalmente el logo */
-  margin: 0 auto; /* Para centrar el logo horizontalmente */
-  margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
+.red-social-image {
+  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
+  height: auto; /* Mantendrá la relación de aspecto original */
+  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
+}
+
+.form-row22 {
+  margin: 1%;
+  font-family: serif; /* Fuente serif */
+}
+
+.main-content {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.main-content img {
+  max-width: 100%;
+  height: auto;
 }

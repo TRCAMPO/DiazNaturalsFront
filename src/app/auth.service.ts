@@ -5,6 +5,7 @@ import {PasswordModel} from "./new-password/Password.Model";
 import {emailModel} from "./recover-account/EmailModel";
 import {CodeModel} from "./recover-account/CodeModel";
 import {SendPasswordModel} from "./new-password/SendPassword.Model";
+import {ProductModel} from "./create-product/product.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class AuthService {
   formEmail: emailModel = new emailModel();
   formCode: CodeModel = new CodeModel();
   formSendPassword: SendPasswordModel = new SendPasswordModel();
+  formDataProduct: ProductModel = new ProductModel();
   token: string = "";
   isLog: boolean = false;
   constructor(private http: HttpClient) {}

@@ -1,0 +1,225 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo-container {
+  text-align: center; /* Centrar el contenido */
+  padding: 10px 0; /* Agregar espacio alrededor del contenido */
+}
+
+.titulo {
+  color: #100101; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente personalizado */
+  margin: 0; /* Eliminar el margen predeterminado del título */
+}
+
+.login-container img {
+  max-width: 140px; /* Ajusta el tamaño máximo del logo */
+  display: block; /* Para centrar horizontalmente el logo */
+  margin: 0 auto; /* Para centrar el logo horizontalmente */
+  margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
+}
+
+.form-field {
+  display: flex; /* Cambiar la disposición a flexbox */
+  flex-direction: column; /* Mostrar los elementos en una columna */
+  align-items: center; /* Centrar horizontalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+}
+
+.form-row {
+  display: flex;
+  padding: 0px 0; /* Espacio arriba y abajo */
+}
+
+.lock {
+  color: #030303; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 20px; /* Tamaño de fuente personalizado */
+  font-family: serif; /* Fuente serif */
+  align-self: flex-start;
+}
+
+.form-input {
+  width: 200%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 10px; /* Espacio interno en el cuadro */
+  border: 1px solid #ccc; /* Borde del cuadro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  font-size: 17px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto */
+  font-family: serif; /* Fuente serif */
+}
+
+.form-input2 {
+  width: 168%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 10px; /* Espacio interno en el cuadro */
+  border: 1px solid #ccc; /* Borde del cuadro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  font-size: 17px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto */
+  font-family: serif; /* Fuente serif */
+  resize: none;
+}
+
+.custom-button {
+  font-family: serif; /* Fuente serif */
+  font-size: 20px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto negro */
+  background-color: #6fa535; /* Fondo verde */
+  border: none; /* Quitar borde */
+  padding: 10px 20px; /* Espacio interno del botón */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5px; /* Agregar bordes redondeados */
+  margin-right: 1%;
+}
+
+.custom-buttonC {
+  font-family: serif; /* Fuente serif */
+  font-size: 20px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto negro */
+  background-color: #ff6961;
+  border: none; /* Quitar borde */
+  padding: 10px 20px; /* Espacio interno del botón */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5px; /* Agregar bordes redondeados */
+}
+
+.custom-buttonC:hover {
+  background-color: #f64339; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.custom-button:hover {
+  background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.button-container {
+  display: flex;
+  justify-content: right; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+}
+
+.button-container-image {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+  width: 100%;
+}
+
+nav {
+  background-color: #316335;
+  text-align: center;
+  padding: 20px 0;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 20px;
+  padding: 10px 20px; /* Añadir espacio alrededor del texto */
+  border: 2px solid transparent; /* Agregar un borde transparente */
+  border-radius: 5px; /* Agregar bordes redondeados */
+}
+
+/* Colores diferentes para cada botón */
+nav a:nth-child(1) {
+  background-color: #6FA535;
+}
+
+nav a:nth-child(2) {
+  background-color: #6FA535;
+}
+
+nav a:nth-child(3) {
+  background-color: #6FA535;
+}
+
+nav a:nth-child(4) {
+  background-color: #6FA535;
+}
+
+
+footer {
+  background-color: #3E7C95;
+  text-align: center;
+  padding: 12px 0;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 20px;
+}
+
+.campo {
+  display: inline-grid;
+  margin-bottom: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.drop-box {
+  border: 2px dashed #ccc; /* Un borde punteado de 2 píxeles de ancho en color gris claro */
+  background-color: #f9f9f9; /* Un fondo gris claro */
+  padding: 20px; /* Agrega un relleno interior para mejorar la apariencia */
+  text-align: center; /* Centra el contenido dentro del área de soltar */
+  min-height: 10px; /* Establece una altura mínima para que el área sea visible */
+  color: gray;
+  width: 100%;
+}
+
+
+.custom-button-selec {
+  font-family: serif; /* Fuente serif */
+  font-size: 12px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto negro */
+  background-color: #918b8b; /* Fondo verde */
+  padding: 1% 1%; /* Espacio interno del botón */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5%;
+}
+
+.custom-buttonC-selec {
+  font-family: serif; /* Fuente serif */
+  font-size: 12px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto negro */
+  background-color: #918b8b;
+  padding: 1% 1%; /* Espacio interno del botón */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5%;
+  margin-left: 1%;
+}
+
+.custom-buttonC-selec:hover {
+  background-color: #f64339; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.custom-button-selec:hover {
+  background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.button-container[_ngcontent-ng-c2445687857] {
+  padding: 0px 0;
+}
+
+.red-social-image {
+  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
+  height: auto; /* Mantendrá la relación de aspecto original */
+  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
+}
+
+.form-row22 {
+  margin: 1%;
+}
+
+
