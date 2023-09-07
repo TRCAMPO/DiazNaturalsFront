@@ -11,6 +11,7 @@ import {SuppliersModel} from "../create-product/suppliers.model";
 import {ProductModel} from "../create-product/product.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
+import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-edit-product',
@@ -69,24 +70,23 @@ export class EditProductComponent implements OnInit{
     this.error = "";
   }
   onSubmit() {
-
-    this.authService.uploadImg(this.imageFile).subscribe(
-      (res: string) => {
+    this.authService.uploadImg(this.imageFile).pipe(
+      switchMap((res: any) => {
         this.toast.success('Imagen subida con exito', 'Productos');
-        this.authService.formDataProduct.image = res;
-      });
-
-    this.authService.postProduct(this.authService.formDataProduct)
-      .subscribe(
-        (response: any) => {
-          this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
-          this.clearPreview();
-          this.resetForm();
-        },
-        (error) => {
-          this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
-        }
-      );
+        this.authService.formDataUrl = res;
+        this.authService.formDataProduct.image = this.authService.formDataUrl.url;
+        return this.authService.postProduct(this.authService.formDataProduct);
+      })
+    ).subscribe(
+      (response: any) => {
+        this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
+        this.clearPreview();
+        this.resetForm();
+      },
+      (error) => {
+        this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+      }
+    );
   }
 
   openConfirmationDialog(): void {
@@ -151,5 +151,9 @@ export class EditProductComponent implements OnInit{
     if (this.fileInputRef && this.fileInputRef.nativeElement) {
       this.fileInputRef.nativeElement.value = null;
     }
+  }
+
+  changePage() {
+    this.route.navigate(['/homePage']);
   }
 }
