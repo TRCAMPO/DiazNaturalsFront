@@ -9,6 +9,8 @@ import {ProductModel} from "./create-product/product.model";
 import {CategoryModel} from "./create-product/category.model";
 import {PresentationsModel} from "./create-product/presentation.model";
 import {SuppliersModel} from "./create-product/suppliers.model";
+import {Observable} from "rxjs";
+import {UrlModel} from "./create-product/url.model";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,7 @@ export class AuthService {
   formCode: CodeModel = new CodeModel();
   formSendPassword: SendPasswordModel = new SendPasswordModel();
   formDataProduct: ProductModel = new ProductModel();
+  formDataUrl: UrlModel = new UrlModel();
   token: string = "";
   isLog: boolean = false;
   constructor(private http: HttpClient) {}
@@ -47,19 +50,20 @@ export class AuthService {
   }
 
   getCategories() {
-    return this.http.get<CategoryModel[]>(`${this.apiUrl}/`);
+    return this.http.get<CategoryModel[]>(`${this.apiUrl}/Categories`);
   }
 
   getPresentation() {
-    return this.http.get<PresentationsModel[]>(`${this.apiUrl}/`);
+    return this.http.get<PresentationsModel[]>(`${this.apiUrl}/Presentations`);
   }
 
   getSuppliers() {
-    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/`);
+    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers`);
   }
 
   postProduct(formDataProduct: ProductModel) {
-    return this.http.post(`${this.apiUrl}/`, formDataProduct);
+    console.log(formDataProduct.image);
+    return this.http.post(`${this.apiUrl}/Products`, formDataProduct);
   }
 
   uploadImg(imageFile: File|null) {
@@ -67,10 +71,16 @@ export class AuthService {
     const newFileName = this.formDataProduct.name + ".jpg";
     // @ts-ignore
     formData.append('file', imageFile, newFileName);
-    return this.http.post<string>(this.apiUrl+'/', formData);
+    return this.http.post<string>('https://localhost:7167/load', formData);
   }
 
-  getProductById(number: number) {
-    return this.http.get<ProductModel>(`${this.apiUrl}/`);
+  getProductById(number1: number) {
+    console.log(number1);
+    return this.http.get<ProductModel>(`${this.apiUrl}/Products/${number1}`);
   }
+
+  getImageByName(): Observable<Blob> {
+    return this.http.get('https://localhost:7167/logo%20facebook.jpg', { responseType: 'blob' });
+  }
+
 }

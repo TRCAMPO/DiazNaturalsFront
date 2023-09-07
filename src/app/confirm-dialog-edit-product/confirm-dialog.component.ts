@@ -8,16 +8,24 @@ import {EditProductComponent} from "../edit-product/edit-product.component";
   styleUrls: ['./confirm-dialog.component.css']
 })
 export class ConfirmDialogComponent {
-  constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>, @ Inject(MAT_DIALOG_DATA) public data: EditProductComponent) {
+  constructor(public dialogRef: MatDialogRef<EditProductComponent>, @ Inject(MAT_DIALOG_DATA) public data: EditProductComponent) {
 
   }
 
   onConfirm(): void {
     this.dialogRef.close(true); // Cierra el cuadro de diálogo y pasa true como resultado
+    const backdrop = document.querySelector('.cdk-overlay-backdrop');
+    if (backdrop) {
+      backdrop.remove();
+    }
   }
 
   onCancel(): void {
     this.dialogRef.close(false); // Cierra el cuadro de diálogo y pasa false como resultado
+    const backdrop = document.querySelector('.cdk-overlay-backdrop');
+    if (backdrop) {
+      backdrop.remove();
+    }
   }
 }
 

@@ -9,6 +9,8 @@ import {CategoryModel} from "./category.model";
 import {PresentationsModel} from "./presentation.model";
 import {SuppliersModel} from "./suppliers.model";
 import {ProductModel} from "./product.model";
+import {switchMap} from "rxjs";
+import {UrlModel} from "./url.model";
 
 @Component({
   selector: 'app-create-product',
@@ -30,6 +32,7 @@ export class CreateProductComponent implements OnInit{
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
+      console.log(data);
       this.categories = data;
     });
     this.authService.getPresentation().subscribe(data => {
@@ -43,20 +46,13 @@ export class CreateProductComponent implements OnInit{
     this.username = "";
     this.password = "";
     this.error = "";
-
+    this.authService.formDataProduct.image = "udishidu";
   }
 
-  onSubmit() {
+  /**onSubmit() {
 
-    this.authService.uploadImg(this.imageFile).subscribe(
-      (res: any) => {
-        this.toast.success('Imagen subida con exito', 'Productos');
-        const imageUrl = res.blobUrl;
-        this.authService.formDataProduct.image = imageUrl.toString();
-      });
 
-    this.authService.postProduct(this.authService.formDataProduct)
-      .subscribe(
+    this.authService.postProduct(this.authService.formDataProduct).subscribe(
         (response: any) => {
           this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
           this.clearPreview();
@@ -66,7 +62,34 @@ export class CreateProductComponent implements OnInit{
           this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
         }
       );
+  }*/
+
+  onSubmit() {
+    console.log("1   "+this.authService.formDataProduct);
+    this.authService.uploadImg(this.imageFile).pipe(
+      switchMap((res: any) => {
+        this.toast.success('Imagen subida con exito', 'Productos');
+        this.authService.formDataUrl = res;
+        this.authService.formDataProduct.image = this.authService.formDataUrl.url;
+        // Luego de subir la imagen y obtener la respuesta (res), continuamos con postProduct
+        console.log(this.authService.formDataProduct);
+        return this.authService.postProduct(this.authService.formDataProduct);
+      })
+    ).subscribe(
+      (response: any) => {
+        console.log("2   "+this.authService.formDataProduct);
+        this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
+        this.clearPreview();
+        this.resetForm();
+      },
+      (error) => {
+        console.log("3   "+this.authService.formDataProduct);
+        this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+      }
+    );
+    console.log("schiihbsd "+ this.authService.formDataProduct );
   }
+
 
   updateInputValue() {
     this.dataService.setInputValue(this.inputValue);

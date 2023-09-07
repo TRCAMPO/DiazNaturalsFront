@@ -32,7 +32,7 @@
             <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <select class="form-input" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
               <option value="" disabled selected>Seleccione una opción</option>
-              <option *ngFor="let supplier of suppliers" [value]="supplier.name_supplier">{{ supplier.name_supplier }}</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
             </select>
           </div>
           <div class="campo">
@@ -51,14 +51,14 @@
             <label class="lock" for="presentacion">Presentación</label>
             <select class="form-input" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
               <option value="" disabled selected>Seleccione una opción</option>
-              <option *ngFor="let presentation of presentations" [value]="presentation.name_presentation">{{ presentation.name_presentation }}</option>
+              <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
             </select>
           </div>
           <div class="campo">
             <label class="lock" for="categoria">Categoria</label>
             <select class="form-input select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
               <option value="" disabled selected>Seleccione una opción</option>
-              <option *ngFor="let categoria of categories" [value]="categoria.name_category">{{ categoria.name_category }}</option>
+              <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
             </select>
           </div>
         </div>
@@ -80,7 +80,8 @@
                 <div class="preview-container my-3" *ngIf="imageUrl">
                   <img [src]="sanitizer.bypassSecurityTrustUrl(imageUrl)" alt="Uploaded Image" class="preview-image rounded">
                 </div>
-                <a>{{imageUrl}}</a>
+                <a>{{imageFile}}</a>
+
               </div>
               <div class="button-container-image">
                 <button class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>

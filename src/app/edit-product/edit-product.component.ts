@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
@@ -40,25 +40,40 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
-    this.authService.getProductById(1).subscribe(data => {
+    this.authService.getProductById(2).subscribe(data => {
       this.authService.formDataProduct = data;
     });
+    this.loadImage();
 
   }
+
+
+  loadImage() {
+    this.authService.getImageByName().subscribe((imageBlob: Blob) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result as string; // Convierte el Blob en una URL de datos
+      };
+      reader.readAsDataURL(imageBlob); // Lee el Blob como una URL de datos
+    }, error => {
+      console.error('Error al cargar la imagen', error);
+    });
+  }
+
+
+
+  private originalStyles: { [key: string]: string } = {};
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
     this.error = "";
-
   }
-
   onSubmit() {
 
     this.authService.uploadImg(this.imageFile).subscribe(
-      (res: any) => {
+      (res: string) => {
         this.toast.success('Imagen subida con exito', 'Productos');
-        const imageUrl = res.blobUrl;
-        this.authService.formDataProduct.image = imageUrl.toString();
+        this.authService.formDataProduct.image = res;
       });
 
     this.authService.postProduct(this.authService.formDataProduct)
@@ -76,14 +91,20 @@ export class EditProductComponent implements OnInit{
 
   openConfirmationDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      height: '300px',
-      width: '400px'
-    });
+      panelClass: 'custom-dialog-overlay', // Clase CSS personalizada
+      });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        //document.querySelector('.cdk-overlay-container')?.classList.replace('cdk-overlay-container', 'cdk-overlay-container.dialog-open');
         this.onSubmit();
       } else {
         // El usuario canceló la modificación
+        //document.querySelector('.cdk-overlay-container')?.classList.add('dialog-open');
+        //document.querySelector('.cdk-overlay-container')?.classList.replace('cdk-overlay-container', 'cdk-overlay-container.dialog-open');
+        // Función para desactivar la clase
+
+
       }
     });
   }
