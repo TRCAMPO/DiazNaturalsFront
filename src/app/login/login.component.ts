@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {UserModel} from "./User.Model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   error: string;
 
 
-  constructor(public authService: AuthService, private route: Router, public dataService : DataService) {
+  constructor(public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
     this.error = "";
@@ -30,12 +31,13 @@ export class LoginComponent {
         (response: any) => {
           this.authService.token = response.token;
           this.authService.isLog = true;
-          console.log('Inicio de sesión exitoso');
-          this.route.navigate(['/menu']);
+          this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
+          this.route.navigate(['/homePage']);
+          this.authService.formDataUser = new UserModel();
         },
         (error) => {
           this.error = 'Credenciales inválidas';
-          console.error('Error en el inicio de sesión', error);
+          this.toast.error('Credenciales inválidas', 'Error en el inicio de sesión');
         }
       );
 

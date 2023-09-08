@@ -32,7 +32,19 @@ body {
   display: flex; /* Cambiar la disposición a flexbox */
   flex-direction: column; /* Mostrar los elementos en una columna */
   align-items: center; /* Centrar horizontalmente */
-  padding: 20px 0; /* Espacio arriba y abajo */
+  padding: 15px 0; /* Espacio arriba y abajo */
+}
+
+.form-correo {
+  display: flex; /* Cambiar la disposición a flexbox */
+  flex-direction: initial; /* Mostrar los elementos en una columna */
+  align-items: flex-end;
+  margin-left: 36.5%;
+}
+
+.form2 {
+  display: flex; /* Cambiar la disposición a flexbox */
+  flex-direction: initial; /* Mostrar los elementos en una columna */
 }
 
 .lock {
@@ -58,7 +70,7 @@ body {
   font-family: serif; /* Fuente serif */
   font-size: 24px; /* Tamaño de fuente */
   color: #3e7c95; /* Color de texto */
-  padding: 20px 0; /* Espacio arriba y abajo */
+  padding: 15px 0; /* Espacio arriba y abajo */
   text-align: center; /* Centrar el texto horizontalmente */
 }
 
@@ -81,5 +93,7 @@ body {
   display: flex;
   justify-content: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
-  padding: 20px 0; /* Espacio arriba y abajo */
+  padding: 15px 0; /* Espacio arriba y abajo */
 }
+
+
