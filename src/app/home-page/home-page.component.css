@@ -1,23 +1,13 @@
+/* Estilos generales */
+
 html {
   height: 100%;
 }
 
 body {
-  display: flex;
+  display: contents;
   justify-content: center;
   align-items: center;
-}
-
-.titulo-container {
-  text-align: center; /* Centrar el contenido */
-  padding: 10px 0; /* Agregar espacio alrededor del contenido */
-}
-
-.titulo {
-  color: #100101; /* Color de texto blanco */
-  font-family: serif; /* Fuente serif */
-  font-size: 24px; /* Tamaño de fuente personalizado */
-  margin: 0; /* Eliminar el margen predeterminado del título */
 }
 
 .login-container img {
@@ -35,38 +25,44 @@ body {
   width: 100%;
 }
 
-nav {
+.titulo-container {
+  text-align: center; /* Centrar el contenido */
+  padding: 1% 0; /* Agregar espacio alrededor del contenido */
+  width: 100%;
   background-color: #316335;
-  text-align: center;
-  padding: 20px 0;
+  display: flex; /* Hace que los elementos del menú se muestren en línea */
+  justify-content: center;
 }
 
-nav a {
+
+.nav.container {
+  text-align: center;
+  padding: 0.5% 0; /* Añadir un espacio uniforme alrededor del contenedor */
+  width: 100%;
+  white-space: nowrap; /* Evita el ajuste de línea de los elementos */
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  display:inline-block;
+  margin:60px auto 45px;
+  background-color:#aaa;
+  box-shadow:0 1px 1px #ccc;
+  border-radius:2px;
+}
+
+
+.button-nav {
+  display: inline-block;
   color: #ffffff;
   text-decoration: none;
-  margin: 0 20px;
-  padding: 10px 20px; /* Añadir espacio alrededor del texto */
-  border: 2px solid transparent; /* Agregar un borde transparente */
-  border-radius: 5px; /* Agregar bordes redondeados */
+  padding: .5% 2%; /* Añadir espacio alrededor del texto */
+  border: 2px solid transparent;
+  border-radius: 5%;
+  margin: 0 1%; /* Añadir un margen entre los botones */
 }
 
 /* Colores diferentes para cada botón */
-nav a:nth-child(1) {
+.button-nav {
   background-color: #6FA535;
 }
-
-nav a:nth-child(2) {
-  background-color: #6FA535;
-}
-
-nav a:nth-child(3) {
-  background-color: #6FA535;
-}
-
-nav a:nth-child(4) {
-  background-color: #6FA535;
-}
-
 
 footer {
   background-color: #3E7C95;
@@ -99,4 +95,28 @@ footer a {
 .main-content img {
   max-width: 100%;
   height: auto;
+}
+
+/* Media queries para ajustar estilos en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 18px; /* Cambia el tamaño de fuente en pantallas más pequeñas */
+  }
+
+  .login-container img {
+    max-width: 100px; /* Ajusta el tamaño máximo del logo en pantallas más pequeñas */
+  }
+
+  nav {
+    padding: 10px 0; /* Reduce el espacio en el encabezado en pantallas más pequeñas */
+  }
+
+  nav a {
+    margin: 0 10px; /* Reduce el espacio entre enlaces en pantallas más pequeñas */
+    padding: 8px 16px; /* Ajusta el espacio en los botones del menú */
+  }
+
+  .button-container-image {
+    padding: 10px 0; /* Ajusta el espacio en el contenedor de botones en pantallas más pequeñas */
+  }
 }

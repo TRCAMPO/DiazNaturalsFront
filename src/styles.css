@@ -2,11 +2,7 @@
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.custom-dialog-overlay {
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro con opacidad */
-}
+body { margin: 0; font-family: Roboto, sans-serif; }
 
 .cdk-overlay-container {
   width: 100%;

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "recovery", component: RecoverAccountComponent},
   { path: "newPassword", component: NewPasswordComponent},
-  { path: "homePage", component: HomePageComponent, canActivate: [AuthGuard]},
+  { path: "homePage", component: HomePageComponent},
   { path: "createProduct", component: CreateProductComponent},
   { path: "editProduct", component: EditProductComponent}
 ];
