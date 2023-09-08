@@ -1,23 +1,24 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
-import {CategoryModel} from "./category.model";
-import {PresentationsModel} from "./presentation.model";
-import {SuppliersModel} from "./suppliers.model";
-import {ProductModel} from "./product.model";
+import {CategoryModel} from "../create-product/category.model";
+import {PresentationsModel} from "../create-product/presentation.model";
+import {SuppliersModel} from "../create-product/suppliers.model";
+import {ProductModel} from "../create-product/product.model";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
-import {UrlModel} from "./url.model";
 
 @Component({
-  selector: 'app-create-product',
-  templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.css']
+  selector: 'app-edit-product',
+  templateUrl: './edit-product.component.html',
+  styleUrls: ['./edit-product.component.css']
 })
-export class CreateProductComponent implements OnInit{
+export class EditProductComponent implements OnInit{
   inputValue: string = '';
   username: string;
   password: string;
@@ -32,7 +33,6 @@ export class CreateProductComponent implements OnInit{
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
-      console.log(data);
       this.categories = data;
     });
     this.authService.getPresentation().subscribe(data => {
@@ -41,55 +41,73 @@ export class CreateProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
+    this.authService.getProductById(2).subscribe(data => {
+      this.authService.formDataProduct = data;
+    });
+    this.loadImage();
+
   }
-  constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+
+
+  loadImage() {
+    this.authService.getImageByName().subscribe((imageBlob: Blob) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result as string; // Convierte el Blob en una URL de datos
+      };
+      reader.readAsDataURL(imageBlob); // Lee el Blob como una URL de datos
+    }, error => {
+      console.error('Error al cargar la imagen', error);
+    });
+  }
+
+
+
+  private originalStyles: { [key: string]: string } = {};
+  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
     this.error = "";
-    this.authService.formDataProduct.image = "udishidu";
   }
-
-  /**onSubmit() {
-
-
-    this.authService.postProduct(this.authService.formDataProduct).subscribe(
-        (response: any) => {
-          this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
-          this.clearPreview();
-          this.resetForm();
-        },
-        (error) => {
-          this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
-        }
-      );
-  }*/
-
   onSubmit() {
-    console.log("1   "+this.authService.formDataProduct);
     this.authService.uploadImg(this.imageFile).pipe(
       switchMap((res: any) => {
         this.toast.success('Imagen subida con exito', 'Productos');
         this.authService.formDataUrl = res;
         this.authService.formDataProduct.image = this.authService.formDataUrl.url;
-        // Luego de subir la imagen y obtener la respuesta (res), continuamos con postProduct
-        console.log(this.authService.formDataProduct);
         return this.authService.postProduct(this.authService.formDataProduct);
       })
     ).subscribe(
       (response: any) => {
-        console.log("2   "+this.authService.formDataProduct);
         this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
         this.clearPreview();
         this.resetForm();
       },
       (error) => {
-        console.log("3   "+this.authService.formDataProduct);
         this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
       }
     );
-    console.log("schiihbsd "+ this.authService.formDataProduct );
   }
 
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      panelClass: 'custom-dialog-overlay', // Clase CSS personalizada
+      });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        //document.querySelector('.cdk-overlay-container')?.classList.replace('cdk-overlay-container', 'cdk-overlay-container.dialog-open');
+        this.onSubmit();
+      } else {
+        // El usuario canceló la modificación
+        //document.querySelector('.cdk-overlay-container')?.classList.add('dialog-open');
+        //document.querySelector('.cdk-overlay-container')?.classList.replace('cdk-overlay-container', 'cdk-overlay-container.dialog-open');
+        // Función para desactivar la clase
+
+
+      }
+    });
+  }
 
   updateInputValue() {
     this.dataService.setInputValue(this.inputValue);
@@ -133,5 +151,9 @@ export class CreateProductComponent implements OnInit{
     if (this.fileInputRef && this.fileInputRef.nativeElement) {
       this.fileInputRef.nativeElement.value = null;
     }
+  }
+
+  changePage() {
+    this.route.navigate(['/homePage']);
   }
 }

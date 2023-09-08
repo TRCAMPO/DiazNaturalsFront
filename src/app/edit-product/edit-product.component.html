@@ -17,7 +17,7 @@
 <body>
 <div class="container">
   <div class="titulo-container">
-    <h1 class="titulo">Crear Producto</h1>
+    <h1 class="titulo">Editar Producto</h1>
   </div>
   <div class="login-item">
     <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
@@ -42,26 +42,26 @@
         </div>
 
 
-          <div class="form-row">
-            <div class="campo">
-              <label class="lock" for="cantidad">Cantidad</label>
-              <input class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
-            </div>
-            <div class="campo">
-              <label class="lock" for="presentacion">Presentación</label>
-              <select class="form-input" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
-                <option value="" disabled selected>Seleccione una opción</option>
-                <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
-              </select>
-            </div>
-            <div class="campo">
-              <label class="lock" for="categoria">Categoria</label>
-              <select class="form-input select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
-                <option value="" disabled selected>Seleccione una opción</option>
-                <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
-              </select>
-            </div>
+        <div class="form-row">
+          <div class="campo">
+            <label class="lock" for="cantidad">Cantidad</label>
+            <input class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
           </div>
+          <div class="campo">
+            <label class="lock" for="presentacion">Presentación</label>
+            <select class="form-input" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="lock" for="categoria">Categoria</label>
+            <select class="form-input select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
+            </select>
+          </div>
+        </div>
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="descripcion">Descripción</label>
@@ -80,7 +80,8 @@
                 <div class="preview-container my-3" *ngIf="imageUrl">
                   <img [src]="sanitizer.bypassSecurityTrustUrl(imageUrl)" alt="Uploaded Image" class="preview-image rounded">
                 </div>
-                <a>{{imageUrl}}</a>
+                <a>{{imageFile}}</a>
+
               </div>
               <div class="button-container-image">
                 <button class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
@@ -91,8 +92,8 @@
           </div>
         </div>
         <div class="button-container">
-          <input type="submit" class="custom-button" (click)="onSubmit()" value="Crear">
-          <input type="submit" class="custom-buttonC" (click)="resetForm()" value="Cancelar">
+          <input type="submit" class="custom-button" (click)="openConfirmationDialog()" value="Modificar">
+          <input type="submit" class="custom-buttonC" (click)="changePage()" value="Cancelar">
         </div>
 
       </form>
@@ -122,5 +123,3 @@
   </div>
 </footer>
 </html>
-
-
