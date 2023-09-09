@@ -70,7 +70,7 @@ export class CreateProductComponent implements OnInit{
       switchMap((res: any) => {
         this.toast.success('Imagen subida con exito', 'Productos');
         this.authService.formDataUrl = res;
-        this.authService.formDataProduct.image = this.authService.formDataUrl.url;
+        this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
         // Luego de subir la imagen y obtener la respuesta (res), continuamos con postProduct
         console.log(this.authService.formDataProduct);
         return this.authService.postProduct(this.authService.formDataProduct);
