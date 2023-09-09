@@ -6,6 +6,7 @@ body {
   display: contents;
   justify-content: center;
   align-items: center;
+  font-family: sans-serif;
 }
 
 .container {
@@ -84,10 +85,10 @@ body {
 
 .form-input {
   width: 90%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 5% 0%; /* Espacio interno en el cuadro */
+  padding: 5% 1%; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
-  background-color: #fff; /* Fondo blanco */
+  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
   color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */
@@ -98,7 +99,7 @@ body {
   padding: 10px; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
-  background-color: #fff; /* Fondo blanco */
+  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
   color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */
@@ -107,10 +108,10 @@ body {
 
 .form-input22 {
   width: 100%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 8%; /* Espacio interno en el cuadro */
+  padding: 1%; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
-  background-color: #fff; /* Fondo blanco */
+  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
   color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */
@@ -184,6 +185,7 @@ body {
   border: 2px solid transparent;
   border-radius: 5%;
   margin: 1% 1%; /* Añadir un margen entre los botones */
+  font-family: auto;
 }
 
 .button-nav {
@@ -194,12 +196,14 @@ footer {
   background-color: #3E7C95;
   text-align: center;
   padding: 12px 0;
+  font-family: sans-serif;
 }
 
 footer a {
   color: #ffffff;
   text-decoration: none;
   margin: 0 20px;
+  font-family: auto;
 }
 
 .campo {

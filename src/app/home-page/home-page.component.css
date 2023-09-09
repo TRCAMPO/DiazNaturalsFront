@@ -57,6 +57,7 @@ body {
   border: 2px solid transparent;
   border-radius: 5%;
   margin: 1% 1%; /* Añadir un margen entre los botones */
+  font-family: auto;
 }
 
 .button-nav {

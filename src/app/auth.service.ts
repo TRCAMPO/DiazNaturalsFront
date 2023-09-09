@@ -62,7 +62,6 @@ export class AuthService {
   }
 
   postProduct(formDataProduct: ProductModel) {
-    console.log(formDataProduct.image);
     return this.http.post(`${this.apiUrl}/Products`, formDataProduct);
   }
 
@@ -79,8 +78,12 @@ export class AuthService {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/${number1}`);
   }
 
-  getImageByName(): Observable<Blob> {
-    return this.http.get('https://localhost:7167/logo%20facebook.jpg', { responseType: 'blob' });
+  getImageByName(name:string): Observable<Blob> {
+    return this.http.get(`https://localhost:7167/${name}`, { responseType: 'blob' });
   }
 
+  putProduct(formDataProduct: ProductModel) {
+    console.log(formDataProduct);
+    return this.http.put(`${this.apiUrl}/Products/${formDataProduct.name}`, formDataProduct);
+  }
 }
