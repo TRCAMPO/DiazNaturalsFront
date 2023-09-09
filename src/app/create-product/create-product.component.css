@@ -3,20 +3,30 @@ html {
 }
 
 body {
-  display: flex;
+  display: contents;
   justify-content: center;
   align-items: center;
 }
 
-.titulo-container {
-  text-align: center; /* Centrar el contenido */
-  padding: 10px 0; /* Agregar espacio alrededor del contenido */
+.container {
+  margin: 0%;
+}
+
+.title-container {
+  color: #100101; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente personalizado */
+  margin: 2%; /* Eliminar el margen predeterminado del título */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Para centrar contenido verticalmente */
 }
 
 .titulo {
   color: #100101; /* Color de texto blanco */
   font-family: serif; /* Fuente serif */
-  font-size: 24px; /* Tamaño de fuente personalizado */
+  font-size: 150%; /* Tamaño de fuente personalizado */
   margin: 0; /* Eliminar el margen predeterminado del título */
 }
 
@@ -35,8 +45,33 @@ body {
 }
 
 .form-row {
-  display: flex;
+  display: flow-root;
   padding: 0px 0; /* Espacio arriba y abajo */
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-row2 {
+  margin-left: 0%;
+  display: flow-root;
+  padding: 0px 0; /* Espacio arriba y abajo */
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.titulo-container {
+  text-align: center; /* Centrar el contenido */
+  padding: 0% 0; /* Agregar espacio alrededor del contenido */
+  width: 100%;
+  background-color: #316335;
+  display: flow-root; /* Hace que los elementos del menú se muestren en línea */
+  justify-content: center;
 }
 
 .lock {
@@ -48,8 +83,8 @@ body {
 }
 
 .form-input {
-  width: 200%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 10px; /* Espacio interno en el cuadro */
+  width: 90%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 5% 0%; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
   background-color: #fff; /* Fondo blanco */
@@ -59,8 +94,20 @@ body {
 }
 
 .form-input2 {
-  width: 168%; /* Opcional: ocupar todo el ancho disponible */
+  width: 100%; /* Opcional: ocupar todo el ancho disponible */
   padding: 10px; /* Espacio interno en el cuadro */
+  border: 1px solid #ccc; /* Borde del cuadro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  font-size: 17px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto */
+  font-family: serif; /* Fuente serif */
+  resize: none;
+}
+
+.form-input22 {
+  width: 100%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 8%; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
   background-color: #fff; /* Fondo blanco */
@@ -116,38 +163,32 @@ body {
   width: 100%;
 }
 
-nav {
-  background-color: #316335;
+.nav.container {
   text-align: center;
-  padding: 20px 0;
+  padding: 0.5% 0; /* Añadir un espacio uniforme alrededor del contenedor */
+  width: 100%;
+  white-space: nowrap; /* Evita el ajuste de línea de los elementos */
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  display:inline-block;
+  margin:60px auto 45px;
+  background-color:#aaa;
+  box-shadow:0 1px 1px #ccc;
+  border-radius:2px;
 }
 
-nav a {
+.button-nav {
+  display: inline-block;
   color: #ffffff;
   text-decoration: none;
-  margin: 0 20px;
-  padding: 10px 20px; /* Añadir espacio alrededor del texto */
-  border: 2px solid transparent; /* Agregar un borde transparente */
-  border-radius: 5px; /* Agregar bordes redondeados */
+  padding: .5% 2%; /* Añadir espacio alrededor del texto */
+  border: 2px solid transparent;
+  border-radius: 5%;
+  margin: 1% 1%; /* Añadir un margen entre los botones */
 }
 
-/* Colores diferentes para cada botón */
-nav a:nth-child(1) {
+.button-nav {
   background-color: #6FA535;
 }
-
-nav a:nth-child(2) {
-  background-color: #6FA535;
-}
-
-nav a:nth-child(3) {
-  background-color: #6FA535;
-}
-
-nav a:nth-child(4) {
-  background-color: #6FA535;
-}
-
 
 footer {
   background-color: #3E7C95;
@@ -162,10 +203,10 @@ footer a {
 }
 
 .campo {
-  display: inline-grid;
-  margin-bottom: 10px;
-  margin-left: 10%;
-  margin-right: 10%;
+  display: inline-block;
+  margin-bottom: 1.5%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .drop-box {
@@ -208,22 +249,11 @@ footer a {
   background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
-.button-container[_ngcontent-ng-c2445687857] {
-  padding: 0px 0;
-}
-
 .red-social-image {
   width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
   height: auto; /* Mantendrá la relación de aspecto original */
   max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
 }
 
-.form-row22 {
-  margin: 1%;
-}
 
-.select-custom2 {
-  width: 240%; /* Establece el ancho al 100% para ocupar todo el espacio disponible */
-
-}
 
