@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <div class="login-container">
+    <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo_principal.jpg?alt=media&token=8347ba50-ac57-46c5-ad31-3cb0e25bd463" alt="Logo de la empresa">
+  </div>
+  <div class="titulo-container">
+    <a class="button-nav" href="#">Proveedores</a>
+    <a class="button-nav" href="#">Productos</a>
+    <a class="button-nav" href="#">Usuarios</a>
+    <a class="button-nav" href="#">Pedidos</a>
+  </div>
+</header>
+
+<body>
+<div class="container">
+  <div class="title-container">
+
+    <div class="search-bar">
+      <div class="titulo">Eliminar Producto&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearch.search" placeholder="Buscar producto">
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;Proveedor:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearch.suppliers">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+        </select>
+      </div>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;Presentación:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearch.presentation">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+        </select>
+      </div>
+      <span>&nbsp;</span>
+      <button class="search-button" (click)="searchProduct()" >Buscar</button>
+    </div>
+  </div>
+  <div class="login-item">
+    <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
+
+      <form>
+        <div class="form-row">
+          <div class="campo select12">
+            <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input readonly class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
+          </div>
+          <div class="campo">
+            <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select disabled class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="lock" for="precio">Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input readonly class="form-input" type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="campo">
+            <label class="lock" for="cantidad">Cantidad</label>
+            <input readonly class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
+          </div>
+          <div class="campo">
+            <label class="lock" for="presentacion">Presentación</label>
+            <select disabled class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="lock" for="categoria">Categoria</label>
+            <select disabled class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="campo">
+            <label class="lock" for="descripcion">Descripción</label>
+            <textarea readonly class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="campo">
+            <div class="card p-3">
+              <label class="lock" >Imágen</label>
+              <div class="drop-box border rounded p-5 text-center"
+                   (dragover)="handleDragOver($event)"
+                   (drop)="handleDrop($event)">
+                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                <p class="mb-0 parrafo-responsivo2" *ngIf="!imageUrl">Imagen del producto a eliminar</p>
+                <div class="preview-container my-3" *ngIf="imageUrl">
+                  <img [src]="sanitizer.bypassSecurityTrustUrl(imageUrl)" alt="Uploaded Image" class="preview-image rounded">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-container">
+          <input type="submit" class="custom-button" (click)="openConfirmationDialog()" value="Eliminar">
+          <input type="submit" class="custom-buttonC" (click)="changePage()" value="Cancelar">
+        </div>
+
+      </form>
+
+    </form>
+  </div>
+</div>
+</body>
+<footer>
+  <div class="form-row2">
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/logo%20facebook.jpg?alt=media&token=0df5a6a9-6198-42b0-a5b6-a7bba5fcc4b8" alt="Red Social 1">
+    </a>
+
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20instagram.jpg?alt=media&token=8ae466de-15a8-454d-a88d-8e7a9e4ee75f" alt="Red Social 2">
+    </a>
+
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20Whats.jpg?alt=media&token=de3f918c-fc60-463a-93d3-8a84c3bb0bf9" alt="Red Social 3">
+    </a>
+  </div>
+  <div class="form-row22">
+    <a href="">Información legal</a>
+    <a>|</a>
+    <a href="">Política de privacidad</a>
+  </div>
+</footer>
+</html>
+

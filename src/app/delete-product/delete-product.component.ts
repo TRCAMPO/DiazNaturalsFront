@@ -12,13 +12,15 @@ import {ProductModel} from "../create-product/product.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
+import {ConfirmDialogComponentDelete} from "../confirm-dialog-delete-product/confirm-dialog.component";
+import {DeleteProductModel} from "./DeleteProduct.model";
 
 @Component({
-  selector: 'app-edit-product',
-  templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.css']
+  selector: 'app-delete-product',
+  templateUrl: './delete-product.component.html',
+  styleUrls: ['./delete-product.component.css']
 })
-export class EditProductComponent implements OnInit{
+export class DeleteProductComponent implements OnInit{
   inputValue: string = '';
   username: string;
   password: string;
@@ -43,10 +45,6 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
-    this.authService.getProductById(1).subscribe(data => {
-      this.authService.formDataProduct = data;
-      this.loadImage(this.authService.formDataProduct.image);
-    });
   }
 
   formatImageName(name:string){
@@ -67,10 +65,6 @@ export class EditProductComponent implements OnInit{
       console.error('Error al cargar la imagen', error);
     });
   }
-
-
-
-  private originalStyles: { [key: string]: string } = {};
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
@@ -83,36 +77,25 @@ export class EditProductComponent implements OnInit{
   }
 
   onSubmit() {
-    if (this.imageFile == null){
-      this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name , "jpg");
-    }
-    this.authService.uploadImg(this.imageFile).pipe(
-      switchMap((res: any) => {
-        this.toast.success('Imagen subida con exito', 'Productos');
-        this.authService.formDataUrl = res;
-        this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
-        return this.authService.putProduct(this.authService.formDataProduct);
-      })
-    ).subscribe(
-      (response: any) => {
-        this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
-        this.clearPreview();
-        this.resetForm();
-        this.route.navigate(['/homePage']);
+    this.authService.formDataDelete.name = this.authService.formDataProduct.name;
+    this.authService.formDataDelete.isActive = false;
+    this.authService.patchProduct(this.authService.formDataDelete).subscribe(
+      (response) => {
+         this.toast.success("Se elimino correctamente el producto", "Producto Eliminado");
       },
       (error) => {
-        this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+          this.toast.error("No se pudo eliminar el producto", "Producto No Eliminado");
       }
     );
   }
 
   openConfirmationDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'custom-dialog-overlay', // Clase CSS personalizada
-      });
+    const dialogRef = this.dialog.open(ConfirmDialogComponentDelete, {
+      panelClass: 'custom-dialog-overlay',
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-       this.onSubmit();
+        this.onSubmit();
       } else {
       }
     });
@@ -165,4 +148,20 @@ export class EditProductComponent implements OnInit{
   changePage() {
     this.route.navigate(['/homePage']);
   }
+
+  searchProduct() {
+    this.authService.getProductByNameCategorySupplier(this.authService.formDataSearch).subscribe(
+      (data) => {
+        this.authService.formDataProduct = data;
+        this.loadImage(this.authService.formDataProduct.image);
+        this.toast.success("Se encontro el producto","Producto Encontrado")
+      },
+      (error) => {
+        // Manejar errores si ocurren
+        this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+      }
+    );
+  }
+
 }
+

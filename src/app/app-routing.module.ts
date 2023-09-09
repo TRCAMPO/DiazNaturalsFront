@@ -8,6 +8,7 @@ import {NewPasswordComponent} from "./new-password/new-password.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {CreateProductComponent} from "./create-product/create-product.component";
 import {EditProductComponent} from "./edit-product/edit-product.component";
+import {DeleteProductComponent} from "./delete-product/delete-product.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: "newPassword", component: NewPasswordComponent},
   { path: "homePage", component: HomePageComponent},
   { path: "createProduct", component: CreateProductComponent},
-  { path: "editProduct", component: EditProductComponent}
+  { path: "editProduct", component: EditProductComponent},
+  { path: "deleteProduct", component: DeleteProductComponent}
 ];
 
 @NgModule({
