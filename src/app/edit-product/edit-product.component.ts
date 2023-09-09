@@ -30,6 +30,8 @@ export class EditProductComponent implements OnInit{
   categories: CategoryModel[] = [];
   presentations: PresentationsModel[] = []
   suppliers: SuppliersModel[] = [];
+  // @ts-ignore
+  private blob: Blob;
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
@@ -41,16 +43,23 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
-    this.authService.getProductById(2).subscribe(data => {
+    this.authService.getProductById(1).subscribe(data => {
       this.authService.formDataProduct = data;
+      this.loadImage(this.authService.formDataProduct.image);
     });
-    this.loadImage();
+
 
   }
 
+  formatImageName(name:string){
+    return name.replace(/ /g, "%20");
+  }
 
-  loadImage() {
-    this.authService.getImageByName().subscribe((imageBlob: Blob) => {
+  loadImage(nameImage:string) {
+    console.log(this.authService.formDataProduct.image);
+    console.log(this.formatImageName(nameImage));
+    this.authService.getImageByName(this.formatImageName(nameImage)).subscribe((imageBlob: Blob) => {
+      this.blob = imageBlob;
       const reader = new FileReader();
       reader.onload = () => {
         this.imageUrl = reader.result as string; // Convierte el Blob en una URL de datos
@@ -69,22 +78,32 @@ export class EditProductComponent implements OnInit{
     this.password = "";
     this.error = "";
   }
+
+  blobToFile(blob: Blob, fileName: string, mimeType: string): File {
+    const file = new File([blob], fileName, { type: mimeType });
+    return file;
+  }
+
   onSubmit() {
+    if (this.imageFile == null){
+      this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name , "jpg");
+    }
     this.authService.uploadImg(this.imageFile).pipe(
       switchMap((res: any) => {
         this.toast.success('Imagen subida con exito', 'Productos');
         this.authService.formDataUrl = res;
-        this.authService.formDataProduct.image = this.authService.formDataUrl.url;
-        return this.authService.postProduct(this.authService.formDataProduct);
+        this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
+        return this.authService.putProduct(this.authService.formDataProduct);
       })
     ).subscribe(
       (response: any) => {
-        this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
+        this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
         this.clearPreview();
         this.resetForm();
+        this.route.navigate(['/homePage']);
       },
       (error) => {
-        this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+        this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
       }
     );
   }
@@ -93,18 +112,10 @@ export class EditProductComponent implements OnInit{
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       panelClass: 'custom-dialog-overlay', // Clase CSS personalizada
       });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        //document.querySelector('.cdk-overlay-container')?.classList.replace('cdk-overlay-container', 'cdk-overlay-container.dialog-open');
-        this.onSubmit();
+       this.onSubmit();
       } else {
-        // El usuario canceló la modificación
-        //document.querySelector('.cdk-overlay-container')?.classList.add('dialog-open');
-        //document.querySelector('.cdk-overlay-container')?.classList.replace('cdk-overlay-container', 'cdk-overlay-container.dialog-open');
-        // Función para desactivar la clase
-
-
       }
     });
   }

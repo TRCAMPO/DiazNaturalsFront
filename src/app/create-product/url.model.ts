@@ -1,3 +1,3 @@
 export class UrlModel{
-  url:string = "";
+  fileName:string = "";
 }

@@ -27,10 +27,10 @@ body {
 
 .titulo-container {
   text-align: center; /* Centrar el contenido */
-  padding: 1% 0; /* Agregar espacio alrededor del contenido */
+  padding: 0% 0; /* Agregar espacio alrededor del contenido */
   width: 100%;
   background-color: #316335;
-  display: flex; /* Hace que los elementos del menú se muestren en línea */
+  display: flow-root; /* Hace que los elementos del menú se muestren en línea */
   justify-content: center;
 }
 
@@ -56,10 +56,10 @@ body {
   padding: .5% 2%; /* Añadir espacio alrededor del texto */
   border: 2px solid transparent;
   border-radius: 5%;
-  margin: 0 1%; /* Añadir un margen entre los botones */
+  margin: 1% 1%; /* Añadir un margen entre los botones */
+  font-family: auto;
 }
 
-/* Colores diferentes para cada botón */
 .button-nav {
   background-color: #6FA535;
 }
