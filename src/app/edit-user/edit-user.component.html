@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
+  <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" >
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -44,8 +44,8 @@
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="state">Departamento</label>
-        <select class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="city">
-          <option value="" disabled selected>Seleccione una opción</option>
+        <select class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
+          <option value="0" disabled selected>Seleccione una opción</option>
           <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
         </select>
       </div>

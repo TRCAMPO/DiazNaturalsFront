@@ -39,11 +39,13 @@ export class CreateUserComponent implements OnInit{
   }
 
   onSubmit() {
+    this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient+"";
     this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
     this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
     this.authService.postUser(this.authService.formDataUserClient).subscribe(
       response => {
         this.toast.success("Usuario creado correctamente", "Usuario Creado");
+        this.changePage();
       },
       error => {
         this.toast.error("Usuario no creado", "Usuario no creado");
@@ -51,8 +53,14 @@ export class CreateUserComponent implements OnInit{
     );
   }
 
+  changePage() {
+    this.resetForm();
+    this.route.navigate(['/homePage']);
+  }
+
   resetForm() {
     this.authService.formDataUserClient = new UserModelClient();
+    this.route.navigate(['/homePage']);
   }
 
   showCitys(id: number) {

@@ -257,5 +257,9 @@ footer a {
   max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
 }
 
-
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
 

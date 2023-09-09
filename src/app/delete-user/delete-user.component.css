@@ -297,6 +297,12 @@ footer a {
   background-color: #1e4b5a;
 }
 
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
+
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
   .title,
@@ -307,3 +313,4 @@ footer a {
     margin-bottom: 10px; /* Espacio entre elementos */
   }
 }
+

@@ -25,6 +25,12 @@ body {
   margin-bottom: 2%;
 }
 
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
+
 .titulo {
   color: #100101; /* Color de texto blanco */
   font-family: serif; /* Fuente serif */

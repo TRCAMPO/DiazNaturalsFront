@@ -12,6 +12,7 @@ import {ProductModel} from "../create-product/product.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
+import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
 
 @Component({
   selector: 'app-edit-product',
@@ -43,10 +44,6 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
-    this.authService.getProductById(1).subscribe(data => {
-      this.authService.formDataProduct = data;
-      this.loadImage(this.authService.formDataProduct.image);
-    });
   }
 
   formatImageName(name:string){
@@ -54,8 +51,6 @@ export class EditProductComponent implements OnInit{
   }
 
   loadImage(nameImage:string) {
-    console.log(this.authService.formDataProduct.image);
-    console.log(this.formatImageName(nameImage));
     this.authService.getImageByName(this.formatImageName(nameImage)).subscribe((imageBlob: Blob) => {
       this.blob = imageBlob;
       const reader = new FileReader();
@@ -68,9 +63,6 @@ export class EditProductComponent implements OnInit{
     });
   }
 
-
-
-  private originalStyles: { [key: string]: string } = {};
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
@@ -124,6 +116,7 @@ export class EditProductComponent implements OnInit{
 
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
+    this.authService.formDataSearchProduct = new SearchProductModel();
     this.clearPreview();
   }
 
@@ -135,7 +128,6 @@ export class EditProductComponent implements OnInit{
   handleDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
     // @ts-ignore
     const file = event.dataTransfer.files[0];
     const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
@@ -163,6 +155,7 @@ export class EditProductComponent implements OnInit{
   }
 
   changePage() {
+    this.resetForm();
     this.route.navigate(['/homePage']);
   }
 

@@ -34,21 +34,6 @@ body {
   justify-content: center;
 }
 
-
-.nav.container {
-  text-align: center;
-  padding: 0.5% 0; /* Añadir un espacio uniforme alrededor del contenedor */
-  width: 100%;
-  white-space: nowrap; /* Evita el ajuste de línea de los elementos */
-  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
-  display:inline-block;
-  margin:60px auto 45px;
-  background-color:#aaa;
-  box-shadow:0 1px 1px #ccc;
-  border-radius:2px;
-}
-
-
 .button-nav {
   display: inline-block;
   color: #ffffff;
@@ -58,6 +43,12 @@ body {
   border-radius: 5%;
   margin: 1% 1%; /* Añadir un margen entre los botones */
   font-family: auto;
+}
+
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
 }
 
 .button-nav {

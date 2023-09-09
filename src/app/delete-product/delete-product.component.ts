@@ -14,6 +14,7 @@ import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dia
 import {switchMap} from "rxjs";
 import {ConfirmDialogComponentDeleteProduct} from "../confirm-dialog-delete-product/confirm-dialog.component";
 import {DeleteProductModel} from "./DeleteProduct.model";
+import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
 
 @Component({
   selector: 'app-delete-product',
@@ -52,8 +53,6 @@ export class DeleteProductComponent implements OnInit{
   }
 
   loadImage(nameImage:string) {
-    console.log(this.authService.formDataProduct.image);
-    console.log(this.formatImageName(nameImage));
     this.authService.getImageByName(this.formatImageName(nameImage)).subscribe((imageBlob: Blob) => {
       this.blob = imageBlob;
       const reader = new FileReader();
@@ -82,6 +81,7 @@ export class DeleteProductComponent implements OnInit{
     this.authService.patchProduct(this.authService.formDataDelete).subscribe(
       (response) => {
          this.toast.success("Se elimino correctamente el producto", "Producto Eliminado");
+         this.resetForm();
       },
       (error) => {
           this.toast.error("No se pudo eliminar el producto", "Producto No Eliminado");
@@ -107,6 +107,7 @@ export class DeleteProductComponent implements OnInit{
 
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
+    this.authService.formDataSearchProduct = new SearchProductModel();
     this.clearPreview();
   }
 
@@ -147,6 +148,7 @@ export class DeleteProductComponent implements OnInit{
 
   changePage() {
     this.route.navigate(['/homePage']);
+    this.resetForm();
   }
 
   searchProduct() {

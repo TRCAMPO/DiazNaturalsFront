@@ -72,7 +72,7 @@ export class AuthService {
   }
 
   getSuppliers() {
-    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers`);
+    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers/all`);
   }
 
   postProduct(formDataProduct: ProductModel) {
@@ -84,7 +84,7 @@ export class AuthService {
     const newFileName = this.formDataProduct.name + ".jpg";
     // @ts-ignore
     formData.append('file', imageFile, newFileName);
-    return this.http.post<string>('https://localhost:7167/load', formData);
+    return this.http.post<string>(`${this.apiUrl}/Blob/load`, formData);
   }
 
   getProductById(number1: number) {
@@ -92,18 +92,18 @@ export class AuthService {
   }
 
   getImageByName(name:string): Observable<Blob> {
-    return this.http.get(`https://localhost:7167/${name}`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/Blob/${name}`, { responseType: 'blob' });
   }
 
   putProduct(formDataProduct: ProductModel) {
-    return this.http.put(`${this.apiUrl}/Products/${formDataProduct.name}`, formDataProduct);
+    return this.http.put(`${this.apiUrl}/Products/${formDataProduct.idProduct}`, formDataProduct);
   }
 
   patchProduct(formDataProduct: DeleteProductModel) {
-    return this.http.patch(`${this.apiUrl}/Suppliers/EditState`,formDataProduct);
+    return this.http.patch(`${this.apiUrl}/Products/EditState`,formDataProduct);
   }
   getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
-    return this.http.get<ProductModel>(`${this.apiUrl}/Products/${formDataSearchSend}`);
+    return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
 
   getStates() {
@@ -118,11 +118,11 @@ export class AuthService {
   }
 
   getUserByName(search: string) {
-    return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/${search}`);
+    return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/search?search=${search}`);
   }
 
   putUser(formDataUserClient: UserModelClient) {
-    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.idClient}`, formDataUserClient);
+    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.nitClient}`, formDataUserClient);
   }
 
   patchUser(formDataDeleteUser: UserDeleteModelClient) {

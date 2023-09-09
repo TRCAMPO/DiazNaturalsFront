@@ -81,7 +81,9 @@ export class DeleteUserComponent implements OnInit{
     this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
       (data) => {
         this.authService.formDataUserClient = data;
-        this.authService.formDataStates.name = this.authService.formDataUserClient.stateClient;
+
+        // @ts-ignore
+        this.authService.formDataStates.name = data.stateClient;
         this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
         this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
         this.toast.success("Se encontro el producto","Producto Encontrado")

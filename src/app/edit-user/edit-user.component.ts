@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, computed, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
@@ -33,7 +33,7 @@ export class EditUserComponent implements OnInit{
       this.citysOrigin = data;
     });
   }
-  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
     this.error = "";
@@ -48,9 +48,12 @@ export class EditUserComponent implements OnInit{
   onSubmit() {
     this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
     this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
+    this.authService.formDataUserClient.idClient = 0;
+    this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient+"";
     this.authService.putUser(this.authService.formDataUserClient).subscribe(
       response => {
         this.toast.success("Usuario modificado correctamente", "Usuario Modificado");
+        this. resetForm();
       },
       error => {
         this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
@@ -72,6 +75,8 @@ export class EditUserComponent implements OnInit{
 
   resetForm() {
     this.authService.formDataUserClient = new UserModelClient();
+    this.authService.formDataCitys = new CytiModel();
+    this.authService.formDataStates = new StateModel();
     this.changePage();
   }
 
@@ -80,16 +85,21 @@ export class EditUserComponent implements OnInit{
   }
 
   searchUserClient() {
+    this.authService.formDataUserClient = new UserModelClient();
+    this.authService.formDataCitys = new CytiModel();
+    this.authService.formDataStates = new StateModel();
     this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
       (data) => {
         this.authService.formDataUserClient = data;
-        this.authService.formDataStates.name = this.authService.formDataUserClient.stateClient;
+        // @ts-ignore
+        this.authService.formDataStates.id =this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
+
         this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
         this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
-        this.toast.success("Se encontro el producto","Producto Encontrado")
+        this.toast.success("Se encontro el Cliente","Cliente Encontrado")
       },
       (error) => {
-        this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+        this.toast.error("No se pudo encontrar el cliente", "Error en la Búsqueda");
       }
     );
   }
