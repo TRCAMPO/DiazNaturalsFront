@@ -26,6 +26,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ConfirmDialogComponent } from './confirm-dialog-edit-product/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { DeleteProductComponent } from './delete-product/delete-product.component';
+import {ConfirmDialogComponentDelete} from "./confirm-dialog-delete-product/confirm-dialog.component";
 
 //import {NgxPaginationModule} from "ngx-pagination";
 
@@ -39,6 +41,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     CreateProductComponent,
     EditProductComponent,
     ConfirmDialogComponent,
+    DeleteProductComponent,
+    ConfirmDialogComponentDelete,
 
   ],
   imports: [

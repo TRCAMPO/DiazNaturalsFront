@@ -11,6 +11,8 @@ import {PresentationsModel} from "./create-product/presentation.model";
 import {SuppliersModel} from "./create-product/suppliers.model";
 import {Observable} from "rxjs";
 import {UrlModel} from "./create-product/url.model";
+import {SearchModel} from "./confirm-dialog-delete-product/search.model";
+import {DeleteProductModel} from "./delete-product/DeleteProduct.model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,8 @@ export class AuthService {
   formDataUrl: UrlModel = new UrlModel();
   token: string = "";
   isLog: boolean = false;
+  formDataSearch: SearchModel = new SearchModel();
+  formDataDelete: DeleteProductModel = new DeleteProductModel();
   constructor(private http: HttpClient) {}
 
   login(user: UserModel) {
@@ -74,7 +78,6 @@ export class AuthService {
   }
 
   getProductById(number1: number) {
-    console.log(number1);
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/${number1}`);
   }
 
@@ -83,7 +86,15 @@ export class AuthService {
   }
 
   putProduct(formDataProduct: ProductModel) {
-    console.log(formDataProduct);
     return this.http.put(`${this.apiUrl}/Products/${formDataProduct.name}`, formDataProduct);
+  }
+
+  patchProduct(formDataProduct: DeleteProductModel) {
+    return this.http.patch(`${this.apiUrl}/Suppliers/EditState`,formDataProduct);
+  }
+
+
+  getProductByNameCategorySupplier(formDataSearchSend: SearchModel) {
+    return this.http.get<ProductModel>(`${this.apiUrl}/Products/${formDataSearchSend}`);
   }
 }
