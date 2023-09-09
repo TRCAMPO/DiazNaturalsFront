@@ -150,7 +150,7 @@ export class DeleteProductComponent implements OnInit{
   }
 
   searchProduct() {
-    this.authService.getProductByNameCategorySupplier(this.authService.formDataSearch).subscribe(
+    this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
       (data) => {
         this.authService.formDataProduct = data;
         this.loadImage(this.authService.formDataProduct.image);

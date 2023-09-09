@@ -165,4 +165,18 @@ export class EditProductComponent implements OnInit{
   changePage() {
     this.route.navigate(['/homePage']);
   }
+
+  searchProduct() {
+    this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
+      (data) => {
+        this.authService.formDataProduct = data;
+        this.loadImage(this.authService.formDataProduct.image);
+        this.toast.success("Se encontro el producto","Producto Encontrado")
+      },
+      (error) => {
+        // Manejar errores si ocurren
+        this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+      }
+    );
+  }
 }

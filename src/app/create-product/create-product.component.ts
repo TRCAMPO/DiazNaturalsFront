@@ -49,21 +49,6 @@ export class CreateProductComponent implements OnInit{
     this.authService.formDataProduct.image = "udishidu";
   }
 
-  /**onSubmit() {
-
-
-    this.authService.postProduct(this.authService.formDataProduct).subscribe(
-        (response: any) => {
-          this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
-          this.clearPreview();
-          this.resetForm();
-        },
-        (error) => {
-          this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
-        }
-      );
-  }*/
-
   onSubmit() {
     console.log("1   "+this.authService.formDataProduct);
     this.authService.uploadImg(this.imageFile).pipe(

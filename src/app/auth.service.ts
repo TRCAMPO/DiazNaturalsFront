@@ -11,8 +11,12 @@ import {PresentationsModel} from "./create-product/presentation.model";
 import {SuppliersModel} from "./create-product/suppliers.model";
 import {Observable} from "rxjs";
 import {UrlModel} from "./create-product/url.model";
-import {SearchModel} from "./confirm-dialog-delete-product/search.model";
+import {SearchProductModel} from "./confirm-dialog-delete-product/searchProductModel";
 import {DeleteProductModel} from "./delete-product/DeleteProduct.model";
+import {StateModel} from "./create-user/state.model";
+import {CytiModel} from "./create-user/city.model";
+import {UserModelClient} from "./create-user/userClient.model";
+import {UserSearchModel} from "./edit-user/userSearch.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +33,12 @@ export class AuthService {
   formDataUrl: UrlModel = new UrlModel();
   token: string = "";
   isLog: boolean = false;
-  formDataSearch: SearchModel = new SearchModel();
+  formDataSearchProduct: SearchProductModel = new SearchProductModel();
   formDataDelete: DeleteProductModel = new DeleteProductModel();
+  formDataStates: StateModel = new StateModel();
+  formDataCitys: CytiModel = new CytiModel();
+  formDataUserClient: UserModelClient = new UserModelClient();
+  formDataSearchUser: UserSearchModel = new UserSearchModel();
   constructor(private http: HttpClient) {}
 
   login(user: UserModel) {
@@ -92,9 +100,26 @@ export class AuthService {
   patchProduct(formDataProduct: DeleteProductModel) {
     return this.http.patch(`${this.apiUrl}/Suppliers/EditState`,formDataProduct);
   }
-
-
-  getProductByNameCategorySupplier(formDataSearchSend: SearchModel) {
+  getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/${formDataSearchSend}`);
+  }
+
+  getStates() {
+    return this.http.get<StateModel[]>(`https://api-colombia.com/api/v1/Department`);
+  }
+  getCitys(){
+    return this.http.get<CytiModel[]>(`https://api-colombia.com/api/v1/City`);
+  }
+
+  postUser(formDataUserClient: UserModelClient) {
+    return this.http.post(`${this.apiUrl}/Clients`, formDataUserClient);
+  }
+
+  getUserByName(search: string) {
+    return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/${search}`);
+  }
+
+  putUser(formDataUserClient: UserModelClient) {
+    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.idClient}`, formDataUserClient);
   }
 }

@@ -15,7 +15,28 @@
 <body>
 <div class="container">
   <div class="title-container">
-    <h1 class="titulo">Editar Producto</h1>
+
+    <div class="search-bar">
+      <div class="titulo">Editar Producto&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearchProduct.search" placeholder="Buscar producto">
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;Proveedor:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.suppliers">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+        </select>
+      </div>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;Presentación:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.presentation">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+        </select>
+      </div>
+      <span>&nbsp;</span>
+      <button class="search-button" (click)="searchProduct()" >Buscar</button>
+    </div>
   </div>
   <div class="login-item">
     <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">

@@ -1,4 +1,4 @@
-export class SearchModel {
+export class SearchProductModel {
   search:string = "";
   suppliers:string = "";
   presentation:string = "";

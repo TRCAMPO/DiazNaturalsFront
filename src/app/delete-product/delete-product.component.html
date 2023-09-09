@@ -19,17 +19,17 @@
     <div class="search-bar">
       <div class="titulo">Eliminar Producto&nbsp;&nbsp;</div>
       <div>Buscar:&nbsp;</div>
-      <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearch.search" placeholder="Buscar producto">
+      <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearchProduct.search" placeholder="Buscar producto">
       <div>
         <span>&nbsp;&nbsp;&nbsp;Proveedor:</span>
-        <select class="filter-select" [(ngModel)]="authService.formDataSearch.suppliers">
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.suppliers">
           <option value="" disabled selected>Seleccione una opción</option>
           <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
         </select>
       </div>
       <div>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;Presentación:</span>
-        <select class="filter-select" [(ngModel)]="authService.formDataSearch.presentation">
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.presentation">
           <option value="" disabled selected>Seleccione una opción</option>
           <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
         </select>
