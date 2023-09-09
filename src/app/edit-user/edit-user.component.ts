@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit{
     this.error = "";
   }
 
-  showCitys(id: string | undefined) {
+  showCitys(id: number | undefined) {
     this.citys = [];
     // @ts-ignore
     this.citys = this.citysOrigin.filter(city => city.departmentId == id);
@@ -85,7 +85,7 @@ export class EditUserComponent implements OnInit{
         this.authService.formDataUserClient = data;
         this.authService.formDataStates.name = this.authService.formDataUserClient.stateClient;
         this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
-        this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.name);
+        this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
         this.toast.success("Se encontro el producto","Producto Encontrado")
       },
       (error) => {

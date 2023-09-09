@@ -31,6 +31,7 @@ import {ConfirmDialogComponentDelete} from "./confirm-dialog-delete-product/conf
 import { CreateUserComponent } from './create-user/create-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ConfirmDialogEditUserComponent } from './confirm-dialog-edit-user/confirm-dialog-edit-user.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 //import {NgxPaginationModule} from "ngx-pagination";
 
@@ -49,6 +50,7 @@ import { ConfirmDialogEditUserComponent } from './confirm-dialog-edit-user/confi
     CreateUserComponent,
     EditUserComponent,
     ConfirmDialogEditUserComponent,
+    DeleteUserComponent,
 
   ],
   imports: [
