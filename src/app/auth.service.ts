@@ -17,6 +17,7 @@ import {StateModel} from "./create-user/state.model";
 import {CytiModel} from "./create-user/city.model";
 import {UserModelClient} from "./create-user/userClient.model";
 import {UserSearchModel} from "./edit-user/userSearch.model";
+import {UserDeleteModelClient} from "./delete-user/userDelete.model";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,7 @@ export class AuthService {
   formDataCitys: CytiModel = new CytiModel();
   formDataUserClient: UserModelClient = new UserModelClient();
   formDataSearchUser: UserSearchModel = new UserSearchModel();
+  formDataUserClientDelete: UserDeleteModelClient = new UserDeleteModelClient();
   constructor(private http: HttpClient) {}
 
   login(user: UserModel) {
@@ -121,5 +123,9 @@ export class AuthService {
 
   putUser(formDataUserClient: UserModelClient) {
     return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.idClient}`, formDataUserClient);
+  }
+
+  patchUser(formDataDeleteUser: UserDeleteModelClient) {
+    return this.http.patch(`${this.apiUrl}/Users/EditState`,formDataDeleteUser);
   }
 }

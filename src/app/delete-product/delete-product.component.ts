@@ -12,7 +12,7 @@ import {ProductModel} from "../create-product/product.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
-import {ConfirmDialogComponentDelete} from "../confirm-dialog-delete-product/confirm-dialog.component";
+import {ConfirmDialogComponentDeleteProduct} from "../confirm-dialog-delete-product/confirm-dialog.component";
 import {DeleteProductModel} from "./DeleteProduct.model";
 
 @Component({
@@ -90,7 +90,7 @@ export class DeleteProductComponent implements OnInit{
   }
 
   openConfirmationDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponentDelete, {
+    const dialogRef = this.dialog.open(ConfirmDialogComponentDeleteProduct, {
       panelClass: 'custom-dialog-overlay',
     });
     dialogRef.afterClosed().subscribe((result) => {

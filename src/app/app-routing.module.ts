@@ -11,6 +11,7 @@ import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DeleteProductComponent} from "./delete-product/delete-product.component";
 import {CreateUserComponent} from "./create-user/create-user.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
+import {DeleteUserComponent} from "./delete-user/delete-user.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: "editProduct", component: EditProductComponent},
   { path: "deleteProduct", component: DeleteProductComponent},
   { path: "createUser", component: CreateUserComponent},
-  { path: "editUser", component: EditUserComponent}
+  { path: "editUser", component: EditUserComponent},
+  { path: "deleteUser", component: DeleteUserComponent}
 ];
 
 @NgModule({
