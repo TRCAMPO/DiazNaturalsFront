@@ -88,6 +88,7 @@ export class CreateProductComponent implements OnInit{
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
     this.clearPreview();
+    this.route.navigate(["/homePage"]);
   }
 
   handleDragOver(event: DragEvent) {

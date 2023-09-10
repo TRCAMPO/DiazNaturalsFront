@@ -14,6 +14,7 @@ import {EditUserComponent} from "./edit-user/edit-user.component";
 import {DeleteUserComponent} from "./delete-user/delete-user.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: "login", component: LoginComponent },
   { path: "recovery", component: RecoverAccountComponent},
   { path: "newPassword", component: NewPasswordComponent},

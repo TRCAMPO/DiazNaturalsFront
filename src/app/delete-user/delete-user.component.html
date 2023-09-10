@@ -73,7 +73,7 @@
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="state">Departamento</label>
-        <select disabled class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="city">
+        <select disabled class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
           <option value="" disabled selected>Seleccione una opción</option>
           <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
         </select>

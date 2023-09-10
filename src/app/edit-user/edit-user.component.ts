@@ -88,20 +88,24 @@ export class EditUserComponent implements OnInit{
     this.authService.formDataUserClient = new UserModelClient();
     this.authService.formDataCitys = new CytiModel();
     this.authService.formDataStates = new StateModel();
-    this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
-      (data) => {
-        this.authService.formDataUserClient = data;
-        // @ts-ignore
-        this.authService.formDataStates.id =this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
+    if(this.authService.formDataSearchUser.search !== null && this.authService.formDataSearchUser.search !== "") {
+      this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
+        (data) => {
+          this.authService.formDataUserClient = data;
+          // @ts-ignore
+          this.authService.formDataStates.id = this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
 
-        this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
-        this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
-        this.toast.success("Se encontro el Cliente","Cliente Encontrado")
-      },
-      (error) => {
-        this.toast.error("No se pudo encontrar el cliente", "Error en la Búsqueda");
-      }
-    );
+          this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
+          this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
+          this.toast.success("Se encontro el Usuario", "Usuario Encontrado")
+        },
+        (error) => {
+          this.toast.error("No se pudo encontrar el Usuario", "Error en la Búsqueda");
+        }
+      );
+    }else {
+      this.toast.info("Por favor escriba el nombre del Usuario", "Ingrese el Usuario");
+    }
   }
 }
 

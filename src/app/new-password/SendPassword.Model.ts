@@ -1,4 +1,4 @@
 export class SendPasswordModel {
-  email:string = '';
-  password: string = '';
+  email:string = "";
+  password: string = "";
 }

@@ -152,8 +152,12 @@ export class DeleteProductComponent implements OnInit{
   }
 
   searchProduct() {
-    if(this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null){
-      this.toast.info("No ha ingresado el usuario", "Ingrese el usuario");
+    if (this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null) {
+      this.toast.info("No ha ingresado el producto", "Ingrese el Producto");
+    } else if (!this.isValidateSpacesSearchSuppliers()) {
+      this.toast.info("No ha seleccionado el proveedor", "Ingrese el Proveedor");
+    } else if (!this.isValidateSpacesSearchPresentation()) {
+      this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
     } else {
       this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
         (data) => {
@@ -167,6 +171,15 @@ export class DeleteProductComponent implements OnInit{
         }
       );
     }
+  }
+
+  isValidateSpacesSearchSuppliers() {
+    console.log(this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null);
+    return this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null;
+  }
+
+  isValidateSpacesSearchPresentation() {
+    return this.authService.formDataSearchProduct.presentation !== "" && this.authService.formDataSearchProduct.presentation !== null;
   }
 
 }

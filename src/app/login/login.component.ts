@@ -26,22 +26,33 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.authService.login(this.authService.formDataUser)
-      .subscribe(
-        (response: any) => {
-          this.authService.token = response.token;
-          this.authService.isLog = true;
-          this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
-          this.route.navigate(['/homePage']);
-          this.authService.formDataUser = new UserModel();
-        },
-        (error) => {
-          this.error = 'Credenciales inválidas';
-          this.toast.error('Credenciales inválidas', 'Error en el inicio de sesión');
-        }
-      );
+    if(!this.isUserValid(this.authService.formDataUser)) {
+      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
+    }else if( this.isValidEmail(this.authService.formDataUser.email))  {
+      this.authService.login(this.authService.formDataUser)
+        .subscribe(
+          (response: any) => {
+            this.authService.token = response.token;
+            this.authService.isLog = true;
+            this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
+            this.route.navigate(['/homePage']);
+            this.authService.formDataUser = new UserModel();
+          },
+          (error) => {
+            this.error = 'Credenciales inválidas';
+            this.toast.error('Credenciales inválidas', 'Error en el inicio de sesión');
+          }
+        );
+    } else{
+      this.toast.info("Por favor coloque su correo correctamente","Formato Incorrecto Correo");
+    }
+  }
 
-
+  isValidEmail(email: string): boolean {
+    // Expresión regular para validar el formato de correo electrónico
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // Comprueba si el correo electrónico coincide con la expresión regular
+    return emailRegex.test(email);
   }
 
   updateInputValue() {
@@ -51,6 +62,10 @@ export class LoginComponent {
   resetForm(form: NgForm) {
     form.form.reset();
     this.authService.formDataUser = new UserModel();
+  }
+
+  isUserValid(formDataUser: UserModel) {
+    return formDataUser.email !== null && formDataUser.email !== '' && formDataUser.password !== null && formDataUser.password !== '';
   }
 
 }

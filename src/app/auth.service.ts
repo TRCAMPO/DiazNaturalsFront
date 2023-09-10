@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   changePassword(password: SendPasswordModel) {
-    return this.http.post(`${this.apiUrl}/AccesControll/EditarContraseña`, password);
+    return this.http.put(`${this.apiUrl}/AccesControll/EditarContrasena`, password);
   }
 
   getCategories() {

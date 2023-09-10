@@ -75,27 +75,51 @@ export class EditProductComponent implements OnInit{
   }
 
   onSubmit() {
-    if (this.imageFile == null){
-      this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name , "jpg");
+    if (this.imageFile == null) {
+      this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name, "jpg");
     }
-    this.authService.uploadImg(this.imageFile).pipe(
-      switchMap((res: any) => {
-        this.toast.success('Imagen subida con exito', 'Productos');
-        this.authService.formDataUrl = res;
-        this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
-        return this.authService.putProduct(this.authService.formDataProduct);
-      })
-    ).subscribe(
-      (response: any) => {
-        this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
-        this.clearPreview();
-        this.resetForm();
-        this.route.navigate(['/homePage']);
-      },
-      (error) => {
-        this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
-      }
-    );
+    console.log(this.authService.formDataProduct);
+    if(!this.checkProductFields(this.authService.formDataProduct)){
+      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
+    }else {
+      this.authService.uploadImg(this.imageFile).pipe(
+        switchMap((res: any) => {
+          this.toast.success('Imagen subida con exito', 'Productos');
+          this.authService.formDataUrl = res;
+          this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
+          return this.authService.putProduct(this.authService.formDataProduct);
+        })
+      ).subscribe(
+        (response: any) => {
+          this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
+          this.clearPreview();
+          this.resetForm();
+          this.route.navigate(['/homePage']);
+        },
+        (error) => {
+          this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+        }
+      );
+    }
+  }
+
+  checkProductFields(product: ProductModel): boolean {
+    // Verifica si alguno de los campos es nulo o tiene un valor de inicialización
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price === null ||
+      product.amount === null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false; // Al menos uno de los campos es nulo o tiene un valor de inicialización
+    }
+    return true; // Todos los campos tienen valores válidos
   }
 
   openConfirmationDialog(): void {
@@ -156,12 +180,12 @@ export class EditProductComponent implements OnInit{
   }
 
   searchProduct() {
-    if (!this.isValidateSpacesSearchSuppliers()) {
+    if (this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null) {
+      this.toast.info("No ha ingresado el producto", "Ingrese el Producto");
+    } else if (!this.isValidateSpacesSearchSuppliers()) {
       this.toast.info("No ha seleccionado el proveedor", "Ingrese el Proveedor");
     } else if (!this.isValidateSpacesSearchPresentation()) {
       this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
-    } else if (this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null) {
-      this.toast.info("No ha ingresado el producto", "Ingrese el Producto");
     } else {
       this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
         (data) => {
