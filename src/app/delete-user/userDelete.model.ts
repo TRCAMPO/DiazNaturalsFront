@@ -1,5 +1,5 @@
 export class UserDeleteModelClient {
-  nit:string = "";
+  nitClient:string = "";
   isActive:boolean = false;
 
 }

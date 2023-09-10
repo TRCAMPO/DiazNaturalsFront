@@ -76,7 +76,7 @@ export class DeleteProductComponent implements OnInit{
   }
 
   onSubmit() {
-    this.authService.formDataDelete.name = this.authService.formDataProduct.name;
+    this.authService.formDataDelete.idProduct = this.authService.formDataProduct.idProduct;
     this.authService.formDataDelete.isActive = false;
     this.authService.patchProduct(this.authService.formDataDelete).subscribe(
       (response) => {
@@ -152,17 +152,21 @@ export class DeleteProductComponent implements OnInit{
   }
 
   searchProduct() {
-    this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
-      (data) => {
-        this.authService.formDataProduct = data;
-        this.loadImage(this.authService.formDataProduct.image);
-        this.toast.success("Se encontro el producto","Producto Encontrado")
-      },
-      (error) => {
-        // Manejar errores si ocurren
-        this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
-      }
-    );
+    if(this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null){
+      this.toast.info("No ha ingresado el usuario", "Ingrese el usuario");
+    } else {
+      this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
+        (data) => {
+          this.authService.formDataProduct = data;
+          this.loadImage(this.authService.formDataProduct.image);
+          this.toast.success("Se encontro el producto", "Producto Encontrado")
+        },
+        (error) => {
+          // Manejar errores si ocurren
+          this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+        }
+      );
+    }
   }
 
 }

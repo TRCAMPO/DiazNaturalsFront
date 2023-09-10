@@ -27,16 +27,12 @@ body {
 
 
 
-
-
-
-
 /* Variables */
 :root {
   --background-purple: #EEEEEE;
   --subtle-white: #f9f9f9;
   --subtle-grey: #f2f2f2;
-  --masked-grey: #333;
+  --masked-grey: #ffffff;
   --blue: #F03861;
   --open-sans: 'Open Sans', sans-serif;
 }
@@ -48,11 +44,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Estilos para el cuerpo y la página HTML */
-body, html {
-  height: 100%;
-  background-color: var(--background-purple);
-}
 
 /* Contenedor de la página */
 .container {
@@ -61,11 +52,11 @@ body, html {
 }
 
 /* Estilos para el tutorial */
-.tutorial {
+.container-menu {
   width: 100%;
   margin: 0% 0% 0% 0%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: var(--subtle-white);
+  background-color: #316335;
   display: flex;
   justify-content: center;
 }
@@ -77,61 +68,42 @@ body, html {
   background-color: var(--blue);
 }
 
-/* Estilos para la información */
-.information {
-  width: 100%;
-  padding: 20px 50px;
-  margin-bottom: 30px;
-  font-family: var(--open-sans);
-}
-
-/* Estilos para los encabezados */
-h1 {
-  color: var(--masked-grey);
-  font-size: 1.5rem;
-  padding: 0px 10px;
-  border-left: 3px solid var(--blue);
-}
-
-h3 {
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 1rem;
-  font-weight: 300;
-  padding: 0px 10px;
-  border-left: 3px solid var(--blue);
-}
-
-/* Estilos para párrafos */
-p {
-  padding: 10px 0px;
-}
-
 /* Estilos para listas no ordenadas */
 ul {
-  font-size: 0;
+  font-size: 0%;
   list-style-type: none;
 }
 
 /* Estilos para elementos de lista */
 li {
-  font-family: var(--open-sans);
+  font-family: auto;
   font-size: 1rem;
   font-weight: 400;
-  color: var(--masked-grey);
+  color: #fff;
   display: inline-block;
   padding: 15px;
   position: relative;
 }
 
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.li-sub {
+  color: #100101;
+}
+
 /* Estilos para sublistas */
 ul ul {
   display: none;
+  background-color: #6fa535;
 }
 
 /* Estilos cuando se pasa el cursor sobre un elemento de lista */
 li:hover {
   cursor: pointer;
-  background-color: var(--subtle-grey);
+  background-color: #6fa535;
 }
 
 /* Mostrar sublistas cuando se pasa el cursor */
@@ -169,19 +141,6 @@ li ul li:hover {
 li ul li:hover span {
   background-color: var(--blue);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

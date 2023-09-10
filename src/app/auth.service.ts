@@ -100,7 +100,7 @@ export class AuthService {
   }
 
   patchProduct(formDataProduct: DeleteProductModel) {
-    return this.http.patch(`${this.apiUrl}/Products/EditState`,formDataProduct);
+    return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
   }
   getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
@@ -126,6 +126,6 @@ export class AuthService {
   }
 
   patchUser(formDataDeleteUser: UserDeleteModelClient) {
-    return this.http.patch(`${this.apiUrl}/Users/EditState`,formDataDeleteUser);
+    return this.http.patch(`${this.apiUrl}/Clients/EditState`,formDataDeleteUser);
   }
 }

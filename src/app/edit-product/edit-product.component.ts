@@ -110,10 +110,6 @@ export class EditProductComponent implements OnInit{
     });
   }
 
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
-  }
-
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
     this.authService.formDataSearchProduct = new SearchProductModel();
@@ -160,16 +156,35 @@ export class EditProductComponent implements OnInit{
   }
 
   searchProduct() {
-    this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
-      (data) => {
-        this.authService.formDataProduct = data;
-        this.loadImage(this.authService.formDataProduct.image);
-        this.toast.success("Se encontro el producto","Producto Encontrado")
-      },
-      (error) => {
-        // Manejar errores si ocurren
-        this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
-      }
-    );
+    if (!this.isValidateSpacesSearchSuppliers()) {
+      this.toast.info("No ha seleccionado el proveedor", "Ingrese el Proveedor");
+    } else if (!this.isValidateSpacesSearchPresentation()) {
+      this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
+    } else if (this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null) {
+      this.toast.info("No ha ingresado el producto", "Ingrese el Producto");
+    } else {
+      this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
+        (data) => {
+          this.authService.formDataProduct = data;
+          this.loadImage(this.authService.formDataProduct.image);
+          this.toast.success("Se encontro el producto", "Producto Encontrado")
+        },
+        (error) => {
+          // Manejar errores si ocurren
+          this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+        }
+      );
+    }
   }
+
+  isValidateSpacesSearchSuppliers() {
+    console.log(this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null);
+    return this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null;
+  }
+
+  isValidateSpacesSearchPresentation() {
+    return this.authService.formDataSearchProduct.presentation !== "" && this.authService.formDataSearchProduct.presentation !== null;
+  }
+
+
 }

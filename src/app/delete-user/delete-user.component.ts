@@ -16,10 +16,6 @@ import {ConfirmDialogDeleteUserComponent} from "../confirm-dialog-delete-user/co
   styleUrls: ['./delete-user.component.css']
 })
 export class DeleteUserComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   // @ts-ignore
   @ViewChild('fileInput') fileInputRef: ElementRef;
   states: StateModel[] = [];
@@ -34,9 +30,6 @@ export class DeleteUserComponent implements OnInit{
     });
   }
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
   }
 
   showCitys(id: number | undefined) {
@@ -46,9 +39,12 @@ export class DeleteUserComponent implements OnInit{
   }
 
   onSubmit() {
+    this.authService.formDataUserClientDelete.nitClient = this.authService.formDataUserClient.nitClient;
+    this.authService.formDataUserClientDelete.isActive = false;
     this.authService.patchUser(this.authService.formDataUserClientDelete).subscribe(
       response => {
         this.toast.success("Usuario eliminado correctamente", "Usuario Eliminado");
+        this.resetForm();
       },
       error => {
         this.toast.error("Surgio un problema en la eliminación", "Usuario no Eliminado");
@@ -78,20 +74,22 @@ export class DeleteUserComponent implements OnInit{
   }
 
   searchUserClient() {
-    this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
-      (data) => {
-        this.authService.formDataUserClient = data;
 
-        // @ts-ignore
-        this.authService.formDataStates.name = data.stateClient;
-        this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
-        this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
-        this.toast.success("Se encontro el producto","Producto Encontrado")
+      this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
+      (data) => {
+      this.authService.formDataUserClient = data;
+      // @ts-ignore
+      this.authService.formDataStates.name = data.stateClient;
+      this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
+      this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
+      this.toast.success("Se encontro el producto", "Producto Encontrado")
       },
       (error) => {
         this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
       }
-    );
+      );
   }
+
+
 }
 

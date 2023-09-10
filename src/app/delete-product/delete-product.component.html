@@ -4,11 +4,40 @@
   <div class="login-container">
     <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo_principal.jpg?alt=media&token=8347ba50-ac57-46c5-ad31-3cb0e25bd463" alt="Logo de la empresa">
   </div>
-  <div class="titulo-container">
-    <a class="button-nav" href="#">Proveedores</a>
-    <a class="button-nav" href="#">Productos</a>
-    <a class="button-nav" href="#">Usuarios</a>
-    <a class="button-nav" href="#">Pedidos</a>
+  <div class="container22">
+    <div class="container-menu">
+      <ul>
+        <li><a href="/homePage">Home</a></li>
+        <li><a href="#">Proveedores</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="#">Crear Proveedor</a></li>
+            <li><a class="li-sub" href="#">Editar Proveedor</a></li>
+            <li><a class="li-sub" href="#">Eliminar Proveedor</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Productos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="/createProduct">Crear Producto</a></li>
+            <li><a class="li-sub" href="/editProduct">Editar Producto</a></li>
+            <li><a class="li-sub" href="/deleteProduct">Eliminar Producto</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Usuarios</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="createUser">Crear Usuario</a></li>
+            <li><a class="li-sub" href="editUser">Editar Usuario</a></li>
+            <li><a class="li-sub" href="deleteUser">Eliminar Usuario</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Pedidos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="#">Crear Pedido</a></li>
+            <li><a class="li-sub" href="#">Editar Pedido</a></li>
+            <li><a class="li-sub" href="#">Eliminar Pedido</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
 
@@ -48,11 +77,8 @@
             <input readonly class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
           </div>
           <div class="campo">
-            <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select disabled class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
-              <option value="" disabled selected>Seleccione una opción</option>
-              <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
-            </select>
+            <label class="lock" for="cantidad">Cantidad</label>
+            <input readonly class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
           </div>
           <div class="campo">
             <label class="lock" for="precio">Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -63,8 +89,11 @@
 
         <div class="form-row">
           <div class="campo">
-            <label class="lock" for="cantidad">Cantidad</label>
-            <input readonly class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
+            <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select disabled class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+            </select>
           </div>
           <div class="campo">
             <label class="lock" for="presentacion">Presentación</label>
