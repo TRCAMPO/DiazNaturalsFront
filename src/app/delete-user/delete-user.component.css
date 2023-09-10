@@ -10,6 +10,7 @@ body {
 }
 
 
+
 /* Variables */
 :root {
   --background-purple: #EEEEEE;
@@ -125,7 +126,6 @@ li ul li:hover span {
   background-color: var(--blue);
 }
 
-
 .container {
   margin: 0%;
 }
@@ -140,12 +140,6 @@ li ul li:hover span {
   align-items: center; /* Centra verticalmente */
   height: 100%; /* Para centrar contenido verticalmente */
   margin-bottom: 2%;
-}
-
-.button-nav:hover {
-  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
-  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
-  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
 }
 
 .titulo {
@@ -337,13 +331,6 @@ footer a {
   margin-right: 5%;
 }
 
-.campo-Filter-search {
-  display: flex;
-  margin-bottom: 1.5%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 .drop-box {
   border: 2px dashed #ccc; /* Un borde punteado de 2 píxeles de ancho en color gris claro */
   background-color: #f9f9f9; /* Un fondo gris claro */
@@ -427,6 +414,12 @@ footer a {
   background-color: #1e4b5a;
 }
 
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
+
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
   .title,
@@ -437,3 +430,4 @@ footer a {
     margin-bottom: 10px; /* Espacio entre elementos */
   }
 }
+

@@ -3,11 +3,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import {DeleteProductComponent} from "../delete-product/delete-product.component";
 
 @Component({
-  selector: 'app-confirm-dialog',
-  templateUrl: './confirm-dialog.component.html',
-  styleUrls: ['./confirm-dialog.component.css']
+  selector: 'app-confirm-dialog-delete-user',
+  templateUrl: './confirm-dialog-delete-user.component.html',
+  styleUrls: ['./confirm-dialog-delete-user.component.css']
 })
-export class ConfirmDialogComponentDeleteProduct {
+export class ConfirmDialogDeleteUserComponent {
   constructor(public dialogRef: MatDialogRef<DeleteProductComponent>, @ Inject(MAT_DIALOG_DATA) public data: DeleteProductComponent) {
 
   }
@@ -28,4 +28,3 @@ export class ConfirmDialogComponentDeleteProduct {
     }
   }
 }
-

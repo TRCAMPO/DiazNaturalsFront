@@ -11,8 +11,13 @@ import {PresentationsModel} from "./create-product/presentation.model";
 import {SuppliersModel} from "./create-product/suppliers.model";
 import {Observable} from "rxjs";
 import {UrlModel} from "./create-product/url.model";
-import {SearchModel} from "./confirm-dialog-delete-product/search.model";
+import {SearchProductModel} from "./confirm-dialog-delete-product/searchProductModel";
 import {DeleteProductModel} from "./delete-product/DeleteProduct.model";
+import {StateModel} from "./create-user/state.model";
+import {CytiModel} from "./create-user/city.model";
+import {UserModelClient} from "./create-user/userClient.model";
+import {UserSearchModel} from "./edit-user/userSearch.model";
+import {UserDeleteModelClient} from "./delete-user/userDelete.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +34,13 @@ export class AuthService {
   formDataUrl: UrlModel = new UrlModel();
   token: string = "";
   isLog: boolean = false;
-  formDataSearch: SearchModel = new SearchModel();
+  formDataSearchProduct: SearchProductModel = new SearchProductModel();
   formDataDelete: DeleteProductModel = new DeleteProductModel();
+  formDataStates: StateModel = new StateModel();
+  formDataCitys: CytiModel = new CytiModel();
+  formDataUserClient: UserModelClient = new UserModelClient();
+  formDataSearchUser: UserSearchModel = new UserSearchModel();
+  formDataUserClientDelete: UserDeleteModelClient = new UserDeleteModelClient();
   constructor(private http: HttpClient) {}
 
   login(user: UserModel) {
@@ -62,7 +72,7 @@ export class AuthService {
   }
 
   getSuppliers() {
-    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers`);
+    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers/all`);
   }
 
   postProduct(formDataProduct: ProductModel) {
@@ -74,7 +84,7 @@ export class AuthService {
     const newFileName = this.formDataProduct.name + ".jpg";
     // @ts-ignore
     formData.append('file', imageFile, newFileName);
-    return this.http.post<string>('https://localhost:7167/load', formData);
+    return this.http.post<string>(`${this.apiUrl}/Blob/load`, formData);
   }
 
   getProductById(number1: number) {
@@ -82,19 +92,40 @@ export class AuthService {
   }
 
   getImageByName(name:string): Observable<Blob> {
-    return this.http.get(`https://localhost:7167/${name}`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/Blob/${name}`, { responseType: 'blob' });
   }
 
   putProduct(formDataProduct: ProductModel) {
-    return this.http.put(`${this.apiUrl}/Products/${formDataProduct.name}`, formDataProduct);
+    return this.http.put(`${this.apiUrl}/Products/${formDataProduct.idProduct}`, formDataProduct);
   }
 
   patchProduct(formDataProduct: DeleteProductModel) {
-    return this.http.patch(`${this.apiUrl}/Suppliers/EditState`,formDataProduct);
+    return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
+  }
+  getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
+    return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
 
+  getStates() {
+    return this.http.get<StateModel[]>(`https://api-colombia.com/api/v1/Department`);
+  }
+  getCitys(){
+    return this.http.get<CytiModel[]>(`https://api-colombia.com/api/v1/City`);
+  }
 
-  getProductByNameCategorySupplier(formDataSearchSend: SearchModel) {
-    return this.http.get<ProductModel>(`${this.apiUrl}/Products/${formDataSearchSend}`);
+  postUser(formDataUserClient: UserModelClient) {
+    return this.http.post(`${this.apiUrl}/Clients`, formDataUserClient);
+  }
+
+  getUserByName(search: string) {
+    return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/search?search=${search}`);
+  }
+
+  putUser(formDataUserClient: UserModelClient) {
+    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.nitClient}`, formDataUserClient);
+  }
+
+  patchUser(formDataDeleteUser: UserDeleteModelClient) {
+    return this.http.patch(`${this.apiUrl}/Clients/EditState`,formDataDeleteUser);
   }
 }

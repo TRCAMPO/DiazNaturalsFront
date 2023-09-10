@@ -1,4 +1,5 @@
 export class DeleteProductModel {
-  name: string = '';
+  idProduct: number = 0;
   isActive: boolean = true;
 }
+

@@ -18,10 +18,6 @@ import {UrlModel} from "./url.model";
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   imageFile: File | null = null;
   imageUrl: string | null = null;
   // @ts-ignore
@@ -32,7 +28,6 @@ export class CreateProductComponent implements OnInit{
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
-      console.log(data);
       this.categories = data;
     });
     this.authService.getPresentation().subscribe(data => {
@@ -43,16 +38,21 @@ export class CreateProductComponent implements OnInit{
     });
   }
   constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
-    this.authService.formDataProduct.image = "udishidu";
+
   }
 
-  /**onSubmit() {
-
-
-    this.authService.postProduct(this.authService.formDataProduct).subscribe(
+  onSubmit() {
+    if(!this.checkProductFields(this.authService.formDataProduct)){
+      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
+    }else {
+      this.authService.uploadImg(this.imageFile).pipe(
+        switchMap((res: any) => {
+          this.toast.success('Imagen subida con exito', 'Productos');
+          this.authService.formDataUrl = res;
+          this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
+          return this.authService.postProduct(this.authService.formDataProduct);
+        })
+      ).subscribe(
         (response: any) => {
           this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
           this.clearPreview();
@@ -62,38 +62,28 @@ export class CreateProductComponent implements OnInit{
           this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
         }
       );
-  }*/
-
-  onSubmit() {
-    console.log("1   "+this.authService.formDataProduct);
-    this.authService.uploadImg(this.imageFile).pipe(
-      switchMap((res: any) => {
-        this.toast.success('Imagen subida con exito', 'Productos');
-        this.authService.formDataUrl = res;
-        this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
-        // Luego de subir la imagen y obtener la respuesta (res), continuamos con postProduct
-        console.log(this.authService.formDataProduct);
-        return this.authService.postProduct(this.authService.formDataProduct);
-      })
-    ).subscribe(
-      (response: any) => {
-        console.log("2   "+this.authService.formDataProduct);
-        this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
-        this.clearPreview();
-        this.resetForm();
-      },
-      (error) => {
-        console.log("3   "+this.authService.formDataProduct);
-        this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
-      }
-    );
-    console.log("schiihbsd "+ this.authService.formDataProduct );
+    }
   }
 
-
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
+  checkProductFields(product: ProductModel): boolean {
+    // Verifica si alguno de los campos es nulo o tiene un valor de inicialización
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price === null ||
+      product.amount === null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false; // Al menos uno de los campos es nulo o tiene un valor de inicialización
+    }
+    return true; // Todos los campos tienen valores válidos
   }
+
 
   resetForm() {
     this.authService.formDataProduct = new ProductModel();

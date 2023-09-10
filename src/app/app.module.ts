@@ -27,7 +27,12 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ConfirmDialogComponent } from './confirm-dialog-edit-product/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DeleteProductComponent } from './delete-product/delete-product.component';
-import {ConfirmDialogComponentDelete} from "./confirm-dialog-delete-product/confirm-dialog.component";
+import {ConfirmDialogComponentDeleteProduct} from "./confirm-dialog-delete-product/confirm-dialog.component";
+import { CreateUserComponent } from './create-user/create-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { ConfirmDialogEditUserComponent } from './confirm-dialog-edit-user/confirm-dialog-edit-user.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { ConfirmDialogDeleteUserComponent } from './confirm-dialog-delete-user/confirm-dialog-delete-user.component';
 
 //import {NgxPaginationModule} from "ngx-pagination";
 
@@ -42,7 +47,12 @@ import {ConfirmDialogComponentDelete} from "./confirm-dialog-delete-product/conf
     EditProductComponent,
     ConfirmDialogComponent,
     DeleteProductComponent,
-    ConfirmDialogComponentDelete,
+    ConfirmDialogComponentDeleteProduct,
+    CreateUserComponent,
+    EditUserComponent,
+    ConfirmDialogEditUserComponent,
+    DeleteUserComponent,
+    ConfirmDialogDeleteUserComponent,
 
   ],
   imports: [

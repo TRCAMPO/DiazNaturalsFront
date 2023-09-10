@@ -1,14 +1,15 @@
 import {Component, Inject} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {DeleteProductComponent} from "../delete-product/delete-product.component";
+import {EditProductComponent} from "../edit-product/edit-product.component";
+import {EditUserComponent} from "../edit-user/edit-user.component";
 
 @Component({
-  selector: 'app-confirm-dialog',
-  templateUrl: './confirm-dialog.component.html',
-  styleUrls: ['./confirm-dialog.component.css']
+  selector: 'app-confirm-dialog-edit-user',
+  templateUrl: './confirm-dialog-edit-user.component.html',
+  styleUrls: ['./confirm-dialog-edit-user.component.css']
 })
-export class ConfirmDialogComponentDeleteProduct {
-  constructor(public dialogRef: MatDialogRef<DeleteProductComponent>, @ Inject(MAT_DIALOG_DATA) public data: DeleteProductComponent) {
+export class ConfirmDialogEditUserComponent {
+  constructor(public dialogRef: MatDialogRef<EditUserComponent>, @ Inject(MAT_DIALOG_DATA) public data: EditUserComponent) {
 
   }
 
@@ -28,4 +29,3 @@ export class ConfirmDialogComponentDeleteProduct {
     }
   }
 }
-

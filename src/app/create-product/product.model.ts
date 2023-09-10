@@ -1,4 +1,5 @@
 export class ProductModel{
+  idProduct:number = 0;
   name:string = '';
   supplier:string = '';
   price:number|null = null;

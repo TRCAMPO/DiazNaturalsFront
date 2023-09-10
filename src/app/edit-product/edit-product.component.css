@@ -9,6 +9,123 @@ body {
   font-family: sans-serif;
 }
 
+
+
+/* Variables */
+:root {
+  --background-purple: #EEEEEE;
+  --subtle-white: #f9f9f9;
+  --subtle-grey: #f2f2f2;
+  --masked-grey: #ffffff;
+  --blue: #F03861;
+  --open-sans: 'Open Sans', sans-serif;
+}
+
+/* Reset de estilos */
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Contenedor de la página */
+.container22 {
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilos para el tutorial */
+.container-menu {
+  width: 100%;
+  margin: 0% 0% 0% 0%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #316335;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos para el slider */
+.slider {
+  width: 100%;
+  height: 300px;
+  background-color: var(--blue);
+}
+
+/* Estilos para listas no ordenadas */
+ul {
+  font-size: 0%;
+  list-style-type: none;
+}
+
+/* Estilos para elementos de lista */
+li {
+  font-family: auto;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  display: inline-block;
+  padding: 15px;
+  position: relative;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.li-sub {
+  color: #100101;
+}
+
+/* Estilos para sublistas */
+ul ul {
+  display: none;
+  background-color: #6fa535;
+}
+
+/* Estilos cuando se pasa el cursor sobre un elemento de lista */
+li:hover {
+  cursor: pointer;
+  background-color: #6fa535;
+}
+
+/* Mostrar sublistas cuando se pasa el cursor */
+li:hover ul {
+  display: block;
+  margin-top: 15px;
+  width: 200px;
+  left: 0;
+  position: absolute;
+}
+
+/* Estilos para elementos de sublistas */
+li ul li {
+  display: block;
+  background-color: rgba(249, 249, 249, 0.93);
+}
+
+/* Estilos para el elemento 'span' dentro de sublistas */
+li ul li span {
+  float: right;
+  color: var(--subtle-white);
+  background-color: var(--blue);
+  padding: 2px 5px;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+/* Estilos al pasar el cursor sobre elementos de sublistas */
+li ul li:hover {
+  background-color: rgba(249, 249, 249, 0.86);
+}
+
+/* Estilos al pasar el cursor sobre el elemento 'span' de sublistas */
+li ul li:hover span {
+  background-color: var(--blue);
+}
+
 .container {
   margin: 0%;
 }
@@ -17,17 +134,24 @@ body {
   color: #100101; /* Color de texto blanco */
   font-family: serif; /* Fuente serif */
   font-size: 24px; /* Tamaño de fuente personalizado */
-  margin: 2%; /* Eliminar el margen predeterminado del título */
+  margin: 0%; /* Eliminar el margen predeterminado del título */
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
+  justify-content: initial; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
   height: 100%; /* Para centrar contenido verticalmente */
+  margin-bottom: 2%;
+}
+
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
 }
 
 .titulo {
   color: #100101; /* Color de texto blanco */
   font-family: serif; /* Fuente serif */
-  font-size: 150%; /* Tamaño de fuente personalizado */
+  font-size: 200%; /* Tamaño de fuente personalizado */
   margin: 0; /* Eliminar el margen predeterminado del título */
 }
 
@@ -259,3 +383,50 @@ footer a {
   max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
 }
 
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.2%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filter-select {
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button {
+  padding: 5px 10px;
+  background-color: #3e7c95;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0%;
+}
+
+.search-button:hover {
+  background-color: #1e4b5a;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .title,
+  .search-input,
+  .filter-select,
+  .search-button {
+    width: 100%;
+    margin-bottom: 10px; /* Espacio entre elementos */
+  }
+}
