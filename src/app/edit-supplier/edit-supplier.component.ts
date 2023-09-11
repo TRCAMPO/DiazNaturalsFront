@@ -21,6 +21,7 @@ export class EditSupplierComponent {
   }
 
   onSubmit() {
+    this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
     if(!this.checkSupplierFields(this.authService.formDataSupplier)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     } else if(this.isValidPhone(this.authService.formDataSupplier.phoneSupplier)){
