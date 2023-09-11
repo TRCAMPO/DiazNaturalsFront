@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
-import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CategoryModel} from "../create-product/category.model";
@@ -10,10 +9,7 @@ import {PresentationsModel} from "../create-product/presentation.model";
 import {SuppliersModel} from "../create-product/suppliers.model";
 import {ProductModel} from "../create-product/product.model";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
-import {switchMap} from "rxjs";
 import {ConfirmDialogComponentDeleteProduct} from "../confirm-dialog-delete-product/confirm-dialog.component";
-import {DeleteProductModel} from "./DeleteProduct.model";
 import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
 
 @Component({
@@ -22,10 +18,6 @@ import {SearchProductModel} from "../confirm-dialog-delete-product/searchProduct
   styleUrls: ['./delete-product.component.css']
 })
 export class DeleteProductComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   imageFile: File | null = null;
   imageUrl: string | null = null;
   // @ts-ignore
@@ -35,6 +27,9 @@ export class DeleteProductComponent implements OnInit{
   suppliers: SuppliersModel[] = [];
   // @ts-ignore
   private blob: Blob;
+
+  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  }
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
@@ -64,26 +59,16 @@ export class DeleteProductComponent implements OnInit{
       console.error('Error al cargar la imagen', error);
     });
   }
-  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
-  }
-
-  blobToFile(blob: Blob, fileName: string, mimeType: string): File {
-    const file = new File([blob], fileName, { type: mimeType });
-    return file;
-  }
 
   onSubmit() {
     this.authService.formDataDelete.idProduct = this.authService.formDataProduct.idProduct;
     this.authService.formDataDelete.isActive = false;
     this.authService.patchProduct(this.authService.formDataDelete).subscribe(
-      (response) => {
+      () => {
          this.toast.success("Se elimino correctamente el producto", "Producto Eliminado");
          this.resetForm();
       },
-      (error) => {
+      () => {
           this.toast.error("No se pudo eliminar el producto", "Producto No Eliminado");
       }
     );
@@ -101,10 +86,6 @@ export class DeleteProductComponent implements OnInit{
     });
   }
 
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
-  }
-
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
     this.authService.formDataSearchProduct = new SearchProductModel();
@@ -119,20 +100,8 @@ export class DeleteProductComponent implements OnInit{
   handleDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
     // @ts-ignore
     const file = event.dataTransfer.files[0];
-    const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
-    this.imageFile = new File([blob], file.name, {type: 'image/jpeg'});
-
-    const imageUrl = URL.createObjectURL(blob);
-    this.imageUrl = imageUrl;
-  }
-
-  handleFileInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    // @ts-ignore
-    const file = target.files[0];
     const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
     this.imageFile = new File([blob], file.name, {type: 'image/jpeg'});
     this.imageUrl = URL.createObjectURL(blob);
@@ -165,7 +134,7 @@ export class DeleteProductComponent implements OnInit{
           this.loadImage(this.authService.formDataProduct.image);
           this.toast.success("Se encontro el producto", "Producto Encontrado")
         },
-        (error) => {
+        () => {
           // Manejar errores si ocurren
           this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
         }

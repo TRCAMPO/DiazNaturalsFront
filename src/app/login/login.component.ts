@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {UserModel} from "./User.Model";
@@ -38,7 +38,7 @@ export class LoginComponent {
             this.route.navigate(['/homePage']);
             this.authService.formDataUser = new UserModel();
           },
-          (error) => {
+          () => {
             this.error = 'Credenciales inválidas';
             this.toast.error('Credenciales inválidas', 'Error en el inicio de sesión');
           }
@@ -53,10 +53,6 @@ export class LoginComponent {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     // Comprueba si el correo electrónico coincide con la expresión regular
     return emailRegex.test(email);
-  }
-
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
   }
 
   resetForm(form: NgForm) {

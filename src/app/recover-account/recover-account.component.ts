@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {CodeModel} from "./CodeModel";
@@ -33,11 +33,11 @@ export class RecoverAccountComponent {
     } else {
       this.authService.sendCodigo(this.authService.formEmail)
         .subscribe(
-          (response: any) => {
+          () => {
             this.toast.success("Revise su correo", "Codigo enviado correctamente");
             this.dataService.setInputValue(this.authService.formEmail.email);
           },
-          (error) => {
+          () => {
             this.error = 'Correo Invalido';
             this.toast.error("Intente nuevamente", "Codigo no enviado");
           }
@@ -57,11 +57,11 @@ export class RecoverAccountComponent {
       this.authService.formCode.email = this.dataService.getInputValue();
       this.authService.validateCodigo(this.authService.formCode)
         .subscribe(
-          (response: any) => {
+          () => {
             this.toast.success("", "Codigo valido");
             this.route.navigate(['/newPassword']);
           },
-          (error) => {
+          () => {
             this.error = 'Codigo Invalido';
             this.toast.error("Intente nuevamente o solicite otro", "Codigo invalido");
           }
@@ -69,10 +69,6 @@ export class RecoverAccountComponent {
     }else{
       this.toast.info("Por favor ingrese el codigo que se envio a su correo o solicite otro","Ingrese el codigo");
     }
-  }
-
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
   }
 
   resetForm(form: NgForm) {

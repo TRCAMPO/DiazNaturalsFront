@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
@@ -51,7 +51,7 @@ export class CreateProductComponent implements OnInit{
           return this.authService.postProduct(this.authService.formDataProduct);
         })
       ).subscribe(
-        (response: any) => {
+        () => {
           this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
           this.clearPreview();
           this.resetForm();
@@ -101,14 +101,11 @@ export class CreateProductComponent implements OnInit{
   handleDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
     // @ts-ignore
     const file = event.dataTransfer.files[0];
     const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
     this.imageFile = new File([blob], file.name, {type: 'image/jpeg'});
-
-    const imageUrl = URL.createObjectURL(blob);
-    this.imageUrl = imageUrl;
+    this.imageUrl = URL.createObjectURL(blob);
   }
 
   handleFileInput(event: Event) {

@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
-import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CategoryModel} from "../create-product/category.model";
@@ -20,10 +19,6 @@ import {SearchProductModel} from "../confirm-dialog-delete-product/searchProduct
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   imageFile: File | null = null;
   imageUrl: string | null = null;
   // @ts-ignore
@@ -33,6 +28,9 @@ export class EditProductComponent implements OnInit{
   suppliers: SuppliersModel[] = [];
   // @ts-ignore
   private blob: Blob;
+
+  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  }
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
@@ -63,15 +61,8 @@ export class EditProductComponent implements OnInit{
     });
   }
 
-  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
-  }
-
   blobToFile(blob: Blob, fileName: string, mimeType: string): File {
-    const file = new File([blob], fileName, { type: mimeType });
-    return file;
+    return new File([blob], fileName, { type: mimeType });
   }
 
   onSubmit() {
@@ -90,13 +81,13 @@ export class EditProductComponent implements OnInit{
           return this.authService.putProduct(this.authService.formDataProduct);
         })
       ).subscribe(
-        (response: any) => {
+        () => {
           this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
           this.clearPreview();
           this.resetForm();
           this.route.navigate(['/homePage']);
         },
-        (error) => {
+        () => {
           this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
         }
       );
@@ -152,9 +143,7 @@ export class EditProductComponent implements OnInit{
     const file = event.dataTransfer.files[0];
     const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
     this.imageFile = new File([blob], file.name, {type: 'image/jpeg'});
-
-    const imageUrl = URL.createObjectURL(blob);
-    this.imageUrl = imageUrl;
+    this.imageUrl = URL.createObjectURL(blob);
   }
 
   handleFileInput(event: Event) {
@@ -193,7 +182,7 @@ export class EditProductComponent implements OnInit{
           this.loadImage(this.authService.formDataProduct.image);
           this.toast.success("Se encontro el producto", "Producto Encontrado")
         },
-        (error) => {
+        () => {
           // Manejar errores si ocurren
           this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
         }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {PasswordModel} from "./Password.Model";
@@ -33,12 +33,12 @@ export class NewPasswordComponent {
         console.log(this.authService.formSendPassword);
         this.authService.changePassword(this.authService.formSendPassword)
           .subscribe(
-            (response: any) => {
+            () => {
               this.toast.success("Se cambio con exito la contraseña", "Cambio de contraseña");
               this.authService.formPassword = new PasswordModel();
               this.route.navigate(['/homePage']);
             },
-            (error) => {
+            () => {
               this.error = 'error';
               this.toast.error("Intente nuevamente", "Error en el cambio de contraseña");
               this.authService.formPassword = new PasswordModel();
@@ -52,10 +52,6 @@ export class NewPasswordComponent {
     }else {
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }
-  }
-
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
   }
 
   resetForm(form: NgForm) {
