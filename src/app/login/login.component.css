@@ -6,6 +6,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: baseline;
+  height: max-content;
 }
 
 .titulo-container {
