@@ -75,7 +75,7 @@
 
         <div class="field-edit-supplier">
           <label class="look-edit-supplier" for="phone-edit-supplier">Teléfono&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input class="form-input-edit-supplier" type="text" id="phone-edit-supplier" #phoneSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-edit-supplier" placeholder="Teléfono">
+          <input class="form-input-edit-supplier" type="text" id="phone-edit-supplier" (input)="limitDigits($event)" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-edit-supplier" placeholder="Teléfono">
         </div>
       </div>
 

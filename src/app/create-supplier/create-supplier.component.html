@@ -68,7 +68,7 @@
 
         <div class="field-create-supplier">
           <label class="look-create-supplier" for="phone-create-supplier">Teléfono&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input class="form-input-create-supplier" type="text" id="phone-create-supplier" #phoneSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-create-supplier" placeholder="Teléfono">
+          <input class="form-input-create-supplier" type="text" id="phone-create-supplier" (input)="limitDigits($event)"  #phoneSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-create-supplier" placeholder="Teléfono">
         </div>
       </div>
 
