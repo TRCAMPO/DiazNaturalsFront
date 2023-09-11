@@ -28,8 +28,7 @@ export class CreateUserComponent implements OnInit{
       this.citysOrigin = data;
     });
   }
-  constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-     console.log(this.authService.isLog);
+  constructor(public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
   }
 
   onSubmit() {
@@ -111,7 +110,6 @@ export class CreateUserComponent implements OnInit{
   limitDigits(event: any) {
     const maxLength = 10; // Establece la longitud máxima permitida
     const inputValue = event.target.value;
-
     if (inputValue.length > maxLength) {
       event.target.value = inputValue.slice(0, maxLength);
       this.authService.formDataUserClient.phoneClient = event.target.value;
