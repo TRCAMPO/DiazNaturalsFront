@@ -10,6 +10,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
+      console.log("entra");
       return true; // Permite el acceso a la ruta
     } else {
       this.router.navigate(['/login']); // Redirige al componente de inicio de sesión

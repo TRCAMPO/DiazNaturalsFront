@@ -1,8 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
-import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CategoryModel} from "./category.model";
@@ -10,7 +9,6 @@ import {PresentationsModel} from "./presentation.model";
 import {SuppliersModel} from "./suppliers.model";
 import {ProductModel} from "./product.model";
 import {switchMap} from "rxjs";
-import {UrlModel} from "./url.model";
 
 @Component({
   selector: 'app-create-product',
@@ -38,7 +36,7 @@ export class CreateProductComponent implements OnInit{
     });
   }
   constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-
+    console.log(this.authService.isLog);
   }
 
   onSubmit() {
@@ -53,13 +51,17 @@ export class CreateProductComponent implements OnInit{
           return this.authService.postProduct(this.authService.formDataProduct);
         })
       ).subscribe(
-        (response: any) => {
+        () => {
           this.toast.success('Se ha creado el producto exitosamente', 'Creación de Producto');
           this.clearPreview();
           this.resetForm();
         },
         (error) => {
-          this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+          if(error.status == 409){
+            this.toast.error(error.error, 'Creacion de Producto');
+          }else {
+            this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+          }
         }
       );
     }
@@ -88,6 +90,7 @@ export class CreateProductComponent implements OnInit{
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
     this.clearPreview();
+    this.route.navigate(["/homePage"]);
   }
 
   handleDragOver(event: DragEvent) {
@@ -98,14 +101,11 @@ export class CreateProductComponent implements OnInit{
   handleDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
     // @ts-ignore
     const file = event.dataTransfer.files[0];
     const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
     this.imageFile = new File([blob], file.name, {type: 'image/jpeg'});
-
-    const imageUrl = URL.createObjectURL(blob);
-    this.imageUrl = imageUrl;
+    this.imageUrl = URL.createObjectURL(blob);
   }
 
   handleFileInput(event: Event) {

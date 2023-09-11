@@ -74,20 +74,23 @@ export class DeleteUserComponent implements OnInit{
   }
 
   searchUserClient() {
-
+    if(this.authService.formDataSearchUser.search !== '' && this.authService.formDataSearchUser.search !== null) {
       this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
-      (data) => {
-      this.authService.formDataUserClient = data;
-      // @ts-ignore
-      this.authService.formDataStates.name = data.stateClient;
-      this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
-      this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
-      this.toast.success("Se encontro el producto", "Producto Encontrado")
-      },
-      (error) => {
-        this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
-      }
+        (data) => {
+          this.authService.formDataUserClient = data;
+          // @ts-ignore
+          this.authService.formDataStates.id = this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
+          this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
+          this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
+          this.toast.success("Se encontro el usuario", "Usuario Encontrado")
+        },
+        (error) => {
+          this.toast.error("No se pudo encontrar el Usuario", "Error en la Búsqueda");
+        }
       );
+    } else {
+      this.toast.info("No ha ingresado el usuario", "Ingrese el Usuario");
+    }
   }
 
 

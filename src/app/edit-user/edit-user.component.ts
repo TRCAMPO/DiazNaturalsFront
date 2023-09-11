@@ -16,10 +16,6 @@ import {UserModelClient} from "../create-user/userClient.model";
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   // @ts-ignore
   @ViewChild('fileInput') fileInputRef: ElementRef;
   states: StateModel[] = [];
@@ -34,9 +30,6 @@ export class EditUserComponent implements OnInit{
     });
   }
   constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
   }
 
   showCitys(id: number | undefined) {
@@ -56,7 +49,16 @@ export class EditUserComponent implements OnInit{
         this. resetForm();
       },
       error => {
-        this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
+        console.log(error);
+        if(error.error == "El email de cliente ya existe"){
+          this.toast.error("Correo ya registrado, ingrese uno diferente", "Correo ya registrado");
+        }else if (error.error == "El Nit de cliente ya existe"){
+          this.toast.error("Nit ya registrado, ingrese uno diferente", "Nit ya registrado");
+        }else if (error.error == "El nombre de cliente ya existe"){
+          this.toast.error("Nombre ya registrado, ingrese uno diferente", "Nombre ya registrado");
+        }else {
+          this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
+        }
       }
     );
   }
@@ -88,20 +90,24 @@ export class EditUserComponent implements OnInit{
     this.authService.formDataUserClient = new UserModelClient();
     this.authService.formDataCitys = new CytiModel();
     this.authService.formDataStates = new StateModel();
-    this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
-      (data) => {
-        this.authService.formDataUserClient = data;
-        // @ts-ignore
-        this.authService.formDataStates.id =this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
+    if(this.authService.formDataSearchUser.search !== null && this.authService.formDataSearchUser.search !== "") {
+      this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
+        (data) => {
+          this.authService.formDataUserClient = data;
+          // @ts-ignore
+          this.authService.formDataStates.id = this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
 
-        this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
-        this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
-        this.toast.success("Se encontro el Cliente","Cliente Encontrado")
-      },
-      (error) => {
-        this.toast.error("No se pudo encontrar el cliente", "Error en la Búsqueda");
-      }
-    );
+          this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
+          this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
+          this.toast.success("Se encontro el Usuario", "Usuario Encontrado")
+        },
+        (error) => {
+          this.toast.error("No se pudo encontrar el Usuario", "Error en la Búsqueda");
+        }
+      );
+    }else {
+      this.toast.info("Por favor escriba el nombre del Usuario", "Ingrese el Usuario");
+    }
   }
 }
 

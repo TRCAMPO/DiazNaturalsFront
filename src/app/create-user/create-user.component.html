@@ -7,7 +7,7 @@
   <div class="container22">
     <div class="container-menu">
       <ul>
-        <li><a href="/homePage">Home</a></li>
+        <li><a [routerLink]="['/homePage/']" >Home</a></li>
         <li><a href="#">Proveedores</a><i class="fa fa-angle-down"></i>
           <ul>
             <li><a class="li-sub" href="#">Crear Proveedor</a></li>
@@ -17,16 +17,16 @@
         </li>
         <li><a href="#">Productos</a><i class="fa fa-angle-down"></i>
           <ul>
-            <li><a class="li-sub" href="/createProduct">Crear Producto</a></li>
-            <li><a class="li-sub" href="/editProduct">Editar Producto</a></li>
-            <li><a class="li-sub" href="/deleteProduct">Eliminar Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/createProduct/']" >Crear Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/editProduct/']" >Editar Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteProduct/']" >Eliminar Producto</a></li>
           </ul>
         </li>
         <li><a href="#">Usuarios</a><i class="fa fa-angle-down"></i>
           <ul>
-            <li><a class="li-sub" href="createUser">Crear Usuario</a></li>
-            <li><a class="li-sub" href="editUser">Editar Usuario</a></li>
-            <li><a class="li-sub" href="deleteUser">Eliminar Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/createUser/']">Crear Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/editUser/']" >Editar Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteUser/']" >Eliminar Usuario</a></li>
           </ul>
         </li>
         <li><a href="#">Pedidos</a><i class="fa fa-angle-down"></i>
@@ -65,8 +65,8 @@
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="state">Departamento</label>
-        <select class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="city">
-          <option value="" disabled selected>Seleccione una opción</option>
+        <select class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
+          <option value="0" disabled selected>Seleccione una opción</option>
           <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
         </select>
       </div>

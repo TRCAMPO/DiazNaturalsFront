@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {CodeModel} from "./CodeModel";
@@ -28,36 +28,47 @@ export class RecoverAccountComponent {
   }
 
   onSubmitOne() {
-    this.authService.sendCodigo(this.authService.formEmail)
-      .subscribe(
-        (response: any) => {
-          this.toast.success("Revise su correo", "Codigo enviado correctamente");
-          this.dataService.setInputValue(this.authService.formEmail.email);
-        },
-        (error) => {
-          this.error = 'Correo Invalido';
-          this.toast.error("Intente nuevamente", "Codigo no enviado");
-        }
-      );
+    if(!this.isValidEmail(this.authService.formEmail.email)) {
+      this.toast.info("Por favor coloque un correo válido","Correo Incorrecto");
+    } else {
+      this.authService.sendCodigo(this.authService.formEmail)
+        .subscribe(
+          () => {
+            this.toast.success("Revise su correo", "Codigo enviado correctamente");
+            this.dataService.setInputValue(this.authService.formEmail.email);
+          },
+          () => {
+            this.error = 'Correo Invalido';
+            this.toast.error("Intente nuevamente", "Codigo no enviado");
+          }
+        );
+    }
+  }
+
+  isValidEmail(email: string): boolean {
+    // Expresión regular para validar el formato de correo electrónico
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // Comprueba si el correo electrónico coincide con la expresión regular
+    return emailRegex.test(email);
   }
 
   onSubmit() {
-    this.authService.formCode.email = this.dataService.getInputValue();
-    this.authService.validateCodigo(this.authService.formCode)
-      .subscribe(
-        (response: any) => {
-          this.toast.success("", "Codigo valido");
-          this.route.navigate(['/newPassword']);
-        },
-        (error) => {
-          this.error = 'Codigo Invalido';
-          this.toast.error("Intente nuevamente o solicite otro", "Codigo invalido");
-        }
-      );
-  }
-
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
+    if(this.authService.formCode.code !== null && this.authService.formCode.code !== '') {
+      this.authService.formCode.email = this.dataService.getInputValue();
+      this.authService.validateCodigo(this.authService.formCode)
+        .subscribe(
+          () => {
+            this.toast.success("", "Codigo valido");
+            this.route.navigate(['/newPassword']);
+          },
+          () => {
+            this.error = 'Codigo Invalido';
+            this.toast.error("Intente nuevamente o solicite otro", "Codigo invalido");
+          }
+        );
+    }else{
+      this.toast.info("Por favor ingrese el codigo que se envio a su correo o solicite otro","Ingrese el codigo");
+    }
   }
 
   resetForm(form: NgForm) {
