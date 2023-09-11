@@ -12,7 +12,6 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  inputValue: string = '';
   username: string;
   password: string;
   error: string;
