@@ -33,6 +33,11 @@ import { ConfirmDialogEditUserComponent } from './confirm-dialog-edit-user/confi
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ConfirmDialogDeleteUserComponent } from './confirm-dialog-delete-user/confirm-dialog-delete-user.component';
 import { TokenInterceptor } from './tokenInterceptor';
+import { EditSupplierComponent } from './edit-supplier/edit-supplier.component';
+import { DeleteSupplierComponent } from './delete-supplier/delete-supplier.component';
+import { CreateSupplierComponent } from './create-supplier/create-supplier.component';
+import { ConfirmDialogEditSupplierComponent } from './confirm-dialog-edit-supplier/confirm-dialog-edit-supplier.component';
+import { ConfirmDialogDeleteSupplierComponent } from './confirm-dialog-delete-supplier/confirm-dialog-delete-supplier.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,12 @@ import { TokenInterceptor } from './tokenInterceptor';
     ConfirmDialogEditUserComponent,
     DeleteUserComponent,
     ConfirmDialogDeleteUserComponent,
+    EditSupplierComponent,
+    DeleteSupplierComponent,
+    CreateSupplierComponent,
+    ConfirmDialogEditSupplierComponent,
+    ConfirmDialogDeleteSupplierComponent,
+
 
   ],
   imports: [

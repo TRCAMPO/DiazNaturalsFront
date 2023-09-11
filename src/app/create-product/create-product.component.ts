@@ -36,7 +36,7 @@ export class CreateProductComponent implements OnInit{
     });
   }
   constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    console.log(this.authService.isLog);
+
   }
 
   onSubmit() {
