@@ -34,22 +34,24 @@ export class CreateUserComponent implements OnInit{
     this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
     this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
     this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
-    if(!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
-      this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
-    } else if(!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
-      this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
-    }else if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
-      this.authService.postUser(this.authService.formDataUserClient).subscribe(
-        response => {
-          this.toast.success("Usuario creado correctamente", "Usuario Creado");
-          this.changePage();
-        },
-        error => {
-          if(error.status == 409){
-            this.toast.error(error.error, "Usuario no creado");
+    if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
+      if(!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
+        this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
+      } else if(!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
+        this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
+      }else {
+        this.authService.postUser(this.authService.formDataUserClient).subscribe(
+          response => {
+            this.toast.success("Usuario creado correctamente", "Usuario Creado");
+            this.changePage();
+          },
+          error => {
+            if (error.status == 409) {
+              this.toast.error(error.error, "Usuario no creado");
+            }
           }
-        }
-      );
+        );
+      }
     }else {
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }
@@ -66,7 +68,6 @@ export class CreateUserComponent implements OnInit{
     return emailRegex.test(email);
   }
   isUserModelClientValid(user: UserModelClient): boolean {
-    console.log(user);
     return (
       user !== null &&
       user !== undefined &&

@@ -39,22 +39,66 @@ export class EditUserComponent implements OnInit{
   }
 
   onSubmit() {
-    this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
-    this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
-    this.authService.formDataUserClient.idClient = 0;
-    this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient+"";
-    this.authService.putUser(this.authService.formDataUserClient).subscribe(
-      response => {
-        this.toast.success("Usuario modificado correctamente", "Usuario Modificado");
-        this. resetForm();
-      },
-      error => {
-        if (error.status == 409){
-          this.toast.error(error.error, 'Modificación de Producto');
-        }else {
-          this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
-        }
+    if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
+      if (!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
+        this.toast.info("Por favor coloque un correo válido", "Formato Incorrecto Correo");
+      } else if (!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
+        this.toast.info("Por favor coloque un número celular válido", "Formato Incorrecto");
+      } else {
+        this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
+        this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
+        this.authService.formDataUserClient.idClient = 0;
+        this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
+        this.authService.putUser(this.authService.formDataUserClient).subscribe(
+          response => {
+            this.toast.success("Usuario modificado correctamente", "Usuario Modificado");
+            this.resetForm();
+          },
+          error => {
+            if (error.status == 409) {
+              this.toast.error(error.error, 'Modificación de Producto');
+            } else {
+              this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
+            }
+          }
+        );
       }
+    }
+  }
+
+  isValidPhone(phone: string): boolean {
+    return phone.length === 10;
+  }
+
+  isValidEmail(email: string): boolean {
+    // Expresión regular para validar el formato de correo electrónico
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // Comprueba si el correo electrónico coincide con la expresión regular
+    return emailRegex.test(email);
+  }
+  isUserModelClientValid(user: UserModelClient): boolean {
+    console.log(user);
+    return (
+      user !== null &&
+      user !== undefined &&
+      user.nitClient !== '' &&
+      user.nitClient !== null &&
+      user.nameClient !== '' &&
+      user.nameClient !== null &&
+      user.emailClient !== '' &&
+      user.emailClient !== null &&
+      user.addressClient !== '' &&
+      user.addressClient !== null &&
+      user.phoneClient !== '' &&
+      user.phoneClient !== null &&
+      user.phoneClient !== "null" &&
+      user.cityClient !== '' &&
+      user.cityClient !== null &&
+      user.stateClient !== '' &&
+      user.stateClient !== null &&
+      user.nameContactClient !== '' &&
+      user.nameContactClient !== null
+
     );
   }
 
