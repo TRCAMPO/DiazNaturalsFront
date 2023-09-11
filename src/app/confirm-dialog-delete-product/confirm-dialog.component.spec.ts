@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { ConfirmDialogComponentDeleteProduct } from './confirm-dialog.component';
 
 describe('ConfirmDialogComponent', () => {
-  let component: ConfirmDialogComponent;
-  let fixture: ComponentFixture<ConfirmDialogComponent>;
+  let component: ConfirmDialogComponentDeleteProduct;
+  let fixture: ComponentFixture<ConfirmDialogComponentDeleteProduct>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmDialogComponent]
+      declarations: [ConfirmDialogComponentDeleteProduct]
     });
-    fixture = TestBed.createComponent(ConfirmDialogComponent);
+    fixture = TestBed.createComponent(ConfirmDialogComponentDeleteProduct);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
