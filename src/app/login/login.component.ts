@@ -5,6 +5,7 @@ import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {UserModel} from "./User.Model";
 import {ToastrService} from "ngx-toastr";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,10 @@ export class LoginComponent {
   error: string;
 
 
-  constructor(public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(public cookieService: CookieService, public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.username = "";
     this.password = "";
     this.error = "";
-
   }
 
   onSubmit() {
@@ -33,6 +33,9 @@ export class LoginComponent {
           (response: any) => {
             this.authService.token = response.token;
             this.authService.isLog = true;
+            const tokenString = JSON.stringify(response);
+            const token = JSON.parse(tokenString);
+            this.cookieService.set('token', token.token);
             this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
             this.route.navigate(['/homePage']);
             this.authService.formDataUser = new UserModel();

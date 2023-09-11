@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
-import {RouterOutlet} from "@angular/router";
 
 
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -14,7 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatMenuModule} from '@angular/material/menu';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgxPaginationModule} from "ngx-pagination";
 import { RecoverAccountComponent } from './recover-account/recover-account.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
@@ -33,8 +32,12 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { ConfirmDialogEditUserComponent } from './confirm-dialog-edit-user/confirm-dialog-edit-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ConfirmDialogDeleteUserComponent } from './confirm-dialog-delete-user/confirm-dialog-delete-user.component';
-
-//import {NgxPaginationModule} from "ngx-pagination";
+import { TokenInterceptor } from './tokenInterceptor';
+import { EditSupplierComponent } from './edit-supplier/edit-supplier.component';
+import { DeleteSupplierComponent } from './delete-supplier/delete-supplier.component';
+import { CreateSupplierComponent } from './create-supplier/create-supplier.component';
+import { ConfirmDialogEditSupplierComponent } from './confirm-dialog-edit-supplier/confirm-dialog-edit-supplier.component';
+import { ConfirmDialogDeleteSupplierComponent } from './confirm-dialog-delete-supplier/confirm-dialog-delete-supplier.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,12 @@ import { ConfirmDialogDeleteUserComponent } from './confirm-dialog-delete-user/c
     ConfirmDialogEditUserComponent,
     DeleteUserComponent,
     ConfirmDialogDeleteUserComponent,
+    EditSupplierComponent,
+    DeleteSupplierComponent,
+    CreateSupplierComponent,
+    ConfirmDialogEditSupplierComponent,
+    ConfirmDialogDeleteSupplierComponent,
+
 
   ],
   imports: [
@@ -76,7 +85,11 @@ import { ConfirmDialogDeleteUserComponent } from './confirm-dialog-delete-user/c
     MatDialogModule,
     // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true},
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

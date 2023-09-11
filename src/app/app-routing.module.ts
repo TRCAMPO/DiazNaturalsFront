@@ -12,6 +12,10 @@ import {CreateUserComponent} from "./create-user/create-user.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {DeleteUserComponent} from "./delete-user/delete-user.component";
 
+import {CreateSupplierComponent} from "./create-supplier/create-supplier.component";
+import {EditSupplierComponent} from "./edit-supplier/edit-supplier.component";
+import {DeleteSupplierComponent} from "./delete-supplier/delete-supplier.component";
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: "login", component: LoginComponent },
@@ -23,14 +27,17 @@ const routes: Routes = [
   { path: "deleteProduct", component: DeleteProductComponent, canActivate: [AuthGuard]},
   { path: "createUser", component: CreateUserComponent, canActivate: [AuthGuard]},
   { path: "editUser", component: EditUserComponent, canActivate: [AuthGuard]},
-  { path: "deleteUser", component: DeleteUserComponent, canActivate: [AuthGuard]}
+  { path: "deleteUser", component: DeleteUserComponent, canActivate: [AuthGuard]},
+  { path: "createSupplier", component: CreateSupplierComponent},
+  { path: "editSupplier", component: EditSupplierComponent},
+  { path: "deleteSupplier", component: DeleteSupplierComponent}
 
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes , { useHash: true })
   ],
   exports: [RouterModule]
 })

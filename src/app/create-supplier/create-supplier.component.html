@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <div class="header-container-create-supplier">
+    <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo_principal.jpg?alt=media&token=8347ba50-ac57-46c5-ad31-3cb0e25bd463" alt="Logo de la empresa">
+  </div>
+
+  <div class="menu-container-delete-supplier">
+    <div class="container-menu">
+      <ul>
+        <li><a [routerLink]="['/homePage/']" >Home</a></li>
+
+        <li><a href="#">Proveedores</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createSupplier/']">Crear Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/editSupplier/']">Editar Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteSupplier/']">Eliminar Proveedor</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Productos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createProduct/']">Crear Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/editProduct/']">Editar Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteProduct/']">Eliminar Producto</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Usuarios</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createUser/']">Crear Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/editUser/']" >Editar Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteUser/']" >Eliminar Usuario</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Pedidos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="#">Crear Pedido</a></li>
+            <li><a class="li-sub" href="#">Editar Pedido</a></li>
+            <li><a class="li-sub" href="#">Eliminar Pedido</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<body>
+  <div class="container-create-supplier">
+    <div class="title-container-create-supplier">
+      <h1 class="title-create-supplier">Crear Proveedor</h1>
+    </div>
+
+    <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm">
+
+      <div class="form-row1-create-supplier">
+        <div class="field-create-supplier">
+          <label class="look-create-supplier" for="nit-create-supplier">Nit&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input class="form-input-create-supplier" type="text" id="nit-create-supplier" #nitSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nitSupplier" name="nit-create-supplier" placeholder="Nit">
+        </div>
+
+        <div class="field-create-supplier">
+          <label class="look-create-supplier" for="name-create-supplier">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input class="form-input-create-supplier" type="text" id="name-create-supplier" #nameSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nameSupplier" name="name-create-supplier" placeholder="Nombre">
+        </div>
+
+        <div class="field-create-supplier">
+          <label class="look-create-supplier" for="phone-create-supplier">Teléfono&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input class="form-input-create-supplier" type="number" id="phone-create-supplier" (input)="limitDigits($event)"  #phoneSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-create-supplier" placeholder="Teléfono">
+        </div>
+      </div>
+
+      <div class="form-row2-create-supplier">
+        <div class="field-create-supplier">
+          <label class="look-create-supplier" for="address-create-supplier">Dirección&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input class="form-input-create-supplier" type="text" id="address-create-supplier" #addressSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.addressSupplier" name="address-create-supplier" placeholder="Dirección">
+        </div>
+
+        <div class="field-create-supplier">
+          <label class="look-create-supplier" for="email-create-supplier">Correo&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input class="form-input-create-supplier" type="text" id="email-create-supplier" #emailSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.emailSupplier" name="email-create-supplier" placeholder="Correo">
+        </div>
+      </div>
+
+      <div class="button-container-create-supplier">
+        <input type="submit" class="custom-button-create-supplier" (click)="onSubmit()" value="Crear">
+        <input type="submit" class="custom-button-cancel-create-supplier" (click)="resetForm()" value="Cancelar">
+      </div>
+    </form>
+  </div>
+</body>
+
+<footer>
+  <div class="footer-create-supplier">
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/logo%20facebook.jpg?alt=media&token=0df5a6a9-6198-42b0-a5b6-a7bba5fcc4b8" alt="Red Social 1">
+    </a>
+
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20instagram.jpg?alt=media&token=8ae466de-15a8-454d-a88d-8e7a9e4ee75f" alt="Red Social 2">
+    </a>
+
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20Whats.jpg?alt=media&token=de3f918c-fc60-463a-93d3-8a84c3bb0bf9" alt="Red Social 3">
+    </a>
+  </div>
+  <div class="footer-create-supplier">
+    <a href="">Información legal</a>
+    <a>|</a>
+    <a href="">Política de privacidad</a>
+  </div>
+</footer>
+</html>

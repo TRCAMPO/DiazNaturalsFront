@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {UserModel} from "./login/User.Model";
 import {PasswordModel} from "./new-password/Password.Model";
 import {emailModel} from "./recover-account/EmailModel";
@@ -19,6 +19,10 @@ import {UserModelClient} from "./create-user/userClient.model";
 import {UserSearchModel} from "./edit-user/userSearch.model";
 import {UserDeleteModelClient} from "./delete-user/userDelete.model";
 
+import {SupplierModel} from "./create-supplier/supplier.model";
+import {DeleteSupplierModel} from "./delete-supplier/DeleteSupplier.model";
+import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +36,7 @@ export class AuthService {
   formSendPassword: SendPasswordModel = new SendPasswordModel();
   formDataProduct: ProductModel = new ProductModel();
   formDataUrl: UrlModel = new UrlModel();
-  token: string = "";
+  token: string|null = localStorage.getItem('jwtToken');
   isLog: boolean = false;
   formDataSearchProduct: SearchProductModel = new SearchProductModel();
   formDataDelete: DeleteProductModel = new DeleteProductModel();
@@ -41,6 +45,11 @@ export class AuthService {
   formDataUserClient: UserModelClient = new UserModelClient();
   formDataSearchUser: UserSearchModel = new UserSearchModel();
   formDataUserClientDelete: UserDeleteModelClient = new UserDeleteModelClient();
+
+  formDataSupplier: SupplierModel = new SupplierModel();
+  formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
+  formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
+
   constructor(private http: HttpClient) {}
 
   login(user: UserModel) {
@@ -128,4 +137,21 @@ export class AuthService {
   patchUser(formDataDeleteUser: UserDeleteModelClient) {
     return this.http.patch(`${this.apiUrl}/Clients/EditState`,formDataDeleteUser);
   }
+
+  postSupplier(formDataSupplier: SupplierModel) {
+    return this.http.post(`${this.apiUrl}/Suppliers`, formDataSupplier);
+  }
+
+  getSupplierByName(search: string) {
+    return this.http.get<SupplierModel>(`${this.apiUrl}/Suppliers/search?search=${search}`);
+  }
+
+  putSupplier(formDataSupplier: SupplierModel) {
+    return this.http.put(`${this.apiUrl}/Clients/${formDataSupplier.nitSupplier}`, formDataSupplier);
+  }
+
+  patchSupplier(formDataDeleteSupplier: DeleteSupplierModel) {
+    return this.http.patch(`${this.apiUrl}/Suppliers/EditState`, formDataDeleteSupplier);
+  }
+
 }

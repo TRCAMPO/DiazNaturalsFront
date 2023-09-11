@@ -10,9 +10,9 @@
         <li><a [routerLink]="['/homePage/']" >Home</a></li>
         <li><a href="#">Proveedores</a><i class="fa fa-angle-down"></i>
           <ul>
-            <li><a class="li-sub" href="#">Crear Proveedor</a></li>
-            <li><a class="li-sub" href="#">Editar Proveedor</a></li>
-            <li><a class="li-sub" href="#">Eliminar Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/createSupplier/']">Crear Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/editSupplier/']">Editar Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteSupplier/']">Eliminar Proveedor</a></li>
           </ul>
         </li>
         <li><a href="#">Productos</a><i class="fa fa-angle-down"></i>

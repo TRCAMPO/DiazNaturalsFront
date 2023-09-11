@@ -69,7 +69,6 @@ export class EditProductComponent implements OnInit{
     if (this.imageFile == null) {
       this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name, "jpg");
     }
-    console.log(this.authService.formDataProduct);
     if(!this.checkProductFields(this.authService.formDataProduct)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }else {
@@ -87,15 +86,18 @@ export class EditProductComponent implements OnInit{
           this.resetForm();
           this.route.navigate(['/homePage']);
         },
-        () => {
-          this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+        (error) => {
+          if (error.status == 409){
+            this.toast.error(error.error, 'Modificación de Producto');
+          }else {
+            this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+          }
         }
       );
     }
   }
 
   checkProductFields(product: ProductModel): boolean {
-    // Verifica si alguno de los campos es nulo o tiene un valor de inicialización
     if (
       product === null ||
       product === undefined ||
@@ -108,9 +110,9 @@ export class EditProductComponent implements OnInit{
       product.description === '' ||
       this.imageFile === null
     ) {
-      return false; // Al menos uno de los campos es nulo o tiene un valor de inicialización
+      return false;
     }
-    return true; // Todos los campos tienen valores válidos
+    return true;
   }
 
   openConfirmationDialog(): void {
@@ -191,7 +193,6 @@ export class EditProductComponent implements OnInit{
   }
 
   isValidateSpacesSearchSuppliers() {
-    console.log(this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null);
     return this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null;
   }
 
