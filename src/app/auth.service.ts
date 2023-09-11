@@ -27,7 +27,7 @@ import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7167/api';
+  private apiUrl = 'https://www.DiazNaturls.somee.com/api';
 
   formDataUser: UserModel = new UserModel();
   formPassword: PasswordModel = new PasswordModel();
