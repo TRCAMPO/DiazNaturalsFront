@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserModel} from "./login/User.Model";
 import {PasswordModel} from "./new-password/Password.Model";
 import {emailModel} from "./recover-account/EmailModel";
@@ -32,7 +32,7 @@ export class AuthService {
   formSendPassword: SendPasswordModel = new SendPasswordModel();
   formDataProduct: ProductModel = new ProductModel();
   formDataUrl: UrlModel = new UrlModel();
-  token: string = "";
+  token: string|null = localStorage.getItem('jwtToken');
   isLog: boolean = false;
   formDataSearchProduct: SearchProductModel = new SearchProductModel();
   formDataDelete: DeleteProductModel = new DeleteProductModel();
