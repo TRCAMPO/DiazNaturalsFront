@@ -28,9 +28,9 @@ const routes: Routes = [
   { path: "createUser", component: CreateUserComponent, canActivate: [AuthGuard]},
   { path: "editUser", component: EditUserComponent, canActivate: [AuthGuard]},
   { path: "deleteUser", component: DeleteUserComponent, canActivate: [AuthGuard]},
-  { path: "createSupplier", component: CreateSupplierComponent},
-  { path: "editSupplier", component: EditSupplierComponent},
-  { path: "deleteSupplier", component: DeleteSupplierComponent}
+  { path: "createSupplier", component: CreateSupplierComponent, canActivate: [AuthGuard]},
+  { path: "editSupplier", component: EditSupplierComponent, canActivate: [AuthGuard]},
+  { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]}
 
 ];
 
