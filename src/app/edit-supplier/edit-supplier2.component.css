@@ -1,0 +1,142 @@
+
+.custom-button-cancel-edit-supplier {
+  font-family: serif; /* Fuente serif */
+  font-size: 20px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto negro */
+  background-color: #ff6961;
+  border: none; /* Quitar borde */
+  padding: 10px 20px; /* Espacio interno del botón */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5px; /* Agregar bordes redondeados */
+}
+
+.custom-button-cancel-edit-supplier:hover {
+  background-color: #f64339; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.button-container-edit-supplier {
+  display: flex;
+  justify-content: right; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+}
+
+.nav.container.container-edit-supplier {
+  text-align: center;
+  padding: 0.5% 0; /* Añadir un espacio uniforme alrededor del contenedor */
+  width: 100%;
+  white-space: nowrap; /* Evita el ajuste de línea de los elementos */
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  display:inline-block;
+  margin:60px auto 45px;
+  background-color:#aaa;
+  box-shadow:0 1px 1px #ccc;
+  border-radius:2px;
+}
+
+.button-nav {
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+  padding: .5% 2%; /* Añadir espacio alrededor del texto */
+  border: 2px solid transparent;
+  border-radius: 5%;
+  margin: 1% 1%; /* Añadir un margen entre los botones */
+  font-family: auto;
+}
+
+.button-nav {
+  background-color: #6FA535;
+}
+
+footer {
+  background-color: #3E7C95;
+  text-align: center;
+  padding: 12px 0;
+  font-family: sans-serif;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 20px;
+  font-family: auto;
+}
+
+.field-edit-supplier {
+  display: inline-block;
+  margin-bottom: 1.5%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.red-social-image {
+  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
+  height: auto; /* Mantendrá la relación de aspecto original */
+  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
+}
+
+.search-bar-edit-supplier {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.2%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.search-input-edit-supplier {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filter-select {
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button-edit-supplier {
+  padding: 5px 10px;
+  background-color: #3e7c95;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0%;
+}
+
+.search-button-edit-supplier:hover {
+  background-color: #1e4b5a;
+}
+
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .title,
+  .search-input,
+  .filter-select,
+  .search-button {
+    width: 100%;
+    margin-bottom: 10px; /* Espacio entre elementos */
+  }
+}
+
+.footer-edit-supplier {
+  margin-left: 0%;
+  display: flow-root;
+  padding: 0px 0; /* Espacio arriba y abajo */
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}

@@ -7,7 +7,7 @@ import {SupplierModel} from "./supplier.model";
 @Component({
   selector: 'app-create-supplier',
   templateUrl: './create-supplier.component.html',
-  styleUrls: ['./create-supplier.component.css']
+  styleUrls: ['./create-supplier.component.css', './create-supplier2.component.css']
 })
 export class CreateSupplierComponent {
 

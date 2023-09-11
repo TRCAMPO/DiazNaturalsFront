@@ -13,7 +13,7 @@ import {switchMap} from "rxjs";
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.css']
+  styleUrls: ['./create-product.component.css', './create-product2.component.css']
 })
 export class CreateProductComponent implements OnInit{
   imageFile: File | null = null;

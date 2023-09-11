@@ -13,7 +13,7 @@ import {UserModelClient} from "../create-user/userClient.model";
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  styleUrls: ['./edit-user.component.css', './edit-user2.component.css']
 })
 export class EditUserComponent implements OnInit{
   // @ts-ignore

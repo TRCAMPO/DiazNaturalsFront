@@ -3,7 +3,6 @@ import { AuthService } from '../auth.service';
 import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
-import {DomSanitizer} from '@angular/platform-browser';
 import {StateModel} from "./state.model";
 import {CytiModel} from "./city.model";
 import {UserModelClient} from "./userClient.model";
@@ -11,7 +10,7 @@ import {UserModelClient} from "./userClient.model";
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.css']
+  styleUrls: ['./create-user.component.css', './create-user2.component.css']
 })
 export class CreateUserComponent implements OnInit{
   // @ts-ignore

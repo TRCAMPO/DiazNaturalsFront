@@ -13,7 +13,7 @@ import {ConfirmDialogDeleteUserComponent} from "../confirm-dialog-delete-user/co
 @Component({
   selector: 'app-delete-user',
   templateUrl: './delete-user.component.html',
-  styleUrls: ['./delete-user.component.css']
+  styleUrls: ['./delete-user.component.css', './delete-user2.component.css']
 })
 export class DeleteUserComponent implements OnInit{
   // @ts-ignore
