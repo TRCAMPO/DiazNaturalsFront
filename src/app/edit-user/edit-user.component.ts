@@ -16,10 +16,6 @@ import {UserModelClient} from "../create-user/userClient.model";
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   // @ts-ignore
   @ViewChild('fileInput') fileInputRef: ElementRef;
   states: StateModel[] = [];
@@ -34,9 +30,6 @@ export class EditUserComponent implements OnInit{
     });
   }
   constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
   }
 
   showCitys(id: number | undefined) {
@@ -56,7 +49,16 @@ export class EditUserComponent implements OnInit{
         this. resetForm();
       },
       error => {
-        this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
+        console.log(error);
+        if(error.error == "El email de cliente ya existe"){
+          this.toast.error("Correo ya registrado, ingrese uno diferente", "Correo ya registrado");
+        }else if (error.error == "El Nit de cliente ya existe"){
+          this.toast.error("Nit ya registrado, ingrese uno diferente", "Nit ya registrado");
+        }else if (error.error == "El nombre de cliente ya existe"){
+          this.toast.error("Nombre ya registrado, ingrese uno diferente", "Nombre ya registrado");
+        }else {
+          this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
+        }
       }
     );
   }

@@ -2,7 +2,6 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
-import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CategoryModel} from "./category.model";
@@ -10,7 +9,6 @@ import {PresentationsModel} from "./presentation.model";
 import {SuppliersModel} from "./suppliers.model";
 import {ProductModel} from "./product.model";
 import {switchMap} from "rxjs";
-import {UrlModel} from "./url.model";
 
 @Component({
   selector: 'app-create-product',
@@ -59,7 +57,11 @@ export class CreateProductComponent implements OnInit{
           this.resetForm();
         },
         (error) => {
-          this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+          if(error.status == 409){
+            this.toast.error(error.error, 'Creacion de Producto');
+          }else {
+            this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
+          }
         }
       );
     }

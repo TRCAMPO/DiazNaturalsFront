@@ -47,7 +47,9 @@ export class CreateUserComponent implements OnInit{
           this.changePage();
         },
         error => {
-          this.toast.error("Usuario no creado", "Usuario no creado");
+          if(error.status == 409){
+            this.toast.error(error.error, "Usuario no creado");
+          }
         }
       );
     }else {

@@ -81,7 +81,7 @@ export class AuthService {
 
   uploadImg(imageFile: File|null) {
     const formData = new FormData();
-    const newFileName = this.formDataProduct.name + ".jpg";
+    const newFileName = this.formDataProduct.name+"_"+this.formDataProduct.supplier +"_"+ this.formDataProduct.presentation+ ".jpg";
     // @ts-ignore
     formData.append('file', imageFile, newFileName);
     return this.http.post<string>(`${this.apiUrl}/Blob/load`, formData);
