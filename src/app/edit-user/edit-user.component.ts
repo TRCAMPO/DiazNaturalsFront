@@ -49,13 +49,8 @@ export class EditUserComponent implements OnInit{
         this. resetForm();
       },
       error => {
-        console.log(error);
-        if(error.error == "El email de cliente ya existe"){
-          this.toast.error("Correo ya registrado, ingrese uno diferente", "Correo ya registrado");
-        }else if (error.error == "El Nit de cliente ya existe"){
-          this.toast.error("Nit ya registrado, ingrese uno diferente", "Nit ya registrado");
-        }else if (error.error == "El nombre de cliente ya existe"){
-          this.toast.error("Nombre ya registrado, ingrese uno diferente", "Nombre ya registrado");
+        if (error.status == 409){
+          this.toast.error(error.error, 'Modificación de Producto');
         }else {
           this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
         }
