@@ -11,7 +11,7 @@ import {ConfirmDialogEditSupplierComponent} from "../confirm-dialog-edit-supplie
 @Component({
   selector: 'app-edit-supplier',
   templateUrl: './edit-supplier.component.html',
-  styleUrls: ['./edit-supplier.component.css']
+  styleUrls: ['./edit-supplier.component.css', './edit-supplier2.component.css']
 })
 export class EditSupplierComponent {
 

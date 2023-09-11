@@ -11,7 +11,7 @@ import {ConfirmDialogDeleteSupplierComponent} from "../confirm-dialog-delete-sup
 @Component({
   selector: 'app-delete-supplier',
   templateUrl: './delete-supplier.component.html',
-  styleUrls: ['./delete-supplier.component.css']
+  styleUrls: ['./delete-supplier.component.css', './delete-supplier2.component.css']
 })
 export class DeleteSupplierComponent {
 

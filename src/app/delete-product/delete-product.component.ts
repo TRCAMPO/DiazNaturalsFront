@@ -15,7 +15,7 @@ import {SearchProductModel} from "../confirm-dialog-delete-product/searchProduct
 @Component({
   selector: 'app-delete-product',
   templateUrl: './delete-product.component.html',
-  styleUrls: ['./delete-product.component.css']
+  styleUrls: ['./delete-product.component.css','./delete-product2.component.css']
 })
 export class DeleteProductComponent implements OnInit{
   imageFile: File | null = null;
