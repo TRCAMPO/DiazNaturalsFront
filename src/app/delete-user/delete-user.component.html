@@ -98,7 +98,7 @@
       </div>
       <div class="campo">
         <label class="lock" for="phone">Celular</label>
-        <input readonly class="form-input" type="number" id="phone" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.phoneClient" name="phone" placeholder="Celular">
+        <input readonly appRestrictDash class="form-input" type="number" id="phone" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.phoneClient" name="phone" placeholder="Celular">
       </div>
     </div>
     <div class="button-container">

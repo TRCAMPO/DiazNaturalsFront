@@ -24,7 +24,9 @@ export class EditSupplierComponent {
     this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
     if(!this.checkSupplierFields(this.authService.formDataSupplier)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
-    } else if(!this.isValidPhone(this.authService.formDataSupplier.phoneSupplier)){
+    } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+      this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
+    }else if(!this.isValidPhone(this.authService.formDataSupplier.phoneSupplier)){
       this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
     } else if(!this.isValidEmail(this.authService.formDataSupplier.emailSupplier)){
       this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
@@ -45,6 +47,10 @@ export class EditSupplierComponent {
     }
   }
 
+  isValidNit(nit: string): boolean {
+    return nit.length >= 5;
+  }
+
   isValidEmail(email: string): boolean {
     // Expresión regular para validar el formato de correo electrónico
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -57,7 +63,7 @@ export class EditSupplierComponent {
     const inputValue = event.target.value;
     if (inputValue.length > maxLength) {
       event.target.value = inputValue.slice(0, maxLength);
-      this.authService.formDataUserClient.phoneClient = event.target.value;
+      this.authService.formDataSupplier.phoneSupplier = event.target.value;
     }
   }
 

@@ -54,11 +54,11 @@
           </div>
           <div class="campo">
             <label class="lock" for="cantidad">Cantidad</label>
-            <input class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
+            <input class="form-input" appRestrictDash type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
           </div>
           <div class="campo">
             <label class="lock" for="precio">Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="form-input" type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
+            <input class="form-input" appRestrictDash type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
           </div>
         </div>
 

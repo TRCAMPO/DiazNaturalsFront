@@ -21,10 +21,12 @@ export class CreateSupplierComponent {
     console.log(this.authService.formDataSupplier.phoneSupplier);
     if(!this.checkSupplierFields(this.authService.formDataSupplier)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
-    } else if(!this.isValidPhone(this.authService.formDataSupplier.phoneSupplier)){
-      this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
+    } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+      this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
+    }else if(!this.isValidPhone(this.authService.formDataSupplier.phoneSupplier)){
+      this.toast.info("Por favor ingrese un número celular válido","Formato Incorrecto");
     } else if(!this.isValidEmail(this.authService.formDataSupplier.emailSupplier)){
-      this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
+      this.toast.info("Por favor ingrese un correo válido","Formato Incorrecto Correo");
     } else{
       this.authService.postSupplier(this.authService.formDataSupplier).subscribe(
         (response) => {
@@ -49,17 +51,21 @@ export class CreateSupplierComponent {
     return emailRegex.test(email);
   }
 
-  limitDigits(event: any) {
+  limitDigitsPhone(event: any) {
     const maxLength = 10;
     const inputValue = event.target.value;
     if (inputValue.length > maxLength) {
       event.target.value = inputValue.slice(0, maxLength);
-      this.authService.formDataUserClient.phoneClient = event.target.value;
+      this.authService.formDataSupplier.phoneSupplier = event.target.value;
     }
   }
 
   isValidPhone(phone: string): boolean {
     return phone.length === 10;
+  }
+
+  isValidNit(nit: string): boolean {
+    return nit.length >= 5;
   }
 
   resetForm() {

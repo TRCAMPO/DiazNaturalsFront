@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, computed, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dia
 import {StateModel} from "../create-user/state.model";
 import {CytiModel} from "../create-user/city.model";
 import {UserModelClient} from "../create-user/userClient.model";
+import {SupplierSearchModel} from "../edit-supplier/supplierSearch.model";
 
 @Component({
   selector: 'app-edit-user',
@@ -30,6 +31,10 @@ export class EditUserComponent implements OnInit{
     });
   }
   constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+    this.authService.formDataUserClient = new UserModelClient();
+    this.authService.formDataStates = new StateModel();
+    this.authService.formDataCitys = new CytiModel();
+    this.authService.formDataSearchUser = new SupplierSearchModel;
   }
 
   showCitys(id: number | undefined) {
@@ -39,16 +44,17 @@ export class EditUserComponent implements OnInit{
   }
 
   onSubmit() {
+    this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
     if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
       if (!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
         this.toast.info("Por favor coloque un correo válido", "Formato Incorrecto Correo");
+      } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+        this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
       } else if (!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
         this.toast.info("Por favor coloque un número celular válido", "Formato Incorrecto");
       } else {
         this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
         this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
-        this.authService.formDataUserClient.idClient = 0;
-        this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
         this.authService.putUser(this.authService.formDataUserClient).subscribe(
           response => {
             this.toast.success("Usuario modificado correctamente", "Usuario Modificado");
@@ -56,14 +62,20 @@ export class EditUserComponent implements OnInit{
           },
           error => {
             if (error.status == 409) {
-              this.toast.error(error.error, 'Modificación de Producto');
+              this.toast.error(error.error, 'Modificación de Usuario');
             } else {
               this.toast.error("Surgio un problema en la modificación", "Usuario no Modificado");
             }
           }
         );
       }
+    }else{
+      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }
+  }
+
+  isValidNit(nit: string): boolean {
+    return nit.length >= 5;
   }
 
   isValidPhone(phone: string): boolean {
@@ -77,7 +89,6 @@ export class EditUserComponent implements OnInit{
     return emailRegex.test(email);
   }
   isUserModelClientValid(user: UserModelClient): boolean {
-    console.log(user);
     return (
       user !== null &&
       user !== undefined &&

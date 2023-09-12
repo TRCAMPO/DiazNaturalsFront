@@ -28,6 +28,9 @@ export class CreateUserComponent implements OnInit{
     });
   }
   constructor(public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
+    this.authService.formDataUserClient = new UserModelClient();
+    this.authService.formDataStates = new StateModel();
+    this.authService.formDataCitys = new CytiModel();
   }
 
   onSubmit() {
@@ -37,6 +40,8 @@ export class CreateUserComponent implements OnInit{
     if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
       if(!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
         this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
+      } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+        this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
       } else if(!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
         this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
       }else {
@@ -55,6 +60,10 @@ export class CreateUserComponent implements OnInit{
     }else {
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }
+  }
+
+  isValidNit(nit: string): boolean {
+    return nit.length >= 5;
   }
 
   isValidPhone(phone: string): boolean {
