@@ -147,7 +147,7 @@ export class AuthService {
   }
 
   putSupplier(formDataSupplier: SupplierModel) {
-    return this.http.put(`${this.apiUrl}/Clients/${formDataSupplier.nitSupplier}`, formDataSupplier);
+    return this.http.put(`${this.apiUrl}/Suppliers/${formDataSupplier.nitSupplier}`, formDataSupplier);
   }
 
   patchSupplier(formDataDeleteSupplier: DeleteSupplierModel) {
