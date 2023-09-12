@@ -26,7 +26,7 @@ export class EditSupplierComponent {
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     } else if(this.isValidPhone(this.authService.formDataSupplier.phoneSupplier)){
       this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
-    } else if(this.isValidEmail(this.authService.formDataSupplier.emailSupplier)){
+    } else if(this.isValidEmail(!this.authService.formDataSupplier.emailSupplier)){
       this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
     } else {
       this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier + "";
