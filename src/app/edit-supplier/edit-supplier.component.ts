@@ -29,7 +29,6 @@ export class EditSupplierComponent {
     } else if(!this.isValidEmail(this.authService.formDataSupplier.emailSupplier)){
       this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
     } else {
-      this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier + "";
       this.authService.putSupplier(this.authService.formDataSupplier).subscribe(
         () => {
           this.toast.success("Proveedor modificado correctamente", "Proveedor Modificado");
