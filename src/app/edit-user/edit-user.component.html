@@ -58,47 +58,47 @@
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataUserClient.nameClient" name="nombre" placeholder="Nombre">
+        <input [disabled]="campoDeshabilitado" class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataUserClient.nameClient" name="nombre" placeholder="Nombre">
       </div>
       <div class="campo">
         <label class="lock" for="nit">Nit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input class="form-input" type="text" id="nit" #price="ngModel" [(ngModel)]="authService.formDataUserClient.nitClient" name="nit" placeholder="Nit">
+        <input [disabled]="campoDeshabilitado" class="form-input" type="text" id="nit" #price="ngModel" [(ngModel)]="authService.formDataUserClient.nitClient" name="nit" placeholder="Nit">
       </div>
       <div class="campo">
         <label class="lock" for="email">Correo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input class="form-input" type="text" id="email" #price="ngModel" [(ngModel)]="authService.formDataUserClient.emailClient" name="email" placeholder="Email">
+        <input [disabled]="campoDeshabilitado" class="form-input" type="text" id="email" #price="ngModel" [(ngModel)]="authService.formDataUserClient.emailClient" name="email" placeholder="Email">
       </div>
     </div>
 
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="state">Departamento</label>
-        <select class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
+        <select [disabled]="campoDeshabilitado" class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
           <option value="0" disabled selected>Seleccione una opción</option>
           <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
         </select>
       </div>
       <div class="campo">
         <label class="lock" for="city">Ciudad</label>
-        <select class="form-input2" id="city" [(ngModel)]="authService.formDataCitys.name" name="city">
+        <select [disabled]="campoDeshabilitado" class="form-input2" id="city" [(ngModel)]="authService.formDataCitys.name" name="city">
           <option value="" disabled selected>Seleccione una opción</option>
           <option *ngFor="let city of citys" [value]="city.name">{{ city.name }}</option>
         </select>
       </div>
       <div class="campo">
         <label class="lock" for="address">Dirección&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input class="form-input" type="text" id="address" #name="ngModel" [(ngModel)]="authService.formDataUserClient.addressClient" name="address" placeholder="Dirección">
+        <input [disabled]="campoDeshabilitado" class="form-input" type="text" id="address" #name="ngModel" [(ngModel)]="authService.formDataUserClient.addressClient" name="address" placeholder="Dirección">
       </div>
     </div>
 
     <div class="form-row2">
       <div class="campo">
         <label class="lock" for="contact">Contacto</label>
-        <input class="form-input" type="text" id="contact" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.nameContactClient" name="contact" placeholder="Contacto cliente">
+        <input [disabled]="campoDeshabilitado" class="form-input" type="text" id="contact" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.nameContactClient" name="contact" placeholder="Contacto cliente">
       </div>
       <div class="campo">
         <label class="lock" for="phone">Celular</label>
-        <input class="form-input" appRestrictDash type="number" id="phone" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.phoneClient" name="phone" placeholder="Celular">
+        <input [disabled]="campoDeshabilitado" class="form-input" appRestrictDash type="number" id="phone" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.phoneClient" name="phone" placeholder="Celular">
       </div>
     </div>
     <div class="button-container">

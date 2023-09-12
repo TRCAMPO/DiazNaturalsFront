@@ -22,6 +22,7 @@ export class EditUserComponent implements OnInit{
   states: StateModel[] = [];
   citys: CytiModel[] = [];
   citysOrigin: CytiModel[] = [];
+  campoDeshabilitado: boolean = true;
   ngOnInit() {
     this.authService.getStates().subscribe(data => {
       this.states = data;
@@ -72,6 +73,10 @@ export class EditUserComponent implements OnInit{
     }else{
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }
+  }
+
+  activateCamp() {
+    this.campoDeshabilitado = false;
   }
 
   isValidNit(nit: string): boolean {
@@ -149,7 +154,8 @@ export class EditUserComponent implements OnInit{
 
           this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
           this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
-          this.toast.success("Se encontro el Usuario", "Usuario Encontrado")
+          this.toast.success("Se encontro el Usuario", "Usuario Encontrado");
+          this.activateCamp();
         },
         (error) => {
           this.toast.error("No se pudo encontrar el Usuario", "Error en la Búsqueda");
