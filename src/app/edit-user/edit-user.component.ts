@@ -22,7 +22,7 @@ export class EditUserComponent implements OnInit{
   states: StateModel[] = [];
   citys: CytiModel[] = [];
   citysOrigin: CytiModel[] = [];
-  campoDeshabilitado: boolean = true;
+  disabledInput: boolean = true;
   ngOnInit() {
     this.authService.getStates().subscribe(data => {
       this.states = data;
@@ -45,11 +45,13 @@ export class EditUserComponent implements OnInit{
   }
 
   onSubmit() {
-    this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
-    if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
+    if(this.checkSupplierPhone(this.authService.formDataUserClient)){
+      this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
+    } else if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
+      this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
       if (!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
         this.toast.info("Por favor coloque un correo válido", "Formato Incorrecto Correo");
-      } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+      } else if(this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
         this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
       } else if (!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
         this.toast.info("Por favor coloque un número celular válido", "Formato Incorrecto");
@@ -76,7 +78,7 @@ export class EditUserComponent implements OnInit{
   }
 
   activateCamp() {
-    this.campoDeshabilitado = false;
+    this.disabledInput = false;
   }
 
   isValidNit(nit: string): boolean {
@@ -84,6 +86,7 @@ export class EditUserComponent implements OnInit{
   }
 
   isValidPhone(phone: string): boolean {
+    if(/[^0-9]/.test(phone))return false;
     return phone.length === 10;
   }
 
@@ -165,5 +168,28 @@ export class EditUserComponent implements OnInit{
       this.toast.info("Por favor escriba el nombre del Usuario", "Ingrese el Usuario");
     }
   }
+
+  checkSupplierPhone(user: UserModelClient) {
+    return (
+      user !== null &&
+      user !== undefined &&
+      user.nitClient !== '' &&
+      user.nitClient !== null &&
+      user.nameClient !== '' &&
+      user.nameClient !== null &&
+      user.emailClient !== '' &&
+      user.emailClient !== null &&
+      user.addressClient !== '' &&
+      user.addressClient !== null &&
+      user.phoneClient === null &&
+      user.cityClient !== '' &&
+      user.cityClient !== null &&
+      user.stateClient !== '' &&
+      user.stateClient !== null &&
+      user.nameContactClient !== '' &&
+      user.nameContactClient !== null
+    );
+  }
+
 }
 

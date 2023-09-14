@@ -34,13 +34,15 @@ export class CreateUserComponent implements OnInit{
   }
 
   onSubmit() {
-    this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
     this.authService.formDataUserClient.stateClient = this.states.find(state => state.id == this.authService.formDataStates.id)?.name;
     this.authService.formDataUserClient.cityClient = this.authService.formDataCitys.name;
-    if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
+    if(this.checkSupplierPhone(this.authService.formDataUserClient)){
+      this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
+    } else if( this.isUserModelClientValid(this.authService.formDataUserClient)) {
+      this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
       if(!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
         this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
-      } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+      } else if(this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
         this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
       } else if(!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
         this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
@@ -67,6 +69,7 @@ export class CreateUserComponent implements OnInit{
   }
 
   isValidPhone(phone: string): boolean {
+    if(/[^0-9]/.test(phone))return false;
     return phone.length === 10;
   }
 
@@ -125,4 +128,26 @@ export class CreateUserComponent implements OnInit{
     }
   }
 
+  checkSupplierPhone(user: UserModelClient) {
+    return (
+      user !== null &&
+      user !== undefined &&
+      user.nitClient !== '' &&
+      user.nitClient !== null &&
+      user.nameClient !== '' &&
+      user.nameClient !== null &&
+      user.emailClient !== '' &&
+      user.emailClient !== null &&
+      user.addressClient !== '' &&
+      user.addressClient !== null &&
+      user.phoneClient !== '' &&
+      user.phoneClient === null &&
+      user.cityClient !== '' &&
+      user.cityClient !== null &&
+      user.stateClient !== '' &&
+      user.stateClient !== null &&
+      user.nameContactClient !== '' &&
+      user.nameContactClient !== null
+    );
+  }
 }

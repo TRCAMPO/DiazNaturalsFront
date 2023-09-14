@@ -6,6 +6,7 @@ import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {SupplierModel} from "../create-supplier/supplier.model";
 import {ConfirmDialogEditSupplierComponent} from "../confirm-dialog-edit-supplier/confirm-dialog-edit-supplier.component";
+import {SupplierSearchModel} from "./supplierSearch.model";
 
 
 @Component({
@@ -15,14 +16,20 @@ import {ConfirmDialogEditSupplierComponent} from "../confirm-dialog-edit-supplie
 })
 export class EditSupplierComponent {
 
+  disabledInput: boolean = true;
   constructor(public dialog: MatDialog, public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataSupplier = new SupplierModel();
-    this.authService.formDataSearchSupplier.search = "";
+    this.authService.formDataSearchSupplier = new SupplierSearchModel();
+  }
+
+  activateCamp() {
+    this.disabledInput = false;
   }
 
   onSubmit() {
-    this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
-    if(!this.checkSupplierFields(this.authService.formDataSupplier)){
+    if(this.checkSupplierPhone(this.authService.formDataSupplier)){
+      this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
+    } else if(!this.checkSupplierFields(this.authService.formDataSupplier)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
       this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
@@ -31,6 +38,7 @@ export class EditSupplierComponent {
     } else if(!this.isValidEmail(this.authService.formDataSupplier.emailSupplier)){
       this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
     } else {
+      this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
       this.authService.putSupplier(this.authService.formDataSupplier).subscribe(
         () => {
           this.toast.success("Proveedor modificado correctamente", "Proveedor Modificado");
@@ -67,7 +75,9 @@ export class EditSupplierComponent {
     }
   }
 
-  isValidPhone(phone: string): boolean {
+  isValidPhone(phone: string|number): boolean {
+    phone = phone+"";
+    if(/[^0-9]/.test(phone))return false;
     return phone.length === 10;
   }
 
@@ -78,6 +88,22 @@ export class EditSupplierComponent {
       formDataProduct.emailSupplier !== null &&
       formDataProduct.phoneSupplier !== "" &&
       formDataProduct.phoneSupplier !== null &&
+      formDataProduct.nameSupplier !== "" &&
+      formDataProduct.nameSupplier !== null &&
+      formDataProduct.nitSupplier !== "" &&
+      formDataProduct.nitSupplier !== null ){
+      return true;
+    }
+    return false;
+  }
+
+  checkSupplierPhone(formDataProduct: SupplierModel) {
+    if(formDataProduct.addressSupplier !== "" &&
+      formDataProduct.addressSupplier !== null &&
+      formDataProduct.emailSupplier !== "" &&
+      formDataProduct.emailSupplier !== null &&
+      formDataProduct.phoneSupplier !== "" &&
+      formDataProduct.phoneSupplier == null &&
       formDataProduct.nameSupplier !== "" &&
       formDataProduct.nameSupplier !== null &&
       formDataProduct.nitSupplier !== "" &&
@@ -115,6 +141,7 @@ export class EditSupplierComponent {
         (data) => {
           this.authService.formDataSupplier = data;
           // @ts-ignore
+          this.activateCamp();
           this.toast.success("Se encontró el proveedor", "Proveedor Encontrado")
         },
         () => {

@@ -65,29 +65,29 @@
       <div class="form-row1-edit-supplier">
         <div class="field-edit-supplier">
           <label class="look-edit-supplier" for="nit-edit-supplier">Nit&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input class="form-input-edit-supplier" type="text" id="nit-edit-supplier" #nitSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nitSupplier" name="nit-edit-supplier" placeholder="Nit">
+          <input [disabled]="disabledInput" class="form-input-edit-supplier" type="text" id="nit-edit-supplier" #nitSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nitSupplier" name="nit-edit-supplier" placeholder="Nit">
         </div>
 
         <div class="field-edit-supplier">
           <label class="look-edit-supplier" for="name-edit-supplier">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input class="form-input-edit-supplier" type="text" id="name-edit-supplier" #nameSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nameSupplier" name="name-edit-supplier" placeholder="Nombre">
+          <input [disabled]="disabledInput" class="form-input-edit-supplier" type="text" id="name-edit-supplier" #nameSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nameSupplier" name="name-edit-supplier" placeholder="Nombre">
         </div>
 
         <div class="field-edit-supplier">
           <label class="look-edit-supplier" for="phone-edit-supplier">Teléfono&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input appRestrictDash class="form-input-edit-supplier" type="number" id="phone-edit-supplier" (input)="limitDigits($event)" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-edit-supplier" placeholder="Teléfono">
+          <input [disabled]="disabledInput" appRestrictDash class="form-input-edit-supplier" type="number" id="phone-edit-supplier" (input)="limitDigits($event)" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-edit-supplier" placeholder="Teléfono">
         </div>
       </div>
 
       <div class="form-row2-edit-supplier">
         <div class="field-edit-supplier">
           <label class="look-edit-supplier" for="address-edit-supplier">Dirección&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input class="form-input-edit-supplier" type="text" id="address-edit-supplier" #addressSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.addressSupplier" name="address-edit-supplier" placeholder="Dirección">
+          <input [disabled]="disabledInput" class="form-input-edit-supplier" type="text" id="address-edit-supplier" #addressSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.addressSupplier" name="address-edit-supplier" placeholder="Dirección">
         </div>
 
         <div class="field-edit-supplier">
           <label class="look-edit-supplier" for="email-edit-supplier">Correo&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input class="form-input-edit-supplier" type="text" id="email-edit-supplier" #emailSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.emailSupplier" name="email-edit-supplier" placeholder="Correo">
+          <input [disabled]="disabledInput" class="form-input-edit-supplier" type="text" id="email-edit-supplier" #emailSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.emailSupplier" name="email-edit-supplier" placeholder="Correo">
         </div>
       </div>
 

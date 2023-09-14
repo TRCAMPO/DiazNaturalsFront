@@ -74,15 +74,15 @@
         <div class="form-row">
           <div class="campo select12">
             <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
+            <input [disabled]="disabledInput" class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
           </div>
           <div class="campo">
             <label class="lock" for="cantidad">Cantidad</label>
-            <input class="form-input" appRestrictDash type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
+            <input [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
           </div>
           <div class="campo">
             <label class="lock" for="precio">Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="form-input" appRestrictDash type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
+            <input [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
           </div>
         </div>
 
@@ -90,21 +90,21 @@
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+            <select [disabled]="disabledInput" class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
             </select>
           </div>
           <div class="campo">
             <label class="lock" for="presentacion">Presentación</label>
-            <select class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+            <select [disabled]="disabledInput" class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
             </select>
           </div>
           <div class="campo">
             <label class="lock" for="categoria">Categoria</label>
-            <select class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+            <select [disabled]="disabledInput" class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
             </select>
@@ -113,7 +113,7 @@
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="descripcion">Descripción</label>
-            <textarea class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
+            <textarea [disabled]="disabledInput" class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
           </div>
         </div>
         <div class="form-row">
@@ -130,9 +130,9 @@
                 </div>
               </div>
               <div class="button-container-image">
-                <button class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
-                <input type="file" #fileInput style="display:none" (change)="handleFileInput($event)">
-                <button class="custom-buttonC-selec" [disabled]="!imageUrl" (click)="clearPreview()">Eliminar imagen</button>
+                <button [disabled]="disabledInput" class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
+                <input [disabled]="disabledInput" type="file" #fileInput style="display:none" (change)="handleFileInput($event)">
+                <button [disabled]="disabledInput" class="custom-buttonC-selec" [disabled]="!imageUrl" (click)="clearPreview()">Eliminar imagen</button>
               </div>
             </div>
           </div>

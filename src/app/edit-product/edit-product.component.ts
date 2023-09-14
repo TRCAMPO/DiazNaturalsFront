@@ -12,6 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
 import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
+import {compareNumbers} from "@angular/compiler-cli/src/version_helpers";
 
 @Component({
   selector: 'app-edit-product',
@@ -28,8 +29,11 @@ export class EditProductComponent implements OnInit{
   suppliers: SuppliersModel[] = [];
   // @ts-ignore
   private blob: Blob;
+  disabledInput: boolean = true;
 
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+    this.authService.formDataProduct = new ProductModel();
+    this.authService.formDataSearchProduct = new SearchProductModel();
   }
 
   ngOnInit() {
@@ -42,6 +46,10 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
+  }
+
+  activateCamp() {
+    this.disabledInput = false;
   }
 
   formatImageName(name:string){
@@ -69,31 +77,41 @@ export class EditProductComponent implements OnInit{
     if (this.imageFile == null) {
       this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name, "jpg");
     }
-    if(!this.checkProductFields(this.authService.formDataProduct)){
+    if(this.isValidAmountPrice(this.authService.formDataProduct)){
+      this.toast.info("Por favor ingrese una cantidad y precio válidos", "Formato Incorrecto");
+    } else if(this.isPositiveNumberValid(this.authService.formDataProduct)) {
+      this.toast.info("Por favor ingrese una cantidad válida", "Cantidad Incorrecta");
+    }else if (this.isPositiveNumberValid2(this.authService.formDataProduct)) {
+      this.toast.info("Por favor ingrese un precio válido", "Precio Incorrecto");
+    }else if(!this.checkProductFields(this.authService.formDataProduct)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
+    }else if(!this.isPositiveNumber(this.authService.formDataProduct.amount)) {
+      this.toast.info("Por favor ingrese una cantidad válida", "Cantidad Incorrecta");
+    }else if(!this.isPositiveNumber(this.authService.formDataProduct.price)){
+          this.toast.info("Por favor ingrese un precio válido", "Precio Incorrecto");
     }else {
-      this.authService.uploadImg(this.imageFile).pipe(
-        switchMap((res: any) => {
-          this.toast.success('Imagen subida con exito', 'Productos');
-          this.authService.formDataUrl = res;
-          this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
-          return this.authService.putProduct(this.authService.formDataProduct);
-        })
-      ).subscribe(
-        () => {
-          this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
-          this.clearPreview();
-          this.resetForm();
-          this.route.navigate(['/homePage']);
-        },
-        (error) => {
-          if (error.status == 409){
-            this.toast.error(error.error, 'Modificación de Producto');
-          }else {
-            this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+        this.authService.uploadImg(this.imageFile).pipe(
+          switchMap((res: any) => {
+            this.toast.success('Imagen subida con exito', 'Productos');
+            this.authService.formDataUrl = res;
+            this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
+            return this.authService.putProduct(this.authService.formDataProduct);
+          })
+        ).subscribe(
+          () => {
+            this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
+            this.clearPreview();
+            this.resetForm();
+            this.route.navigate(['/homePage']);
+          },
+          (error) => {
+            if (error.status == 409){
+              this.toast.error(error.error, 'Modificación de Producto');
+            }else {
+              this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+            }
           }
-        }
-      );
+        );
     }
   }
 
@@ -182,6 +200,7 @@ export class EditProductComponent implements OnInit{
         (data) => {
           this.authService.formDataProduct = data;
           this.loadImage(this.authService.formDataProduct.image);
+          this.activateCamp();
           this.toast.success("Se encontro el producto", "Producto Encontrado")
         },
         () => {
@@ -192,6 +211,12 @@ export class EditProductComponent implements OnInit{
     }
   }
 
+  isPositiveNumber(number: string|number|null): boolean {
+    number = number+"";
+    if(/[^0-9]/.test(number)){return false;}
+    return true;
+  }
+
   isValidateSpacesSearchSuppliers() {
     return this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null;
   }
@@ -200,5 +225,58 @@ export class EditProductComponent implements OnInit{
     return this.authService.formDataSearchProduct.presentation !== "" && this.authService.formDataSearchProduct.presentation !== null;
   }
 
+  isPositiveNumberValid2(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price !== null ||
+      product.amount === null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  isPositiveNumberValid(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price === null ||
+      product.amount !== null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  isValidAmountPrice(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price !== null ||
+      product.amount !== null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
+  }
 
 }

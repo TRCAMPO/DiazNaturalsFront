@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {SupplierModel} from "./supplier.model";
+import {SupplierSearchModel} from "../edit-supplier/supplierSearch.model";
 
 @Component({
   selector: 'app-create-supplier',
@@ -16,10 +17,9 @@ export class CreateSupplierComponent {
   }
 
   onSubmit() {
-    console.log(this.authService.formDataSupplier.phoneSupplier);
-    this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
-    console.log(this.authService.formDataSupplier.phoneSupplier);
-    if(!this.checkSupplierFields(this.authService.formDataSupplier)){
+    if(this.checkSupplierPhone(this.authService.formDataSupplier)){
+      this.toast.info("Por favor ingrese un número celular válido","Formato Incorrecto");
+    } else if(!this.checkSupplierFields(this.authService.formDataSupplier)){
       this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     } else if(!this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
       this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
@@ -28,6 +28,7 @@ export class CreateSupplierComponent {
     } else if(!this.isValidEmail(this.authService.formDataSupplier.emailSupplier)){
       this.toast.info("Por favor ingrese un correo válido","Formato Incorrecto Correo");
     } else{
+      this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
       this.authService.postSupplier(this.authService.formDataSupplier).subscribe(
         (response) => {
           this.toast.success('Se ha creado el proveedor con exito', 'Creación de Proveedor');
@@ -60,7 +61,9 @@ export class CreateSupplierComponent {
     }
   }
 
-  isValidPhone(phone: string): boolean {
+  isValidPhone(phone: string|number): boolean {
+    phone = phone+"";
+    if(/[^0-9]/.test(phone))return false;
     return phone.length === 10;
   }
 
@@ -70,9 +73,10 @@ export class CreateSupplierComponent {
 
   resetForm() {
     this.authService.formDataSupplier = new SupplierModel();
+    this.authService.formDataSearchSupplier = new SupplierSearchModel();
   }
 
-  private checkSupplierFields(formDataProduct: SupplierModel) {
+  checkSupplierFields(formDataProduct: SupplierModel) {
     if(formDataProduct.addressSupplier !== "" &&
       formDataProduct.addressSupplier !== null &&
       formDataProduct.emailSupplier !== "" &&
@@ -87,4 +91,21 @@ export class CreateSupplierComponent {
     }
     return false;
   }
+
+  checkSupplierPhone(formDataProduct: SupplierModel) {
+    if(formDataProduct.addressSupplier !== "" &&
+      formDataProduct.addressSupplier !== null &&
+      formDataProduct.emailSupplier !== "" &&
+      formDataProduct.emailSupplier !== null &&
+      formDataProduct.phoneSupplier !== "" &&
+      formDataProduct.phoneSupplier == null &&
+      formDataProduct.nameSupplier !== "" &&
+      formDataProduct.nameSupplier !== null &&
+      formDataProduct.nitSupplier !== "" &&
+      formDataProduct.nitSupplier !== null ){
+      return true;
+    }
+    return false;
+  }
+
 }

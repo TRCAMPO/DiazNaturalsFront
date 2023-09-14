@@ -36,15 +36,21 @@ export class CreateProductComponent implements OnInit{
     });
   }
   constructor(public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-
+    this.authService.formDataProduct = new ProductModel();
   }
 
   onSubmit() {
-    if(!this.checkProductFields(this.authService.formDataProduct)){
-      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
-    }else {
-      this.authService.uploadImg(this.imageFile).pipe(
-        switchMap((res: any) => {
+  // @ts-ignore
+      if(!this.isPositiveNumber(this.authService.formDataProduct.amount)) {
+        this.toast.info("Por favor ingrese una cantidad válida", "Cantidad Incorrecta");
+      }else { // @ts-ignore
+        if(!this.isPositiveNumber(this.authService.formDataProduct.price)){
+          this.toast.info("Por favor ingrese un precio válido", "Precio Incorrecto");
+        } else if(!this.checkProductFields(this.authService.formDataProduct)){
+          this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
+        } else {
+          this.authService.uploadImg(this.imageFile).pipe(
+          switchMap((res: any) => {
           this.toast.success('Imagen subida con exito', 'Productos');
           this.authService.formDataUrl = res;
           this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
@@ -57,14 +63,21 @@ export class CreateProductComponent implements OnInit{
           this.resetForm();
         },
         (error) => {
-          if(error.status == 409){
+          if (error.status == 409) {
             this.toast.error(error.error, 'Creacion de Producto');
-          }else {
+          } else {
             this.toast.error('Fallo la creacion de producto', 'Creacion de Producto');
           }
         }
       );
     }
+    }
+  }
+
+  isPositiveNumber(number: string|number): boolean {
+    number = number+"";
+    if(/[^0-9]/.test(number)){return false;}
+    return true;
   }
 
   checkProductFields(product: ProductModel): boolean {
