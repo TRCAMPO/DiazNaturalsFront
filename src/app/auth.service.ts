@@ -131,7 +131,7 @@ export class AuthService {
   }
 
   putUser(formDataUserClient: UserModelClient) {
-    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.nitClient}`, formDataUserClient);
+    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.idClient}`, formDataUserClient);
   }
 
   patchUser(formDataDeleteUser: UserDeleteModelClient) {
@@ -147,7 +147,7 @@ export class AuthService {
   }
 
   putSupplier(formDataSupplier: SupplierModel) {
-    return this.http.put(`${this.apiUrl}/Suppliers/${formDataSupplier.nitSupplier}`, formDataSupplier);
+    return this.http.put(`${this.apiUrl}/Suppliers/${formDataSupplier.idSupplier}`, formDataSupplier);
   }
 
   patchSupplier(formDataDeleteSupplier: DeleteSupplierModel) {
