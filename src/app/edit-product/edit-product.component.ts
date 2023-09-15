@@ -12,7 +12,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
 import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
-import {compareNumbers} from "@angular/compiler-cli/src/version_helpers";
 
 @Component({
   selector: 'app-edit-product',
@@ -30,6 +29,7 @@ export class EditProductComponent implements OnInit{
   // @ts-ignore
   private blob: Blob;
   disabledInput: boolean = true;
+  backgroundColor: string = "rgba(0, 0, 0, 0.12)";
 
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataProduct = new ProductModel();
@@ -47,6 +47,11 @@ export class EditProductComponent implements OnInit{
       this.suppliers = data;
     });
   }
+
+  cangeColor() {
+    this.backgroundColor = "#f5f6f7";
+  }
+
 
   activateCamp() {
     this.disabledInput = false;
@@ -201,7 +206,8 @@ export class EditProductComponent implements OnInit{
           this.authService.formDataProduct = data;
           this.loadImage(this.authService.formDataProduct.image);
           this.activateCamp();
-          this.toast.success("Se encontro el producto", "Producto Encontrado")
+          this.toast.success("Se encontro el producto", "Producto Encontrado");
+          this.cangeColor();
         },
         () => {
           // Manejar errores si ocurren

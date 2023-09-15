@@ -23,6 +23,8 @@ export class EditUserComponent implements OnInit{
   citys: CytiModel[] = [];
   citysOrigin: CytiModel[] = [];
   disabledInput: boolean = true;
+  backgroundColor: string = "rgba(0, 0, 0, 0.12)";
+
   ngOnInit() {
     this.authService.getStates().subscribe(data => {
       this.states = data;
@@ -38,6 +40,10 @@ export class EditUserComponent implements OnInit{
     this.authService.formDataSearchUser = new SupplierSearchModel;
   }
 
+  cangeColor() {
+    this.backgroundColor = "#f5f6f7";
+  }
+
   showCitys(id: number | undefined) {
     this.citys = [];
     // @ts-ignore
@@ -51,7 +57,7 @@ export class EditUserComponent implements OnInit{
       this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
       if (!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
         this.toast.info("Por favor coloque un correo válido", "Formato Incorrecto Correo");
-      } else if(this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+      } else if(!this.isValidNit(this.authService.formDataUserClient.nitClient)){
         this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
       } else if (!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
         this.toast.info("Por favor coloque un número celular válido", "Formato Incorrecto");
@@ -158,6 +164,7 @@ export class EditUserComponent implements OnInit{
           this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
           this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
           this.toast.success("Se encontro el Usuario", "Usuario Encontrado");
+          this.cangeColor();
           this.activateCamp();
         },
         (error) => {

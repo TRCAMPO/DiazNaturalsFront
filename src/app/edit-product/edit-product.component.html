@@ -74,15 +74,15 @@
         <div class="form-row">
           <div class="campo select12">
             <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input [disabled]="disabledInput" class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
+            <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
           </div>
           <div class="campo">
             <label class="lock" for="cantidad">Cantidad</label>
-            <input [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
+            <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
           </div>
           <div class="campo">
             <label class="lock" for="precio">Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
+            <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
           </div>
         </div>
 
@@ -90,21 +90,21 @@
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select [disabled]="disabledInput" class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+            <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
             </select>
           </div>
           <div class="campo">
             <label class="lock" for="presentacion">Presentación</label>
-            <select [disabled]="disabledInput" class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+            <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
             </select>
           </div>
           <div class="campo">
             <label class="lock" for="categoria">Categoria</label>
-            <select [disabled]="disabledInput" class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+            <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
             </select>
@@ -113,7 +113,7 @@
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="descripcion">Descripción</label>
-            <textarea [disabled]="disabledInput" class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
+            <textarea [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
           </div>
         </div>
         <div class="form-row">

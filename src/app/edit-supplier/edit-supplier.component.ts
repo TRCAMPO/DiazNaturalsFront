@@ -15,7 +15,7 @@ import {SupplierSearchModel} from "./supplierSearch.model";
   styleUrls: ['./edit-supplier.component.css', './edit-supplier2.component.css']
 })
 export class EditSupplierComponent {
-
+  backgroundColor: string = "rgba(0, 0, 0, 0.12)";
   disabledInput: boolean = true;
   constructor(public dialog: MatDialog, public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataSupplier = new SupplierModel();
@@ -53,6 +53,10 @@ export class EditSupplierComponent {
         }
       );
     }
+  }
+
+  cangeColor() {
+    this.backgroundColor = "#f5f6f7";
   }
 
   isValidNit(nit: string): boolean {
@@ -142,7 +146,8 @@ export class EditSupplierComponent {
           this.authService.formDataSupplier = data;
           // @ts-ignore
           this.activateCamp();
-          this.toast.success("Se encontró el proveedor", "Proveedor Encontrado")
+          this.toast.success("Se encontró el proveedor", "Proveedor Encontrado");
+          this.cangeColor();
         },
         () => {
           this.toast.error("No se pudo encontrar el proveedor", "Error en la Búsqueda");

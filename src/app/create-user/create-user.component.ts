@@ -42,7 +42,7 @@ export class CreateUserComponent implements OnInit{
       this.authService.formDataUserClient.phoneClient = this.authService.formDataUserClient.phoneClient + "";
       if(!this.isValidEmail(this.authService.formDataUserClient.emailClient)) {
         this.toast.info("Por favor coloque un correo válido","Formato Incorrecto Correo");
-      } else if(this.isValidNit(this.authService.formDataSupplier.nitSupplier)){
+      } else if(!this.isValidNit(this.authService.formDataUserClient.nitClient)){
         this.toast.info("Por favor ingrese un nit de mas de 5 digitos","Formato Incorrecto");
       } else if(!this.isValidPhone(this.authService.formDataUserClient.phoneClient)) {
         this.toast.info("Por favor coloque un número celular válido","Formato Incorrecto");
