@@ -69,7 +69,6 @@ export class CreateUserComponent implements OnInit{
   }
 
   isValidPhone(phone: string): boolean {
-    if(/[^0-9]/.test(phone))return false;
     return phone.length === 10;
   }
 

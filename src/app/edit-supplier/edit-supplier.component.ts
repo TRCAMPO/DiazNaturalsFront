@@ -81,7 +81,6 @@ export class EditSupplierComponent {
 
   isValidPhone(phone: string|number): boolean {
     phone = phone+"";
-    if(/[^0-9]/.test(phone))return false;
     return phone.length === 10;
   }
 
