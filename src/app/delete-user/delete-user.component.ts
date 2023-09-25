@@ -9,6 +9,7 @@ import {StateModel} from "../create-user/state.model";
 import {CytiModel} from "../create-user/city.model";
 import {UserModelClient} from "../create-user/userClient.model";
 import {ConfirmDialogDeleteUserComponent} from "../confirm-dialog-delete-user/confirm-dialog-delete-user.component";
+import {SupplierSearchModel} from "../edit-supplier/supplierSearch.model";
 
 @Component({
   selector: 'app-delete-user',
@@ -30,6 +31,10 @@ export class DeleteUserComponent implements OnInit{
     });
   }
   constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+    this.authService.formDataUserClient = new UserModelClient();
+    this.authService.formDataStates = new StateModel();
+    this.authService.formDataCitys = new CytiModel();
+    this.authService.formDataSearchUser = new SupplierSearchModel;
   }
 
   showCitys(id: number | undefined) {
@@ -77,7 +82,7 @@ export class DeleteUserComponent implements OnInit{
     if(this.authService.formDataSearchUser.search !== '' && this.authService.formDataSearchUser.search !== null) {
       this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
         (data) => {
-          this.authService.formDataUserClient = data;
+          this.authService.formDataUserClient  = data;
           // @ts-ignore
           this.authService.formDataStates.id = this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
           this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;

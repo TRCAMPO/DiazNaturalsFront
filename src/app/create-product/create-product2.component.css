@@ -11,7 +11,7 @@
   padding: 5% 1%; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
+  background-color: #f5f6f7; /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
   color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */
@@ -22,7 +22,7 @@
   padding: 10px; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
+  background-color: #f5f6f7; /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
   color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */
@@ -34,7 +34,7 @@
   padding: 1%; /* Espacio interno en el cuadro */
   border: 1px solid #ccc; /* Borde del cuadro */
   border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
+  background-color: #f5f6f7; /* Fondo blanco */
   font-size: 17px; /* Tamaño de fuente */
   color: #030303; /* Color de texto */
   font-family: serif; /* Fuente serif */

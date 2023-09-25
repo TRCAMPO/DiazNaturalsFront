@@ -35,9 +35,16 @@ export class LoginComponent {
             this.authService.isLog = true;
             const tokenString = JSON.stringify(response);
             const token = JSON.parse(tokenString);
-            this.cookieService.set('token', token.token);
+            const expirationTimeInSeconds = 3480;
+            this.cookieService.set('token', token.token, expirationTimeInSeconds);
             this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
-            this.route.navigate(['/homePage']);
+
+            if (token.typeUser === 'client') {
+              this.route.navigate(['/homePageUser']);
+            } else if (token.typeUser === 'admin') {
+              this.route.navigate(['/homePage']);
+            }
+
             this.authService.formDataUser = new UserModel();
           },
           () => {

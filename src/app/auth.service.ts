@@ -6,6 +6,7 @@ import {emailModel} from "./recover-account/EmailModel";
 import {CodeModel} from "./recover-account/CodeModel";
 import {SendPasswordModel} from "./new-password/SendPassword.Model";
 import {ProductModel} from "./create-product/product.model";
+import {AllProductsModel} from "./catalog/AllProductsModel";
 import {CategoryModel} from "./create-product/category.model";
 import {PresentationsModel} from "./create-product/presentation.model";
 import {SuppliersModel} from "./create-product/suppliers.model";
@@ -18,7 +19,6 @@ import {CytiModel} from "./create-user/city.model";
 import {UserModelClient} from "./create-user/userClient.model";
 import {UserSearchModel} from "./edit-user/userSearch.model";
 import {UserDeleteModelClient} from "./delete-user/userDelete.model";
-
 import {SupplierModel} from "./create-supplier/supplier.model";
 import {DeleteSupplierModel} from "./delete-supplier/DeleteSupplier.model";
 import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
@@ -27,7 +27,7 @@ import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://www.DiazNaturls.somee.com/api';
+  private apiUrl = 'http://www.DiazNaturals.somee.com/api';
 
   formDataUser: UserModel = new UserModel();
   formPassword: PasswordModel = new PasswordModel();
@@ -35,6 +35,7 @@ export class AuthService {
   formCode: CodeModel = new CodeModel();
   formSendPassword: SendPasswordModel = new SendPasswordModel();
   formDataProduct: ProductModel = new ProductModel();
+  formDataAllProducts: AllProductsModel = new AllProductsModel();
   formDataUrl: UrlModel = new UrlModel();
   token: string|null = localStorage.getItem('jwtToken');
   isLog: boolean = false;
@@ -45,7 +46,6 @@ export class AuthService {
   formDataUserClient: UserModelClient = new UserModelClient();
   formDataSearchUser: UserSearchModel = new UserSearchModel();
   formDataUserClientDelete: UserDeleteModelClient = new UserDeleteModelClient();
-
   formDataSupplier: SupplierModel = new SupplierModel();
   formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
@@ -81,7 +81,7 @@ export class AuthService {
   }
 
   getSuppliers() {
-    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers/all`);
+    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers/active`);
   }
 
   postProduct(formDataProduct: ProductModel) {
@@ -111,13 +111,19 @@ export class AuthService {
   patchProduct(formDataProduct: DeleteProductModel) {
     return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
   }
+
   getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
+  }
+
+  getAllProducts() {
+    return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Products/all`);
   }
 
   getStates() {
     return this.http.get<StateModel[]>(`https://api-colombia.com/api/v1/Department`);
   }
+
   getCitys(){
     return this.http.get<CytiModel[]>(`https://api-colombia.com/api/v1/City`);
   }
@@ -131,7 +137,7 @@ export class AuthService {
   }
 
   putUser(formDataUserClient: UserModelClient) {
-    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.nitClient}`, formDataUserClient);
+    return this.http.put(`${this.apiUrl}/Clients/${formDataUserClient.idClient}`, formDataUserClient);
   }
 
   patchUser(formDataDeleteUser: UserDeleteModelClient) {
@@ -147,7 +153,7 @@ export class AuthService {
   }
 
   putSupplier(formDataSupplier: SupplierModel) {
-    return this.http.put(`${this.apiUrl}/Clients/${formDataSupplier.nitSupplier}`, formDataSupplier);
+    return this.http.put(`${this.apiUrl}/Suppliers/${formDataSupplier.idSupplier}`, formDataSupplier);
   }
 
   patchSupplier(formDataDeleteSupplier: DeleteSupplierModel) {
