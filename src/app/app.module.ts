@@ -41,6 +41,7 @@ import { ConfirmDialogDeleteSupplierComponent } from './confirm-dialog-delete-su
 import { RestrictDashDirective } from './restrict-dash.directive';
 import { HomePageUserComponent } from './home-page-user/home-page-user.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import { ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.component";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { CatalogComponent } from './catalog/catalog.component';
     RestrictDashDirective,
     HomePageUserComponent,
     CatalogComponent,
-
+    ChangeDatesUserComponent
 
   ],
   imports: [
