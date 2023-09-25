@@ -18,7 +18,6 @@ import {CytiModel} from "./create-user/city.model";
 import {UserModelClient} from "./create-user/userClient.model";
 import {UserSearchModel} from "./edit-user/userSearch.model";
 import {UserDeleteModelClient} from "./delete-user/userDelete.model";
-
 import {SupplierModel} from "./create-supplier/supplier.model";
 import {DeleteSupplierModel} from "./delete-supplier/DeleteSupplier.model";
 import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
@@ -27,7 +26,7 @@ import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://www.DiazNaturls.somee.com/api';
+  private apiUrl = 'https://localhost:7167/api';
 
   formDataUser: UserModel = new UserModel();
   formPassword: PasswordModel = new PasswordModel();

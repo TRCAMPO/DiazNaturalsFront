@@ -11,10 +11,11 @@ import {DeleteProductComponent} from "./delete-product/delete-product.component"
 import {CreateUserComponent} from "./create-user/create-user.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {DeleteUserComponent} from "./delete-user/delete-user.component";
-
 import {CreateSupplierComponent} from "./create-supplier/create-supplier.component";
 import {EditSupplierComponent} from "./edit-supplier/edit-supplier.component";
 import {DeleteSupplierComponent} from "./delete-supplier/delete-supplier.component";
+import {HomePageUserComponent} from "./home-page-user/home-page-user.component";
+import {CatalogComponent} from "./catalog/catalog.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -30,7 +31,9 @@ const routes: Routes = [
   { path: "deleteUser", component: DeleteUserComponent, canActivate: [AuthGuard]},
   { path: "createSupplier", component: CreateSupplierComponent, canActivate: [AuthGuard]},
   { path: "editSupplier", component: EditSupplierComponent, canActivate: [AuthGuard]},
-  { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]}
+  { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]},
+  { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
+  { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]}
 
 ];
 

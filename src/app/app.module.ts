@@ -39,6 +39,8 @@ import { CreateSupplierComponent } from './create-supplier/create-supplier.compo
 import { ConfirmDialogEditSupplierComponent } from './confirm-dialog-edit-supplier/confirm-dialog-edit-supplier.component';
 import { ConfirmDialogDeleteSupplierComponent } from './confirm-dialog-delete-supplier/confirm-dialog-delete-supplier.component';
 import { RestrictDashDirective } from './restrict-dash.directive';
+import { HomePageUserComponent } from './home-page-user/home-page-user.component';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { RestrictDashDirective } from './restrict-dash.directive';
     ConfirmDialogEditSupplierComponent,
     ConfirmDialogDeleteSupplierComponent,
     RestrictDashDirective,
+    HomePageUserComponent,
+    CatalogComponent,
 
 
   ],
