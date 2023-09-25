@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
-import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CategoryModel} from "../create-product/category.model";
@@ -12,17 +11,14 @@ import {ProductModel} from "../create-product/product.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
+import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.css']
+  styleUrls: ['./edit-product.component.css', './edit-product2.component.css']
 })
 export class EditProductComponent implements OnInit{
-  inputValue: string = '';
-  username: string;
-  password: string;
-  error: string;
   imageFile: File | null = null;
   imageUrl: string | null = null;
   // @ts-ignore
@@ -32,6 +28,13 @@ export class EditProductComponent implements OnInit{
   suppliers: SuppliersModel[] = [];
   // @ts-ignore
   private blob: Blob;
+  disabledInput: boolean = true;
+  backgroundColor: string = "rgba(0, 0, 0, 0.12)";
+
+  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+    this.authService.formDataProduct = new ProductModel();
+    this.authService.formDataSearchProduct = new SearchProductModel();
+  }
 
   ngOnInit() {
     this.authService.getCategories().subscribe(data => {
@@ -43,10 +46,15 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliers().subscribe(data => {
       this.suppliers = data;
     });
-    this.authService.getProductById(1).subscribe(data => {
-      this.authService.formDataProduct = data;
-      this.loadImage(this.authService.formDataProduct.image);
-    });
+  }
+
+  cangeColor() {
+    this.backgroundColor = "#f5f6f7";
+  }
+
+
+  activateCamp() {
+    this.disabledInput = false;
   }
 
   formatImageName(name:string){
@@ -54,8 +62,6 @@ export class EditProductComponent implements OnInit{
   }
 
   loadImage(nameImage:string) {
-    console.log(this.authService.formDataProduct.image);
-    console.log(this.formatImageName(nameImage));
     this.authService.getImageByName(this.formatImageName(nameImage)).subscribe((imageBlob: Blob) => {
       this.blob = imageBlob;
       const reader = new FileReader();
@@ -68,42 +74,68 @@ export class EditProductComponent implements OnInit{
     });
   }
 
-
-
-  private originalStyles: { [key: string]: string } = {};
-  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.username = "";
-    this.password = "";
-    this.error = "";
-  }
-
   blobToFile(blob: Blob, fileName: string, mimeType: string): File {
-    const file = new File([blob], fileName, { type: mimeType });
-    return file;
+    return new File([blob], fileName, { type: mimeType });
   }
 
   onSubmit() {
-    if (this.imageFile == null){
-      this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name , "jpg");
+    if (this.imageFile == null) {
+      this.imageFile = this.blobToFile(this.blob, this.authService.formDataProduct.name, "jpg");
     }
-    this.authService.uploadImg(this.imageFile).pipe(
-      switchMap((res: any) => {
-        this.toast.success('Imagen subida con exito', 'Productos');
-        this.authService.formDataUrl = res;
-        this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
-        return this.authService.putProduct(this.authService.formDataProduct);
-      })
-    ).subscribe(
-      (response: any) => {
-        this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
-        this.clearPreview();
-        this.resetForm();
-        this.route.navigate(['/homePage']);
-      },
-      (error) => {
-        this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
-      }
-    );
+    if(this.isValidAmountPrice(this.authService.formDataProduct)){
+      this.toast.info("Por favor ingrese una cantidad y precio válidos", "Formato Incorrecto");
+    } else if(this.isPositiveNumberValid(this.authService.formDataProduct)) {
+      this.toast.info("Por favor ingrese una cantidad válida", "Cantidad Incorrecta");
+    }else if (this.isPositiveNumberValid2(this.authService.formDataProduct)) {
+      this.toast.info("Por favor ingrese un precio válido", "Precio Incorrecto");
+    }else if(!this.checkProductFields(this.authService.formDataProduct)){
+      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
+    }else if(!this.isPositiveNumber(this.authService.formDataProduct.amount)) {
+      this.toast.info("Por favor ingrese una cantidad válida", "Cantidad Incorrecta");
+    }else if(!this.isPositiveNumber(this.authService.formDataProduct.price)){
+          this.toast.info("Por favor ingrese un precio válido", "Precio Incorrecto");
+    }else {
+        this.authService.uploadImg(this.imageFile).pipe(
+          switchMap((res: any) => {
+            this.toast.success('Imagen subida con exito', 'Productos');
+            this.authService.formDataUrl = res;
+            this.authService.formDataProduct.image = this.authService.formDataUrl.fileName;
+            return this.authService.putProduct(this.authService.formDataProduct);
+          })
+        ).subscribe(
+          () => {
+            this.toast.success('Se ha editado el producto exitosamente', 'Modificación de Producto');
+            this.clearPreview();
+            this.resetForm();
+            this.route.navigate(['/homePage']);
+          },
+          (error) => {
+            if (error.status == 409){
+              this.toast.error(error.error, 'Modificación de Producto');
+            }else {
+              this.toast.error('Fallo la edición del producto', 'Modificación de Producto');
+            }
+          }
+        );
+    }
+  }
+
+  checkProductFields(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price === null ||
+      product.amount === null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
   }
 
   openConfirmationDialog(): void {
@@ -118,12 +150,9 @@ export class EditProductComponent implements OnInit{
     });
   }
 
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
-  }
-
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
+    this.authService.formDataSearchProduct = new SearchProductModel();
     this.clearPreview();
   }
 
@@ -135,14 +164,11 @@ export class EditProductComponent implements OnInit{
   handleDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
     // @ts-ignore
     const file = event.dataTransfer.files[0];
     const blob = file.slice(0, file.size, file.type.replace(/\/(jpeg|png|gif)$/, '/jpg'));
     this.imageFile = new File([blob], file.name, {type: 'image/jpeg'});
-
-    const imageUrl = URL.createObjectURL(blob);
-    this.imageUrl = imageUrl;
+    this.imageUrl = URL.createObjectURL(blob);
   }
 
   handleFileInput(event: Event) {
@@ -163,6 +189,100 @@ export class EditProductComponent implements OnInit{
   }
 
   changePage() {
+    this.resetForm();
     this.route.navigate(['/homePage']);
   }
+
+  searchProduct() {
+    if (this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null) {
+      this.toast.info("No ha ingresado el producto", "Ingrese el Producto");
+    } else if (!this.isValidateSpacesSearchSuppliers()) {
+      this.toast.info("No ha seleccionado el proveedor", "Ingrese el Proveedor");
+    } else if (!this.isValidateSpacesSearchPresentation()) {
+      this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
+    } else {
+      this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
+        (data) => {
+          this.authService.formDataProduct = data;
+          this.loadImage(this.authService.formDataProduct.image);
+          this.activateCamp();
+          this.toast.success("Se encontro el producto", "Producto Encontrado");
+          this.cangeColor();
+        },
+        () => {
+          // Manejar errores si ocurren
+          this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+        }
+      );
+    }
+  }
+
+  isPositiveNumber(number: string|number|null): boolean {
+    number = number+"";
+    if(/[^0-9]/.test(number)){return false;}
+    return true;
+  }
+
+  isValidateSpacesSearchSuppliers() {
+    return this.authService.formDataSearchProduct.suppliers !== "" && this.authService.formDataSearchProduct.suppliers !== null;
+  }
+
+  isValidateSpacesSearchPresentation() {
+    return this.authService.formDataSearchProduct.presentation !== "" && this.authService.formDataSearchProduct.presentation !== null;
+  }
+
+  isPositiveNumberValid2(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price !== null ||
+      product.amount === null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  isPositiveNumberValid(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price === null ||
+      product.amount !== null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  isValidAmountPrice(product: ProductModel): boolean {
+    if (
+      product === null ||
+      product === undefined ||
+      product.name === '' ||
+      product.supplier === '' ||
+      product.price !== null ||
+      product.amount !== null ||
+      product.presentation === '' ||
+      product.category === '' ||
+      product.description === '' ||
+      this.imageFile === null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
 }

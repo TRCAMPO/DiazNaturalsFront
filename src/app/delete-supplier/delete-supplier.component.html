@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <div class="header-container-delete-supplier">
+    <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo_principal.jpg?alt=media&token=8347ba50-ac57-46c5-ad31-3cb0e25bd463" alt="Logo de la empresa">
+  </div>
+
+  <div class="menu-container-delete-supplier">
+    <div class="container-menu">
+      <ul>
+        <li><a [routerLink]="['/homePage/']" >Home</a></li>
+
+        <li><a >Proveedores</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createSupplier/']">Crear Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/editSupplier/']">Editar Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteSupplier/']">Eliminar Proveedor</a></li>
+          </ul>
+        </li>
+
+        <li><a >Productos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createProduct/']">Crear Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/editProduct/']">Editar Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteProduct/']">Eliminar Producto</a></li>
+          </ul>
+        </li>
+
+        <li><a >Usuarios</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createUser/']">Crear Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/editUser/']" >Editar Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteUser/']" >Eliminar Usuario</a></li>
+          </ul>
+        </li>
+
+        <li><a >Pedidos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="#">Crear Pedido</a></li>
+            <li><a class="li-sub" href="#">Editar Pedido</a></li>
+            <li><a class="li-sub" href="#">Eliminar Pedido</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<body>
+<div class="container-delete-supplier">
+
+  <div class="title-container-delete-supplier">
+    <div class="search-bar-delete-supplier">
+      <div class="title-delete-supplier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eliminar Proveedor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input-delete-supplier" #name="ngModel" [(ngModel)]="authService.formDataSearchSupplier.search" placeholder="Buscar proveedor">
+      <div>
+        <span>&nbsp;</span>
+        <button class="search-button-delete-supplier" (click)="searchDeleteSupplier()">Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm">
+    <div class="form-row1-delete-supplier">
+      <div class="field-delete-supplier">
+        <label class="look-delete-supplier" for="nit-delete-supplier">Nit&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input readonly class="form-input-delete-supplier" type="text" id="nit-delete-supplier" #nitSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nitSupplier" name="nit-delete-supplier" placeholder="Nit">
+      </div>
+
+      <div class="field-delete-supplier">
+        <label class="look-delete-supplier" for="name-delete-supplier">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input readonly class="form-input-delete-supplier" type="text" id="name-delete-supplier" #nameSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.nameSupplier" name="name-delete-supplier" placeholder="Nombre">
+      </div>
+
+      <div class="field-delete-supplier">
+        <label class="look-delete-supplier" for="phone-delete-supplier">Teléfono&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input readonly class="form-input-delete-supplier" type="text" id="phone-delete-supplier" #phoneSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.phoneSupplier" name="phone-delete-supplier" placeholder="Teléfono">
+      </div>
+    </div>
+
+    <div class="form-row2-delete-supplier">
+      <div class="field-delete-supplier">
+        <label class="look-delete-supplier" for="address-delete-supplier">Dirección&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input readonly class="form-input-delete-supplier" type="text" id="address-delete-supplier" #addressSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.addressSupplier" name="address-delete-supplier" placeholder="Dirección">
+      </div>
+
+      <div class="field-delete-supplier">
+        <label class="look-delete-supplier" for="email-delete-supplier">Correo&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input readonly class="form-input-delete-supplier" type="text" id="email-delete-supplier" #emailSupplier="ngModel" [(ngModel)]="authService.formDataSupplier.emailSupplier" name="email-delete-supplier" placeholder="Correo">
+      </div>
+    </div>
+
+    <div class="button-container-delete-supplier">
+      <input type="submit" class="custom-button-delete-supplier" (click)="openConfirmationDialog()" value="Eliminar">
+      <input type="submit" class="custom-button-cancel-delete-supplier" (click)="resetForm()" value="Cancelar">
+    </div>
+  </form>
+</div>
+</body>
+
+<footer>
+  <div class="footer-delete-supplier">
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/logo%20facebook.jpg?alt=media&token=0df5a6a9-6198-42b0-a5b6-a7bba5fcc4b8" alt="Red Social 1">
+    </a>
+
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20instagram.jpg?alt=media&token=8ae466de-15a8-454d-a88d-8e7a9e4ee75f" alt="Red Social 2">
+    </a>
+
+    <a href="#">
+      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20Whats.jpg?alt=media&token=de3f918c-fc60-463a-93d3-8a84c3bb0bf9" alt="Red Social 3">
+    </a>
+  </div>
+  <div class="footer-delete-supplier">
+    <a href="">Información legal</a>
+    <a>|</a>
+    <a href="">Política de privacidad</a>
+  </div>
+</footer>
+</html>

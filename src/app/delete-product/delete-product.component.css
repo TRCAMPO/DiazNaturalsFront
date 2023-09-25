@@ -9,6 +9,123 @@ body {
   font-family: sans-serif;
 }
 
+
+/* Variables */
+:root {
+  --background-purple: #EEEEEE;
+  --subtle-white: #f9f9f9;
+  --subtle-grey: #f2f2f2;
+  --masked-grey: #ffffff;
+  --blue: #F03861;
+  --open-sans: 'Open Sans', sans-serif;
+}
+
+/* Reset de estilos */
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Contenedor de la página */
+.container22 {
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilos para el tutorial */
+.container-menu {
+  width: 100%;
+  margin: 0% 0% 0% 0%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #316335;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos para el slider */
+.slider {
+  width: 100%;
+  height: 300px;
+  background-color: var(--blue);
+}
+
+/* Estilos para listas no ordenadas */
+ul {
+  font-size: 0%;
+  list-style-type: none;
+}
+
+/* Estilos para elementos de lista */
+li {
+  font-family: auto;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  display: inline-block;
+  padding: 15px;
+  position: relative;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.li-sub {
+  color: #100101;
+}
+
+/* Estilos para sublistas */
+ul ul {
+  display: none;
+  background-color: #6fa535;
+}
+
+/* Estilos cuando se pasa el cursor sobre un elemento de lista */
+li:hover {
+  cursor: pointer;
+  background-color: #6fa535;
+}
+
+/* Mostrar sublistas cuando se pasa el cursor */
+li:hover ul {
+  display: block;
+  margin-top: 15px;
+  width: 200px;
+  left: 0;
+  position: absolute;
+}
+
+/* Estilos para elementos de sublistas */
+li ul li {
+  display: block;
+  background-color: rgba(249, 249, 249, 0.93);
+}
+
+/* Estilos para el elemento 'span' dentro de sublistas */
+li ul li span {
+  float: right;
+  color: var(--subtle-white);
+  background-color: var(--blue);
+  padding: 2px 5px;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+/* Estilos al pasar el cursor sobre elementos de sublistas */
+li ul li:hover {
+  background-color: rgba(249, 249, 249, 0.86);
+}
+
+/* Estilos al pasar el cursor sobre el elemento 'span' de sublistas */
+li ul li:hover span {
+  background-color: var(--blue);
+}
+
+
 .container {
   margin: 0%;
 }
@@ -23,6 +140,12 @@ body {
   align-items: center; /* Centra verticalmente */
   height: 100%; /* Para centrar contenido verticalmente */
   margin-bottom: 2%;
+}
+
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
 }
 
 .titulo {
@@ -84,233 +207,3 @@ body {
   align-self: flex-start;
 }
 
-.form-input {
-  width: 90%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 5% 1%; /* Espacio interno en el cuadro */
-  border: 1px solid #ccc; /* Borde del cuadro */
-  border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
-  font-size: 17px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto */
-  font-family: serif; /* Fuente serif */
-}
-
-.form-input2 {
-  width: 100%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 10px; /* Espacio interno en el cuadro */
-  border: 1px solid #ccc; /* Borde del cuadro */
-  border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
-  font-size: 17px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto */
-  font-family: serif; /* Fuente serif */
-  resize: none;
-}
-
-.form-input22 {
-  width: 100%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 1%; /* Espacio interno en el cuadro */
-  border: 1px solid #ccc; /* Borde del cuadro */
-  border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
-  font-size: 17px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto */
-  font-family: serif; /* Fuente serif */
-  resize: none;
-}
-
-.custom-button {
-  font-family: serif; /* Fuente serif */
-  font-size: 20px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto negro */
-  background-color: #6fa535; /* Fondo verde */
-  border: none; /* Quitar borde */
-  padding: 10px 20px; /* Espacio interno del botón */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
-  border-radius: 5px; /* Agregar bordes redondeados */
-  margin-right: 1%;
-}
-
-.custom-buttonC {
-  font-family: serif; /* Fuente serif */
-  font-size: 20px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto negro */
-  background-color: #ff6961;
-  border: none; /* Quitar borde */
-  padding: 10px 20px; /* Espacio interno del botón */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
-  border-radius: 5px; /* Agregar bordes redondeados */
-}
-
-.custom-buttonC:hover {
-  background-color: #f64339; /* Cambiar color de fondo al pasar sobre el botón */
-}
-
-.custom-button:hover {
-  background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
-}
-
-.button-container {
-  display: flex;
-  justify-content: right; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  padding: 20px 0; /* Espacio arriba y abajo */
-}
-
-.button-container-image {
-  display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  padding: 20px 0; /* Espacio arriba y abajo */
-  width: 100%;
-}
-
-.nav.container {
-  text-align: center;
-  padding: 0.5% 0; /* Añadir un espacio uniforme alrededor del contenedor */
-  width: 100%;
-  white-space: nowrap; /* Evita el ajuste de línea de los elementos */
-  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
-  display:inline-block;
-  margin:60px auto 45px;
-  background-color:#aaa;
-  box-shadow:0 1px 1px #ccc;
-  border-radius:2px;
-}
-
-.button-nav {
-  display: inline-block;
-  color: #ffffff;
-  text-decoration: none;
-  padding: .5% 2%; /* Añadir espacio alrededor del texto */
-  border: 2px solid transparent;
-  border-radius: 5%;
-  margin: 1% 1%; /* Añadir un margen entre los botones */
-  font-family: auto;
-}
-
-.button-nav {
-  background-color: #6FA535;
-}
-
-footer {
-  background-color: #3E7C95;
-  text-align: center;
-  padding: 12px 0;
-  font-family: sans-serif;
-}
-
-footer a {
-  color: #ffffff;
-  text-decoration: none;
-  margin: 0 20px;
-  font-family: auto;
-}
-
-.campo {
-  display: inline-block;
-  margin-bottom: 1.5%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-.campo-Filter-search {
-  display: flex;
-  margin-bottom: 1.5%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-.drop-box {
-  border: 2px dashed #ccc; /* Un borde punteado de 2 píxeles de ancho en color gris claro */
-  background-color: #f9f9f9; /* Un fondo gris claro */
-  padding: 20px; /* Agrega un relleno interior para mejorar la apariencia */
-  text-align: center; /* Centra el contenido dentro del área de soltar */
-  min-height: 10px; /* Establece una altura mínima para que el área sea visible */
-  color: gray;
-  width: 100%;
-}
-
-
-.custom-button-selec {
-  font-family: serif; /* Fuente serif */
-  font-size: 12px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto negro */
-  background-color: #918b8b; /* Fondo verde */
-  padding: 1% 1%; /* Espacio interno del botón */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
-  border-radius: 5%;
-}
-
-.custom-buttonC-selec {
-  font-family: serif; /* Fuente serif */
-  font-size: 12px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto negro */
-  background-color: #918b8b;
-  padding: 1% 1%; /* Espacio interno del botón */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
-  border-radius: 5%;
-  margin-left: 1%;
-}
-
-.custom-buttonC-selec:hover {
-  background-color: #f64339; /* Cambiar color de fondo al pasar sobre el botón */
-}
-
-.custom-button-selec:hover {
-  background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
-}
-
-.red-social-image {
-  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
-  height: auto; /* Mantendrá la relación de aspecto original */
-  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  padding: 0.2%;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.search-input {
-  flex-grow: 1;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.filter-select {
-  margin-left: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-button {
-  padding: 5px 10px;
-  background-color: #3e7c95;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 0%;
-}
-
-.search-button:hover {
-  background-color: #1e4b5a;
-}
-
-/* Media query para pantallas más pequeñas */
-@media (max-width: 768px) {
-  .title,
-  .search-input,
-  .filter-select,
-  .search-button {
-    width: 100%;
-    margin-bottom: 10px; /* Espacio entre elementos */
-  }
-}

@@ -4,18 +4,68 @@
   <div class="login-container">
     <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo_principal.jpg?alt=media&token=8347ba50-ac57-46c5-ad31-3cb0e25bd463" alt="Logo de la empresa">
   </div>
-  <div class="titulo-container">
-    <a class="button-nav" href="#">Proveedores</a>
-    <a class="button-nav" href="#">Productos</a>
-    <a class="button-nav" href="#">Usuarios</a>
-    <a class="button-nav" href="#">Pedidos</a>
+  <div class="container22">
+    <div class="container-menu">
+      <ul>
+        <li><a [routerLink]="['/homePage/']" >Home</a></li>
+        <li><a >Proveedores</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createSupplier/']">Crear Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/editSupplier/']">Editar Proveedor</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteSupplier/']">Eliminar Proveedor</a></li>
+          </ul>
+        </li>
+        <li><a >Productos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createProduct/']" >Crear Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/editProduct/']" >Editar Producto</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteProduct/']" >Eliminar Producto</a></li>
+          </ul>
+        </li>
+        <li><a >Usuarios</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" [routerLink]="['/createUser/']">Crear Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/editUser/']" >Editar Usuario</a></li>
+            <li><a class="li-sub" [routerLink]="['/deleteUser/']" >Eliminar Usuario</a></li>
+          </ul>
+        </li>
+        <li><a >Pedidos</a><i class="fa fa-angle-down"></i>
+          <ul>
+            <li><a class="li-sub" href="#">Crear Pedido</a></li>
+            <li><a class="li-sub" href="#">Editar Pedido</a></li>
+            <li><a class="li-sub" href="#">Eliminar Pedido</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
 
 <body>
 <div class="container">
   <div class="title-container">
-    <h1 class="titulo">Editar Producto</h1>
+
+    <div class="search-bar">
+      <div class="titulo">Editar Producto&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearchProduct.search" placeholder="Buscar producto">
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;Proveedor:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.suppliers">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+        </select>
+      </div>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;Presentación:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.presentation">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+        </select>
+      </div>
+      <span>&nbsp;</span>
+      <button class="search-button" (click)="searchProduct()" >Buscar</button>
+    </div>
   </div>
   <div class="login-item">
     <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
@@ -24,37 +74,37 @@
         <div class="form-row">
           <div class="campo select12">
             <label class="lock" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
+            <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" type="text" id="nombre" #name="ngModel" [(ngModel)]="authService.formDataProduct.name" name="nombre" placeholder="Nombre">
           </div>
           <div class="campo">
-            <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
-              <option value="" disabled selected>Seleccione una opción</option>
-              <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
-            </select>
+            <label class="lock" for="cantidad">Cantidad</label>
+            <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
           </div>
           <div class="campo">
             <label class="lock" for="precio">Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="form-input" type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
+            <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="precio" #price="ngModel" [(ngModel)]="authService.formDataProduct.price" name="precio" placeholder="Precio">
           </div>
         </div>
 
 
         <div class="form-row">
           <div class="campo">
-            <label class="lock" for="cantidad">Cantidad</label>
-            <input class="form-input" type="number" id="cantidad" #amount="ngModel" [(ngModel)]="authService.formDataProduct.amount" name="cantidad" placeholder="Cantidad">
+            <label class="lock" for="proveedor">Proveedor&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="proveedor" [(ngModel)]="authService.formDataProduct.supplier" name="proveedor">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+            </select>
           </div>
           <div class="campo">
             <label class="lock" for="presentacion">Presentación</label>
-            <select class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
+            <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="presentacion" [(ngModel)]="authService.formDataProduct.presentation" name="presentacion">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
             </select>
           </div>
           <div class="campo">
             <label class="lock" for="categoria">Categoria</label>
-            <select class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
+            <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2 select-custom2" id="categoria" [(ngModel)]="authService.formDataProduct.category" name="categoria">
               <option value="" disabled selected>Seleccione una opción</option>
               <option *ngFor="let categoria of categories" [value]="categoria.nameCategory">{{ categoria.nameCategory }}</option>
             </select>
@@ -63,7 +113,7 @@
         <div class="form-row">
           <div class="campo">
             <label class="lock" for="descripcion">Descripción</label>
-            <textarea class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
+            <textarea [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="descripcion" name="texto" rows="3" cols="40" #description="ngModel" [(ngModel)]="authService.formDataProduct.description" placeholder="Descripción"></textarea>
           </div>
         </div>
         <div class="form-row">
@@ -80,9 +130,9 @@
                 </div>
               </div>
               <div class="button-container-image">
-                <button class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
-                <input type="file" #fileInput style="display:none" (change)="handleFileInput($event)">
-                <button class="custom-buttonC-selec" [disabled]="!imageUrl" (click)="clearPreview()">Eliminar imagen</button>
+                <button [disabled]="disabledInput" class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
+                <input [disabled]="disabledInput" type="file" #fileInput style="display:none" (change)="handleFileInput($event)">
+                <button [disabled]="disabledInput" class="custom-buttonC-selec" [disabled]="!imageUrl" (click)="clearPreview()">Eliminar imagen</button>
               </div>
             </div>
           </div>

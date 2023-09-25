@@ -7,7 +7,7 @@ import {DeleteProductComponent} from "../delete-product/delete-product.component
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.css']
 })
-export class ConfirmDialogComponentDelete {
+export class ConfirmDialogComponentDeleteProduct {
   constructor(public dialogRef: MatDialogRef<DeleteProductComponent>, @ Inject(MAT_DIALOG_DATA) public data: DeleteProductComponent) {
 
   }

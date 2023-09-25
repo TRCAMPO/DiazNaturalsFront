@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {PasswordModel} from "./Password.Model";
@@ -25,29 +25,33 @@ export class NewPasswordComponent {
   }
 
   onSubmit() {
-    if (this.authService.formPassword.password == this.authService.formPassword.confirmation) {
-      this.authService.formSendPassword.password = this.authService.formPassword.password;
-      this.authService.formSendPassword.email = this.dataService.getInputValue();
-      this.authService.changePassword(this.authService.formSendPassword)
-        .subscribe(
-          (response: any) => {
-            this.toast.success("Se cambio con exito la contraseña","Cambio de contraseña");
-            this.route.navigate(['/homePage']);
-          },
-          (error) => {
-            this.error = 'error';
-            this.toast.error("Intente nuevamente","Error en el cambio de contraseña");
-          }
-        );
-    }else{
-      console.error('Las contraseñas no coinciden');
-      this.toast.error("Intente nuevamente","Las contraseñas no coinciden");
-      this.authService.formPassword = new PasswordModel();
+    if(this.authService.formPassword.password !== null && this.authService.formPassword.confirmation !== '' &&
+      this.authService.formPassword.password !== '' && this.authService.formPassword.confirmation !== null) {
+      if (this.authService.formPassword.password == this.authService.formPassword.confirmation) {
+        this.authService.formSendPassword.password = this.authService.formPassword.password;
+        this.authService.formSendPassword.email = this.dataService.getInputValue();
+        console.log(this.authService.formSendPassword);
+        this.authService.changePassword(this.authService.formSendPassword)
+          .subscribe(
+            () => {
+              this.toast.success("Se cambio con exito la contraseña", "Cambio de contraseña");
+              this.authService.formPassword = new PasswordModel();
+              this.route.navigate(['/homePage']);
+            },
+            () => {
+              this.error = 'error';
+              this.toast.error("Intente nuevamente", "Error en el cambio de contraseña");
+              this.authService.formPassword = new PasswordModel();
+            }
+          );
+      } else {
+        console.error('Las contraseñas no coinciden');
+        this.toast.error("Intente nuevamente", "Las contraseñas no coinciden");
+        this.authService.formPassword = new PasswordModel();
+      }
+    }else {
+      this.toast.info("Por favor llene todos los campos","Formulario Incompleto");
     }
-  }
-
-  updateInputValue() {
-    this.dataService.setInputValue(this.inputValue);
   }
 
   resetForm(form: NgForm) {
