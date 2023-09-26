@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <header>
   <app-header-user></app-header-user>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </header>
+
 <body>
 <h1>Catálogo de Productos</h1>
 <div class="catalog-container">
@@ -13,13 +16,25 @@
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p>{{ product.price }}</p>
-        <button>Añadir al Carrito</button>
+        <button (click)="addModel(product)">Añadir al Carrito</button>
       </td>
     </tr>
   </table>
+</div>
+
+<div class="button-view-cart-container">
+  <!-- Icono de carrito de compras en lugar del texto -->
+  <button class="view-cart-button"  (click)="toggleCart()">
+    <i class="fa fa-shopping-cart"></i> <!-- Icono de carrito de compras -->
+  </button>
+</div>
+<div *ngIf="showCart">
+  <app-cart >></app-cart>
 </div>
 <footer>
   <app-footer></app-footer>
 </footer>
 </body>
+
 </html>
+

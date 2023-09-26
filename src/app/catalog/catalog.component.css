@@ -1,3 +1,4 @@
+/* Importa los estilos de Font Awesome */
 html {
   height: 100%;
 }
@@ -100,4 +101,24 @@ button:hover {
     align-items: center;
     text-align: center;
   }
+}
+
+.button-view-cart-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.view-cart-button {
+  background-color: #316335;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.view-cart-button:hover {
+  background-color: #6FA535;
 }
