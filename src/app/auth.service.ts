@@ -31,7 +31,6 @@ export class AuthService {
  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
  // private apiUrl = 'https://localhost:7167/api';
 
-
   formDataUser: UserModel = new UserModel();
   formPassword: PasswordModel = new PasswordModel();
   formEmail: emailModel = new emailModel();
