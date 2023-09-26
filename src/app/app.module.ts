@@ -45,6 +45,7 @@ import { ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.c
 import { HeaderUserComponent } from './header-user/header-user.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { FooterComponent } from './footer/footer.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { FooterComponent } from './footer/footer.component';
     ChangeDatesUserComponent,
     HeaderUserComponent,
     HeaderAdminComponent,
-    FooterComponent
+    FooterComponent,
+    ChangePasswordComponent
 
   ],
   imports: [

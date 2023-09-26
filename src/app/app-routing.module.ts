@@ -17,6 +17,7 @@ import {DeleteSupplierComponent} from "./delete-supplier/delete-supplier.compone
 import {HomePageUserComponent} from "./home-page-user/home-page-user.component";
 import {CatalogComponent} from "./catalog/catalog.component";
 import {ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.component";
+import {ChangePasswordComponent} from "./change-password/change-password.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -36,7 +37,8 @@ const routes: Routes = [
 
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},
-  { path: "changeInformation", component: ChangeDatesUserComponent, canActivate: [AuthGuard]}
+  { path: "changeInformation", component: ChangeDatesUserComponent, canActivate: [AuthGuard]},
+  { path: "changePassword", component: ChangePasswordComponent, canActivate: [AuthGuard]},
 
 ];
 
