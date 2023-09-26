@@ -1,5 +1,5 @@
 <div #container class="carrito-container" [ngStyle]="cartStyles">
-  <h3>Carrito de Compras</h3>
+  <h3>CARRITO DE COMPRAS</h3>
   <table>
     <thead>
     <tr>
@@ -25,7 +25,7 @@
       </td>
       <td>{{item.price}}</td>
       <td>
-        <button  (click)="deleteproduct(item.name, item.supplier, item.presentation)">Eliminar</button>
+        <button  (click)="deleteproduct(item.name, item.supplier, item.presentation)"><i class="fa fa-trash"></i></button>
       </td>
     </tr>
     </tbody>
@@ -33,6 +33,6 @@
   <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
   <p class="text-end">Total:  {{all()}} COP</p>
   <div class="text-end">
-    <button>Comprar</button>
+    <button class="button-buy-cart">Comprar</button>
   </div>
 </div>
