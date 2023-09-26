@@ -1,7 +1,7 @@
 footer {
   background-color: #3E7C95;
   text-align: center;
-  padding: 12px 0;
+  padding: 1%;
   font-family: sans-serif;
 }
 
@@ -21,7 +21,7 @@ footer a {
 .form-row2 {
   margin-left: 0%;
   display: flow-root;
-  padding: 0px 0; /* Espacio arriba y abajo */
+  padding: 1% 0; /* Espacio arriba y abajo */
   align-content: center;
   align-items: center;
   width: 100%;
