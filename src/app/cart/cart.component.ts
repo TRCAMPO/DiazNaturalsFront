@@ -26,7 +26,7 @@ export class CartComponent implements AfterViewInit, OnInit{
   @ViewChild('container') container: ElementRef | undefined;
   products: cart[] = [];
   currentPage = 1;
-  elementeForPage = 2;
+  elementeForPage = 3;
   constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef)  {
 
   }

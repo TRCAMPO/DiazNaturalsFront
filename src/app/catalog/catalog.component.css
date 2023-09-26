@@ -41,7 +41,10 @@ table {
 td {
   padding: 10px;
   text-align: center;
-  border: 1px solid #ccc;
+}
+
+td:hover {
+  background-color: #EEEEEE;
 }
 
 .catalog-container img {
