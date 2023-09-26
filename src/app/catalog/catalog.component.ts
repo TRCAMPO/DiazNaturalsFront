@@ -26,9 +26,9 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit() {
     // Realiza una solicitud GET a la API para obtener los productos
-    this.authService.getAllProducts().subscribe((response) => {
+    this.authService.getAllProductsActive().subscribe((response) => {
       this.products = response;
-      this.products.forEach(imgProduct=>{
+      this.products.forEach(imgProduct => {
         console.log(imgProduct.image);
         this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((imageBlob: Blob) => {
           this.blob = imageBlob;
@@ -41,6 +41,7 @@ export class CatalogComponent implements OnInit {
           console.error('Error al cargar la imagen', error);
         });
       });
+
       // Divide los productos en grupos de tres por tabla
       this.productChunks = this.chunkArray(this.products, 3);
     });
