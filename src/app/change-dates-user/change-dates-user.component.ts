@@ -5,13 +5,12 @@ import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {StateModel} from "../create-user/state.model";
 import {CytiModel} from "../create-user/city.model";
 import {UserModelClient} from "../create-user/userClient.model";
 import {SupplierSearchModel} from "../edit-supplier/supplierSearch.model";
-import {ConfirmDialogDeleteUserComponent} from "../confirm-dialog-delete-user/confirm-dialog-delete-user.component";
 import {ConfirmDialogEditUserComponent} from "../confirm-dialog-edit-user/confirm-dialog-edit-user.component";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-change-dates-user',
@@ -29,15 +28,30 @@ export class ChangeDatesUserComponent implements OnInit{
   backgroundColor2: string = "#f5f6f7";
 
   ngOnInit() {
-    this.authService.getStates().subscribe(data => {
-      this.states = data;
+    const statesObservable = this.authService.getStates();
+    const citysObservable = this.authService.getCitys();
+    const userObservable = this.authService.getUserByEmail(this.dataService.getInputValue());
+
+    forkJoin({
+      states: statesObservable,
+      citys: citysObservable,
+      user: userObservable
+    }).subscribe({
+      next: (results) => {
+        this.states = results.states;
+        this.citysOrigin = results.citys;
+
+        this.authService.formDataUserClient = results.user;
+        // @ts-ignore
+        this.authService.formDataStates.id = this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
+        this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
+        this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
+      },
+      error: (error) => {
+        // Manejar errores si es necesario
+        console.error('Error:', error);
+      }
     });
-    this.authService.getCitys().subscribe(data => {
-      this.citysOrigin = data;
-    });
-    /*this.authService.getUserByName(ColocarCliente).subscribe(data =>{
-      this.authService.formDataUserClient = data;
-    });*/
   }
   constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataUserClient = new UserModelClient();
