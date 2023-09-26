@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 
-
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
@@ -45,6 +44,7 @@ import { ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.c
 import { HeaderUserComponent } from './header-user/header-user.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { FooterComponent } from './footer/footer.component';
+import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
@@ -76,6 +76,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     HeaderUserComponent,
     HeaderAdminComponent,
     FooterComponent,
+    CartComponent,
     ChangePasswordComponent
 
   ],
