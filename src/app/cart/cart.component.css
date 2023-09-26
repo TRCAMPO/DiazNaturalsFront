@@ -1,0 +1,139 @@
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  display: contents;
+  justify-content: center;
+  align-items: center;
+}
+/* Variables */
+:root {
+  --background-purple: #EEEEEE;
+  --subtle-white: #f9f9f9;
+  --subtle-grey: #f2f2f2;
+  --masked-grey: #ffffff;
+  --blue: #F03861;
+  --open-sans: 'Open Sans', sans-serif;
+}
+
+/* Estilo para el contenedor del carrito */
+.carrito-container {
+  position: fixed;
+  margin: 0% 0% 0% 0%;
+  top: 0;
+  right: 0;
+  background-color: #EEEEEE;
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-height: 60vh;
+  overflow: auto; /* Habilitar desplazamiento si el contenido es demasiado largo */
+  /* Establece un ancho predeterminado para pantallas más grandes */
+}
+/*.center-number {
+  text-align: center;
+}*/
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .carrito-container {
+    width: 100%; /* Ancho completo para pantallas más pequeñas */
+    max-height: 100vh; /* Altura completa para ocupar toda la pantalla */
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+  }
+}
+/* Aplicar estilos a los input de tipo "number" */
+input[type="number"] {
+  border: none; /* Eliminar el borde */
+  background-color: transparent; /* Eliminar el fondo */
+  outline: none; /* Eliminar el contorno de foco */
+}
+
+/* Estilo para la tabla */
+table {
+  width: 100%; /* Ancho de la tabla del 100% */
+  border-collapse: collapse;
+  border: 1px solid #ccc; /* Borde de la tabla */
+  text-align: center;
+  font-family: sans-serif;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center; /* Alinear el texto al centro en celdas */
+  border: 1px solid #ccc; /* Borde de celdas */
+  white-space: nowrap; /* Evitar que el contenido se divida en múltiples líneas */
+  overflow: hidden; /* Ocultar contenido que desborda la celda */
+  text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para contenido oculto */
+}
+
+/* Estilo para el título "Carrito de Compras" */
+h3 {
+  text-align: center; /* Alinear el título al centro */
+  font-family: sans-serif;
+}
+
+/* Estilo para el botón "Comprar" */
+.text-end {
+  font-family: sans-serif;
+  text-align: right; /* Alinear el botón a la derecha */
+  margin-right: 20px; /* Margen derecho para separar del borde */
+}
+.table-img {
+  max-width: 100px; /* Ancho máximo de la imagen */
+  max-height: 100px; /* Alto máximo de la imagen */
+  width: auto; /* Permitir que el ancho se ajuste automáticamente */
+  height: auto; /* Permitir que el alto se ajuste automáticamente */
+  display: block; /* Evitar el espacio adicional debajo de la imagen */
+  margin: 0 auto; /* Centrar la imagen horizontalmente en su contenedor */
+}
+/* Estilo para las filas impares de la tabla */
+tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* Color de fondo para filas impares */
+}
+
+thead {
+  font-family: sans-serif;
+  background-color: #3E7C95; /* Color de fondo para los nombres de las columnas */
+}
+
+th {
+  color: #FFFFFF;
+  font-size: 16px;
+  text-align: center;
+  font-family: sans-serif;
+  font-style: normal;
+}
+
+button {
+  font-family: sans-serif;
+  margin-top: 2%;
+  padding: 10px 20px;
+  background-color: #f64339; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ea170c; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.button-buy-cart {
+  font-family: sans-serif;
+  margin-top: 2%;
+  padding: 10px 20px;
+  background-color: #6FA535; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none;
+  cursor: pointer;
+}
+
+.button-buy-cart:hover {
+  background-color: #316335; /* Cambiar color de fondo al pasar sobre el botón */
+}

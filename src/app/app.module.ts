@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 
-
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
@@ -39,6 +38,14 @@ import { CreateSupplierComponent } from './create-supplier/create-supplier.compo
 import { ConfirmDialogEditSupplierComponent } from './confirm-dialog-edit-supplier/confirm-dialog-edit-supplier.component';
 import { ConfirmDialogDeleteSupplierComponent } from './confirm-dialog-delete-supplier/confirm-dialog-delete-supplier.component';
 import { RestrictDashDirective } from './restrict-dash.directive';
+import { HomePageUserComponent } from './home-page-user/home-page-user.component';
+import { CatalogComponent } from './catalog/catalog.component';
+import { ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.component";
+import { HeaderUserComponent } from './header-user/header-user.component';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
+import { FooterComponent } from './footer/footer.component';
+import { CartComponent } from './cart/cart.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +70,14 @@ import { RestrictDashDirective } from './restrict-dash.directive';
     ConfirmDialogEditSupplierComponent,
     ConfirmDialogDeleteSupplierComponent,
     RestrictDashDirective,
-
+    HomePageUserComponent,
+    CatalogComponent,
+    ChangeDatesUserComponent,
+    HeaderUserComponent,
+    HeaderAdminComponent,
+    FooterComponent,
+    CartComponent,
+    ChangePasswordComponent
 
   ],
   imports: [

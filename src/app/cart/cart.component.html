@@ -1,0 +1,38 @@
+<div #container class="carrito-container" [ngStyle]="cartStyles">
+  <h3>CARRITO DE COMPRAS</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Proveedor</th>
+      <th>Presentación</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage }">
+      <td class="table-img">
+        <img [src]="item.image" alt="Imagen del producto" style="width: 98px; height: 98px; margin-left: 2px;" >
+      </td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.supplier }}</td>
+      <td>{{ item.presentation }}</td>
+      <td>
+        <input type="number"  [(ngModel)]="item.quantity" (change)="onQuantityChange(item)">
+      </td>
+      <td>{{item.price}}</td>
+      <td>
+        <button  (click)="deleteproduct(item.name, item.supplier, item.presentation)"><i class="fa fa-trash"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
+  <p class="text-end">Total:  {{all()}} COP</p>
+  <div class="text-end">
+    <button class="button-buy-cart">Comprar</button>
+  </div>
+</div>

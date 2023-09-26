@@ -1,0 +1,127 @@
+/* Importa los estilos de Font Awesome */
+html {
+  height: 100%;
+}
+
+body {
+  display: contents;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container-image {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px 0; /* Espacio arriba y abajo */
+  width: 100%;
+}
+
+/* Estilo para el encabezado */
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Estilo para el contenedor principal */
+.catalog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilo para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Estilo para las celdas de la tabla */
+td {
+  padding: 10px;
+  text-align: center;
+}
+
+td:hover {
+  background-color: #EEEEEE;
+}
+
+.catalog-container img {
+  max-width: 250px;
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 0px;
+}
+
+/* Estilo para el nombre del producto */
+h2 {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+/* Estilo para la descripción del producto */
+p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* Estilo para el precio del producto */
+p.price {
+  font-weight: bold;
+}
+
+/* Estilo para el botón "Añadir al Carrito" */
+button {
+  background-color: #6FA535;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+/* Cambia el color del botón al pasar el ratón sobre él */
+button:hover {
+  background-color: #3e7c95;
+}
+
+/* Estilo para la separación entre productos */
+.catalog-container table tr {
+  margin-bottom: 20px;
+}
+
+/* Estilos para hacerlo responsive */
+@media (max-width: 768px) {
+  table {
+    display: block;
+  }
+  td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.button-view-cart-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.view-cart-button {
+  background-color: #316335;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.view-cart-button:hover {
+  background-color: #6FA535;
+}

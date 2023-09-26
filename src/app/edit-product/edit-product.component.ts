@@ -62,6 +62,7 @@ export class EditProductComponent implements OnInit{
   }
 
   loadImage(nameImage:string) {
+    console.log(nameImage);
     this.authService.getImageByName(this.formatImageName(nameImage)).subscribe((imageBlob: Blob) => {
       this.blob = imageBlob;
       const reader = new FileReader();
