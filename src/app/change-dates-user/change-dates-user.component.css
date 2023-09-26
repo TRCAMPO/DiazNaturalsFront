@@ -19,16 +19,10 @@ body {
   font-size: 24px; /* Tamaño de fuente personalizado */
   margin: 0%; /* Eliminar el margen predeterminado del título */
   display: flex;
-  justify-content: initial; /* Centra horizontalmente */
+  justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
   height: 100%; /* Para centrar contenido verticalmente */
   margin-bottom: 2%;
-}
-
-.button-nav:hover {
-  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
-  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
-  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
 }
 
 .titulo {
@@ -38,12 +32,7 @@ body {
   margin: 0; /* Eliminar el margen predeterminado del título */
 }
 
-.login-container img {
-  max-width: 140px; /* Ajusta el tamaño máximo del logo */
-  display: block; /* Para centrar horizontalmente el logo */
-  margin: 0 auto; /* Para centrar el logo horizontalmente */
-  margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
-}
+
 
 .form-field {
   display: flex; /* Cambiar la disposición a flexbox */
@@ -53,6 +42,17 @@ body {
 }
 
 .form-row {
+  display: flow-root;
+  padding: 0px 0; /* Espacio arriba y abajo */
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-row2 {
+  margin-left: 0%;
   display: flow-root;
   padding: 0px 0; /* Espacio arriba y abajo */
   align-content: center;
@@ -77,5 +77,16 @@ body {
   font-size: 20px; /* Tamaño de fuente personalizado */
   font-family: serif; /* Fuente serif */
   align-self: flex-start;
+}
+
+.form-input {
+  width: 90%; /* Opcional: ocupar todo el ancho disponible */
+  padding: 5% 1%; /* Espacio interno en el cuadro */
+  border: 1px solid #ccc; /* Borde del cuadro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
+  font-size: 17px; /* Tamaño de fuente */
+  color: #030303; /* Color de texto */
+  font-family: serif; /* Fuente serif */
 }
 

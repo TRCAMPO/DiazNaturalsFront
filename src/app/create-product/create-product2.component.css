@@ -115,19 +115,6 @@
   background-color: #6FA535;
 }
 
-footer {
-  background-color: #3E7C95;
-  text-align: center;
-  padding: 12px 0;
-  font-family: auto;
-}
-
-footer a {
-  color: #ffffff;
-  text-decoration: none;
-  margin: 0 20px;
-}
-
 .campo {
   display: inline-block;
   margin-bottom: 1.5%;
@@ -173,10 +160,4 @@ footer a {
 
 .custom-button-selec:hover {
   background-color: #568a2a; /* Cambiar color de fondo al pasar sobre el botón */
-}
-
-.red-social-image {
-  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
-  height: auto; /* Mantendrá la relación de aspecto original */
-  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
 }

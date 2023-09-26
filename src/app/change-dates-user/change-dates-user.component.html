@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html>
 <header>
-  <app-header-admin></app-header-admin>
+  <app-header-user></app-header-user>
 </header>
 
 <body>
 <div class="container">
   <div class="title-container">
-    <div class="search-bar">
-      <div class="titulo">Editar Usuario&nbsp;&nbsp;</div>
-      <div>Buscar:&nbsp;</div>
-      <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearchUser.search" placeholder="Buscar usuario">
-      <div>
-      <span>&nbsp;</span>
-      <button class="search-button" (click)="searchUserClient()" >Buscar</button>
-      </div>
-    </div>
+    <div class="titulo">Actualizar Información&nbsp;&nbsp;</div>
   </div>
   <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" >
     <div class="form-row">
@@ -36,32 +28,32 @@
     <div class="form-row">
       <div class="campo">
         <label class="lock" for="state">Departamento</label>
-        <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
+        <select [ngStyle]="{'background-color': backgroundColor2}" class="form-input2" id="state" [(ngModel)]="authService.formDataStates.id" (change)="showCitys(authService.formDataStates.id)" name="state">
           <option value="0" disabled selected>Seleccione una opción</option>
           <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
         </select>
       </div>
       <div class="campo">
         <label class="lock" for="city">Ciudad</label>
-        <select [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input2" id="city" [(ngModel)]="authService.formDataCitys.name" name="city">
+        <select [ngStyle]="{'background-color': backgroundColor2}" class="form-input2" id="city" [(ngModel)]="authService.formDataCitys.name" name="city">
           <option value="" disabled selected>Seleccione una opción</option>
           <option *ngFor="let city of citys" [value]="city.name">{{ city.name }}</option>
         </select>
       </div>
       <div class="campo">
         <label class="lock" for="address">Dirección&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" type="text" id="address" #name="ngModel" [(ngModel)]="authService.formDataUserClient.addressClient" name="address" placeholder="Dirección">
+        <input [ngStyle]="{'background-color': backgroundColor2}" class="form-input" type="text" id="address" #name="ngModel" [(ngModel)]="authService.formDataUserClient.addressClient" name="address" placeholder="Dirección">
       </div>
     </div>
 
     <div class="form-row2">
       <div class="campo">
         <label class="lock" for="contact">Contacto</label>
-        <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" type="text" id="contact" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.nameContactClient" name="contact" placeholder="Contacto cliente">
+        <input [ngStyle]="{'background-color': backgroundColor2}" class="form-input" type="text" id="contact" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.nameContactClient" name="contact" placeholder="Contacto cliente">
       </div>
       <div class="campo">
         <label class="lock" for="phone">Celular</label>
-        <input [ngStyle]="{'background-color': backgroundColor}" [disabled]="disabledInput" class="form-input" appRestrictDash type="number" id="phone" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.phoneClient" name="phone" placeholder="Celular">
+        <input [ngStyle]="{'background-color': backgroundColor2}" class="form-input" appRestrictDash type="number" id="phone" #amount="ngModel" [(ngModel)]="authService.formDataUserClient.phoneClient" name="phone" placeholder="Celular">
       </div>
     </div>
     <div class="button-container">
@@ -70,7 +62,7 @@
     </div>
 
   </form>
-  </div>
+</div>
 </body>
 <footer>
   <app-footer></app-footer>

@@ -112,30 +112,11 @@
   background-color: #6FA535;
 }
 
-footer {
-  background-color: #3E7C95;
-  text-align: center;
-  padding: 12px 0;
-  font-family: auto;
-}
-
-footer a {
-  color: #ffffff;
-  text-decoration: none;
-  margin: 0 20px;
-}
-
 .field-create-supplier {
   display: inline-block;
   margin-bottom: 1.5%;
   margin-left: 5%;
   margin-right: 5%;
-}
-
-.red-social-image {
-  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
-  height: auto; /* Mantendrá la relación de aspecto original */
-  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
 }
 
 .button-nav:hover {
@@ -144,13 +125,3 @@ footer a {
   color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
 }
 
-.footer-create-supplier {
-  margin-left: 0%;
-  display: flow-root;
-  padding: 0px 0; /* Espacio arriba y abajo */
-  align-content: center;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  text-align: center;
-}

@@ -1,14 +1,3 @@
-.form-input {
-  width: 90%; /* Opcional: ocupar todo el ancho disponible */
-  padding: 5% 1%; /* Espacio interno en el cuadro */
-  border: 1px solid #ccc; /* Borde del cuadro */
-  border-radius: 5px; /* Bordes redondeados */
-  background-color: rgba(0, 0, 0, 0.12); /* Fondo blanco */
-  font-size: 17px; /* Tamaño de fuente */
-  color: #030303; /* Color de texto */
-  font-family: serif; /* Fuente serif */
-}
-
 .form-input2 {
   width: 100%; /* Opcional: ocupar todo el ancho disponible */
   padding: 10px; /* Espacio interno en el cuadro */
@@ -102,13 +91,6 @@
   margin-right: 5%;
 }
 
-.campo-Filter-search {
-  display: flex;
-  margin-bottom: 1.5%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 .drop-box {
   border: 2px dashed #ccc; /* Un borde punteado de 2 píxeles de ancho en color gris claro */
   background-color: #f9f9f9; /* Un fondo gris claro */
@@ -182,6 +164,12 @@
   margin-left: 0%;
 }
 
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
+
 .search-button:hover {
   background-color: #1e4b5a;
 }
@@ -196,3 +184,9 @@
     margin-bottom: 10px; /* Espacio entre elementos */
   }
 }
+
+
+
+
+
+

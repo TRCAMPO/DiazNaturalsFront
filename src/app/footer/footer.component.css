@@ -1,0 +1,30 @@
+footer {
+  background-color: #3E7C95;
+  text-align: center;
+  padding: 12px 0;
+  font-family: sans-serif;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 20px;
+  font-family: auto;
+}
+
+.red-social-image {
+  width: 100%; /* La imagen ocupará el 100% del ancho disponible en su contenedor */
+  height: auto; /* Mantendrá la relación de aspecto original */
+  max-width: 40px; /* Establece un ancho máximo si deseas limitar el tamaño máximo */
+}
+
+.form-row2 {
+  margin-left: 0%;
+  display: flow-root;
+  padding: 0px 0; /* Espacio arriba y abajo */
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
