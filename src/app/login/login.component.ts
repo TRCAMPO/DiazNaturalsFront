@@ -31,6 +31,7 @@ export class LoginComponent {
       this.authService.login(this.authService.formDataUser)
         .subscribe(
           (response: any) => {
+            this.dataService.setInputValue(this.authService.formDataUser.email);
             this.authService.token = response.token;
             this.authService.isLog = true;
             const tokenString = JSON.stringify(response);
