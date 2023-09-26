@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import {AllProductsModel} from "./AllProductsModel";
 import { CookieService } from "ngx-cookie-service";
 
+
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
