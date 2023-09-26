@@ -12,7 +12,17 @@
 /* Estilo para la imagen */
 .login-container img {
   max-width: 100px; /* Ajusta el tamaño de la imagen según tus necesidades */
-  margin-left: 47.5%;
+  margin-left: 48%;
+}
+
+@media (max-width: 768px) {
+  .login-container img {
+    max-width: 100px; /* Cambia el tamaño de la imagen para pantallas pequeñas */
+    margin-left: 0; /* Elimina el margen izquierdo para centrar la imagen */
+    display: block; /* Hace que la imagen ocupe todo el ancho disponible */
+    margin: 0 auto; /* Centra la imagen horizontalmente en el contenedor */
+    margin-left: 40%;
+  }
 }
 
 /* Estilo para el botón desplegable */
