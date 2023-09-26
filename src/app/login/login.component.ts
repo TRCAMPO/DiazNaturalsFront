@@ -31,6 +31,7 @@ export class LoginComponent {
       this.authService.login(this.authService.formDataUser)
         .subscribe(
           (response: any) => {
+            this.dataService.setInputValue(this.authService.formDataUser.email);
             this.authService.token = response.token;
             this.authService.isLog = true;
             const tokenString = JSON.stringify(response);
@@ -38,7 +39,7 @@ export class LoginComponent {
             const expirationTimeInSeconds = 3480;
             this.cookieService.set('token', token.token, expirationTimeInSeconds);
             this.toast.success('Se ha iniciado sesión exitosamente', 'Inicio de sesión');
-
+            this.dataService.setInputValue2(token.typeUser);
             if (token.typeUser === 'client') {
               this.route.navigate(['/homePageUser']);
             } else if (token.typeUser === 'admin') {

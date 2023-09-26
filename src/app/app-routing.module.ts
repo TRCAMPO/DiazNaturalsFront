@@ -33,9 +33,10 @@ const routes: Routes = [
   { path: "createSupplier", component: CreateSupplierComponent, canActivate: [AuthGuard]},
   { path: "editSupplier", component: EditSupplierComponent, canActivate: [AuthGuard]},
   { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]},
+
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},
-  { path: "changeInformation", component: ChangeDatesUserComponent}
+  { path: "changeInformation", component: ChangeDatesUserComponent, canActivate: [AuthGuard]}
 
 ];
 
