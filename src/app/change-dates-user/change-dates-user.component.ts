@@ -11,6 +11,7 @@ import {UserModelClient} from "../create-user/userClient.model";
 import {SupplierSearchModel} from "../edit-supplier/supplierSearch.model";
 import {ConfirmDialogEditUserComponent} from "../confirm-dialog-edit-user/confirm-dialog-edit-user.component";
 import {forkJoin} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-change-dates-user',
@@ -30,7 +31,7 @@ export class ChangeDatesUserComponent implements OnInit{
   ngOnInit() {
     const statesObservable = this.authService.getStates();
     const citysObservable = this.authService.getCitys();
-    const userObservable = this.authService.getUserByEmail(this.dataService.getInputValue());
+    const userObservable = this.authService.getUserByEmail(this.cookies.get("email"));
 
     forkJoin({
       states: statesObservable,
@@ -53,7 +54,7 @@ export class ChangeDatesUserComponent implements OnInit{
       }
     });
   }
-  constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(private cookies: CookieService, private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataUserClient = new UserModelClient();
     this.authService.formDataStates = new StateModel();
     this.authService.formDataCitys = new CytiModel();
