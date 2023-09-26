@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
 
       // Verifica si el rol actual tiene permiso para acceder a la ruta actual
       // @ts-ignore
-      if (allowedRoutesByRole[userRole].includes(routeName)) {
+      if (allowedRoutesByRole[this.cookieService.get("rol")].includes(routeName)) {
         return true;
       } else {
         this.router.navigate(['/login']);
