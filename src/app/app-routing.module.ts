@@ -39,8 +39,8 @@ const routes: Routes = [
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},
   { path: "changeInformation", component: ChangeDatesUserComponent, canActivate: [AuthGuard]},
-  { path: "cart", component: CartComponent},
-  { path: "changePassword", component: ChangePasswordComponent, canActivate: [AuthGuard]},
+  { path: "cart", component: CartComponent, canActivate: [AuthGuard]},
+  { path: "changePassword", component: ChangePasswordComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
