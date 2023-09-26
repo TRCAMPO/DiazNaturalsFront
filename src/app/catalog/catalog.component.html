@@ -16,7 +16,7 @@
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p>{{ product.price }}</p>
-        <button>Añadir al Carrito</button>
+        <button (click)="addModel(product)">Añadir al Carrito</button>
       </td>
     </tr>
   </table>
@@ -24,11 +24,13 @@
 
 <div class="button-view-cart-container">
   <!-- Icono de carrito de compras en lugar del texto -->
-  <button class="view-cart-button">
+  <button class="view-cart-button"  (click)="toggleCart()">
     <i class="fa fa-shopping-cart"></i> <!-- Icono de carrito de compras -->
   </button>
 </div>
-
+<div *ngIf="showCart">
+  <app-cart >></app-cart>
+</div>
 <footer>
   <app-footer></app-footer>
 </footer>
