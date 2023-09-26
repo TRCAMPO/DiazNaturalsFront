@@ -5,6 +5,7 @@ import {DataService} from "../shared/data.service";
 import {NgForm} from "@angular/forms";
 import {PasswordModel} from "../new-password/Password.Model";
 import {ToastrService} from "ngx-toastr";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-change-password',
@@ -17,7 +18,7 @@ export class ChangePasswordComponent {
   confirmacion: string;
 
 
-  constructor(public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(public cookies: CookieService , public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.password = "";
     this.error = "";
     this.confirmacion = "";
@@ -28,13 +29,13 @@ export class ChangePasswordComponent {
       this.authService.formPassword.password !== '' && this.authService.formPassword.confirmation !== null) {
       if (this.authService.formPassword.password == this.authService.formPassword.confirmation) {
         this.authService.formSendPassword.password = this.authService.formPassword.password;
-        this.authService.formSendPassword.email = this.dataService.getInputValue();
+        this.authService.formSendPassword.email = this.cookies.get("email");
         this.authService.changePassword(this.authService.formSendPassword)
           .subscribe(
             () => {
               this.toast.success("Se cambio con exito la contraseña", "Cambio de contraseña");
               this.authService.formPassword = new PasswordModel();
-              if (this.dataService.getInputValue2() === 'admin') {
+              if (this.cookies.get("rol") === 'admin') {
                 this.route.navigate(['/homePage']);
               }else {
                 this.route.navigate(['/homePageUser']);
