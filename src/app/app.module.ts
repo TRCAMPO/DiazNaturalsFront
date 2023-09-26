@@ -42,6 +42,9 @@ import { RestrictDashDirective } from './restrict-dash.directive';
 import { HomePageUserComponent } from './home-page-user/home-page-user.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.component";
+import { HeaderUserComponent } from './header-user/header-user.component';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.c
     RestrictDashDirective,
     HomePageUserComponent,
     CatalogComponent,
-    ChangeDatesUserComponent
+    ChangeDatesUserComponent,
+    HeaderUserComponent,
+    HeaderAdminComponent,
+    FooterComponent
 
   ],
   imports: [

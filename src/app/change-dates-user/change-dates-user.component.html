@@ -1,44 +1,7 @@
 <!DOCTYPE html>
 <html>
 <header>
-  <div class="login-container">
-    <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo_principal.jpg?alt=media&token=8347ba50-ac57-46c5-ad31-3cb0e25bd463" alt="Logo de la empresa">
-  </div>
-  <div class="container22">
-    <div class="container-menu">
-      <ul>
-        <li><a [routerLink]="['/homePage/']" >Home</a></li>
-        <li><a >Proveedores</a><i class="fa fa-angle-down"></i>
-          <ul>
-            <li><a class="li-sub" [routerLink]="['/createSupplier/']">Crear Proveedor</a></li>
-            <li><a class="li-sub" [routerLink]="['/editSupplier/']">Editar Proveedor</a></li>
-            <li><a class="li-sub" [routerLink]="['/deleteSupplier/']">Eliminar Proveedor</a></li>
-          </ul>
-        </li>
-        <li><a >Productos</a><i class="fa fa-angle-down"></i>
-          <ul>
-            <li><a class="li-sub" [routerLink]="['/createProduct/']" >Crear Producto</a></li>
-            <li><a class="li-sub" [routerLink]="['/editProduct/']" >Editar Producto</a></li>
-            <li><a class="li-sub" [routerLink]="['/deleteProduct/']" >Eliminar Producto</a></li>
-          </ul>
-        </li>
-        <li><a >Usuarios</a><i class="fa fa-angle-down"></i>
-          <ul>
-            <li><a class="li-sub" [routerLink]="['/createUser/']">Crear Usuario</a></li>
-            <li><a class="li-sub" [routerLink]="['/editUser/']" >Editar Usuario</a></li>
-            <li><a class="li-sub" [routerLink]="['/deleteUser/']" >Eliminar Usuario</a></li>
-          </ul>
-        </li>
-        <li><a >Pedidos</a><i class="fa fa-angle-down"></i>
-          <ul>
-            <li><a class="li-sub" href="#">Crear Pedido</a></li>
-            <li><a class="li-sub" href="#">Editar Pedido</a></li>
-            <li><a class="li-sub" href="#">Eliminar Pedido</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <app-header-user></app-header-user>
 </header>
 
 <body>
@@ -102,24 +65,7 @@
 </div>
 </body>
 <footer>
-  <div class="form-row2">
-    <a href="#">
-      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/logo%20facebook.jpg?alt=media&token=0df5a6a9-6198-42b0-a5b6-a7bba5fcc4b8" alt="Red Social 1">
-    </a>
-
-    <a href="#">
-      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20instagram.jpg?alt=media&token=8ae466de-15a8-454d-a88d-8e7a9e4ee75f" alt="Red Social 2">
-    </a>
-
-    <a href="#">
-      <img class="red-social-image" src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo%20Whats.jpg?alt=media&token=de3f918c-fc60-463a-93d3-8a84c3bb0bf9" alt="Red Social 3">
-    </a>
-  </div>
-  <div class="form-row22">
-    <a href="">Información legal</a>
-    <a>|</a>
-    <a href="">Política de privacidad</a>
-  </div>
+  <app-footer></app-footer>
 </footer>
 </html>
 
