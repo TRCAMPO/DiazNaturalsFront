@@ -6,8 +6,6 @@ import {AllProductsModel} from "./AllProductsModel";
 import { CookieService } from "ngx-cookie-service";
 import {cart} from "../cart/cart.model";
 
-
-
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
@@ -22,8 +20,21 @@ export class CatalogComponent implements OnInit {
   cartProduct: cart= null;
   // @ts-ignore
   private blob: Blob;
-  products: AllProductsModel[] = []; // Ajusta el tipo de products
-  productChunks: AllProductsModel[][] = []; // Ajusta el tipo de productChunks
+  products: AllProductsModel[] = [];
+  productChunks: AllProductsModel[][] = [];
+  filteredProducts: AllProductsModel[] = [];
+
+  // Filtros
+  searchTerm: string = '';
+  selectedCategory: string = '';
+  selectedPresentation: string = '';
+  selectedProvider: string = '';
+  selectedSort: string = 'asc'; // Por defecto, ordenar de menor a mayor
+
+  // Valores para los filtros (categoría, presentación, proveedor)
+  categories: string[] = []; // Debes llenar esto con las categorías disponibles
+  presentations: string[] = []; // Debes llenar esto con las presentaciones disponibles
+  providers: string[] = []; // Debes llenar esto con los proveedores disponibles
 
   constructor(
     public authService: AuthService,
@@ -49,6 +60,36 @@ export class CatalogComponent implements OnInit {
       });
       this.productChunks = this.chunkArray(this.products, 3);
     });
+
+    // Llena las categorías, presentaciones y proveedores disponibles
+    this.categories = this.getUniqueValues(this.products.map(product => product.category));
+    this.presentations = this.getUniqueValues(this.products.map(product => product.presentation));
+    this.providers = this.getUniqueValues(this.products.map(product => product.supplier));
+  }
+
+  // Función para obtener valores únicos de una lista
+  getUniqueValues(arr: string[]): string[] {
+    return Array.from(new Set(arr));
+  }
+
+  // Aplica los filtros y actualiza la lista de productos filtrados
+  applyFilters() {
+    this.filteredProducts = this.products
+      .filter(product =>
+        product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+        (this.selectedCategory === '' || product.category === this.selectedCategory) &&
+        (this.selectedPresentation === '' || product.presentation === this.selectedPresentation) &&
+        (this.selectedProvider === '' || product.supplier === this.selectedProvider)
+      );
+
+    if (this.selectedSort === 'asc') {
+      this.filteredProducts.sort((a, b) => a.price - b.price);
+    } else if (this.selectedSort === 'desc') {
+      this.filteredProducts.sort((a, b) => b.price - a.price);
+    }
+
+    // Divide los productos filtrados en grupos de tres por tabla
+    this.productChunks = this.chunkArray(this.filteredProducts, 3);
   }
 
   formatImageName(name:string){
