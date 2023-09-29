@@ -43,16 +43,18 @@ td {
   text-align: center;
 }
 
+/* Cambiar el cursor a una mano al pasar sobre <td> */
 td:hover {
   background-color: #EEEEEE;
+  cursor: pointer; /* Cambia el cursor a una mano */
 }
 
+
 .catalog-container img {
-  max-width: 250px;
+  width: 250px;
+  height: 200px;
   display: block;
-  height: auto;
   margin: 0 auto;
-  margin-bottom: 0px;
 }
 
 /* Estilo para el nombre del producto */

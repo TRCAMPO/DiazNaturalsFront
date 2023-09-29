@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import {AllProductsModel} from "./AllProductsModel";
 import { CookieService } from "ngx-cookie-service";
 import {cart} from "../cart/cart.model";
+import {ProductInformationComponent} from "../product-information/product-information.component";
 
 @Component({
   selector: 'app-catalog',
@@ -16,6 +17,8 @@ export class CatalogComponent implements OnInit {
   imageUrl: string | null = null;
   showCart: boolean = false;
   dataCart: cart[] = [];
+  currentPage = 1;
+  elementeForPage = 1;
   // @ts-ignore
   cartProduct: cart= null;
   // @ts-ignore
@@ -23,6 +26,8 @@ export class CatalogComponent implements OnInit {
   products: AllProductsModel[] = [];
   productChunks: AllProductsModel[][] = [];
   filteredProducts: AllProductsModel[] = [];
+  // @ts-ignore
+  selectedProduct: AllProductsModel | null = null;
 
   // Filtros
   searchTerm: string = '';
@@ -40,6 +45,7 @@ export class CatalogComponent implements OnInit {
     public authService: AuthService,
     public route: Router,
     public cookieService: CookieService,
+    private toast: ToastrService
   ) {}
 
   ngOnInit() {
@@ -114,7 +120,6 @@ export class CatalogComponent implements OnInit {
     this.showCart = !this.showCart; // Cambiar el valor de showCart al hacer clic en el botón
   }
   addModel(item: AllProductsModel){
-    console.log(item)
     const newCartProduct: cart = {
       name: item.name,
       image: item.imageNewUrl,
@@ -123,7 +128,7 @@ export class CatalogComponent implements OnInit {
       quantity: 1,
       supplier: item.supplier
     };
-    console.log(newCartProduct)
+    this.toast.success("Se ha agregado el producto correctamente", "Producto Añadido");
     this.addOrUpdateProductToCart(newCartProduct);
   }
   addOrUpdateProductToCart(product: cart) {
@@ -141,5 +146,10 @@ export class CatalogComponent implements OnInit {
     localStorage.setItem('products', cartItemsJSON);
     console.log(this.dataCart);
     console.log(this.dataCart.length);
+  }
+
+  // Cuando el usuario hace clic en un producto para ver los detalles
+  showProductDetails(product: AllProductsModel) {
+    this.selectedProduct = product;
   }
 }

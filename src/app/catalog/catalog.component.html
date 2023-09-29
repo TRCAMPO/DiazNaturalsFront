@@ -40,8 +40,8 @@
 
 <div class="catalog-container">
   <table>
-    <tr *ngFor="let productRow of productChunks">
-      <td *ngFor="let product of productRow">
+    <tr *ngFor="let productRow of productChunks | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage }">
+      <td *ngFor="let product of productRow" (click)="showProductDetails(product)">
         <img [src]="product.imageNewUrl" [alt]="product.name">
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
@@ -50,6 +50,7 @@
       </td>
     </tr>
   </table>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
 </div>
 
 <div class="button-view-cart-container">
@@ -62,11 +63,17 @@
 <div *ngIf="showCart">
   <app-cart></app-cart>
 </div>
+
+<!-- Componente Product Information -->
+<div *ngIf="selectedProduct">
+  <app-product-information [productInfo]="selectedProduct"></app-product-information>
+</div>
+
+
 <footer>
   <app-footer></app-footer>
 </footer>
 </body>
-
 
 </html>
 

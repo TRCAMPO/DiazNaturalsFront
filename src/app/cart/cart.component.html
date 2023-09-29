@@ -31,7 +31,7 @@
     </tbody>
   </table>
   <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
-  <p class="text-end">Total:  {{all()}} COP</p>
+  <p class="text-end">Total:    $ {{all()}} COP</p>
   <div class="text-end">
     <button class="button-buy-cart">Comprar</button>
   </div>

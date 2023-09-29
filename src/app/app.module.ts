@@ -46,6 +46,7 @@ import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProductInformationComponent } from './product-information/product-information.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     HeaderAdminComponent,
     FooterComponent,
     CartComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProductInformationComponent
 
   ],
   imports: [
