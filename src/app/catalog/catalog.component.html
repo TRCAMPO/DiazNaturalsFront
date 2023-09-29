@@ -41,8 +41,8 @@
 <div class="catalog-container">
   <table>
     <tr *ngFor="let productRow of productChunks | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage }">
-      <td *ngFor="let product of productRow" (click)="showProductDetails(product)">
-        <img [src]="product.imageNewUrl" [alt]="product.name">
+      <td *ngFor="let product of productRow">
+        <img [src]="product.imageNewUrl" [alt]="product.name" (click)="showProductDetails(product)">
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p>{{ product.price }}</p>

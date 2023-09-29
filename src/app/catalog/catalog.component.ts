@@ -128,6 +128,8 @@ export class CatalogComponent implements OnInit {
       quantity: 1,
       supplier: item.supplier
     };
+    console.log("Todos los productos" + item);
+    console.log("Constante" + newCartProduct);
     this.toast.success("Se ha agregado el producto correctamente", "Producto Añadido");
     this.addOrUpdateProductToCart(newCartProduct);
   }

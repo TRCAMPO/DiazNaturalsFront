@@ -46,7 +46,6 @@ td {
 /* Cambiar el cursor a una mano al pasar sobre <td> */
 td:hover {
   background-color: #EEEEEE;
-  cursor: pointer; /* Cambia el cursor a una mano */
 }
 
 
@@ -55,6 +54,10 @@ td:hover {
   height: 200px;
   display: block;
   margin: 0 auto;
+}
+
+.catalog-container img:hover {
+  cursor: pointer; /* Cambia el cursor a una mano */
 }
 
 /* Estilo para el nombre del producto */
