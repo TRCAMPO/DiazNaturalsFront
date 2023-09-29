@@ -26,7 +26,7 @@ h2 {
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
   padding: 20px;
-  max-width: 80%; /* Ancho máximo del componente */
+  max-width: 500px; /* Ancho máximo del componente */
   overflow-y: auto; /* Habilita el desplazamiento vertical si es necesario */
 }
 
