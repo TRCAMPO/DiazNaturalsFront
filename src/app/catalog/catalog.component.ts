@@ -6,6 +6,9 @@ import {AllProductsModel} from "./AllProductsModel";
 import { CookieService } from "ngx-cookie-service";
 import {cart} from "../cart/cart.model";
 import {ProductInformationComponent} from "../product-information/product-information.component";
+import {CategoryModel} from "../create-product/category.model";
+import {PresentationsModel} from "../create-product/presentation.model";
+import {SuppliersModel} from "../create-product/suppliers.model";
 
 @Component({
   selector: 'app-catalog',
@@ -13,8 +16,6 @@ import {ProductInformationComponent} from "../product-information/product-inform
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
-  imageFile: File | null = null;
-  imageUrl: string | null = null;
   showCart: boolean = false;
   dataCart: cart[] = [];
   currentPage = 1;
@@ -37,16 +38,17 @@ export class CatalogComponent implements OnInit {
   selectedSort: string = 'asc'; // Por defecto, ordenar de menor a mayor
 
   // Valores para los filtros (categoría, presentación, proveedor)
-  categories: string[] = []; // Debes llenar esto con las categorías disponibles
-  presentations: string[] = []; // Debes llenar esto con las presentaciones disponibles
-  providers: string[] = []; // Debes llenar esto con los proveedores disponibles
+  categories: CategoryModel[] = []; // Debes llenar esto con las categorías disponibles
+  presentations: PresentationsModel[] = []; // Debes llenar esto con las presentaciones disponibles
+  providers: SuppliersModel[] = []; // Debes llenar esto con los proveedores disponibles
 
   constructor(
     public authService: AuthService,
     public route: Router,
     public cookieService: CookieService,
     private toast: ToastrService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.authService.getAllProductsActive().subscribe((response) => {
@@ -66,11 +68,15 @@ export class CatalogComponent implements OnInit {
       });
       this.productChunks = this.chunkArray(this.products, 3);
     });
-
-    // Llena las categorías, presentaciones y proveedores disponibles
-    this.categories = this.getUniqueValues(this.products.map(product => product.category));
-    this.presentations = this.getUniqueValues(this.products.map(product => product.presentation));
-    this.providers = this.getUniqueValues(this.products.map(product => product.supplier));
+    this.authService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
+    this.authService.getPresentation().subscribe(data => {
+      this.presentations = data;
+    });
+    this.authService.getSuppliers().subscribe(data => {
+      this.providers = data;
+    });
   }
 
   // Función para obtener valores únicos de una lista
@@ -94,6 +100,22 @@ export class CatalogComponent implements OnInit {
       this.filteredProducts.sort((a, b) => b.price - a.price);
     }
 
+    // Aplicar filtro por categoría
+    if (this.selectedCategory !== '') {
+      console.log(this.selectedCategory);
+      this.filteredProducts = this.filteredProducts.filter(product => product.category === this.selectedCategory);
+    }
+
+    // Aplicar filtro por presentación
+    if (this.selectedPresentation !== '') {
+      this.filteredProducts = this.filteredProducts.filter(product => product.presentation === this.selectedPresentation);
+    }
+
+    // Aplicar filtro por proveedor
+    if (this.selectedProvider !== '') {
+      this.filteredProducts = this.filteredProducts.filter(product => product.supplier === this.selectedProvider);
+    }
+
     // Divide los productos filtrados en grupos de tres por tabla
     this.productChunks = this.chunkArray(this.filteredProducts, 3);
   }
@@ -110,12 +132,6 @@ export class CatalogComponent implements OnInit {
     return chunks;
   }
 
-  exit() {
-    this.authService.isLog = false;
-    this.authService.token = "";
-    this.route.navigate(["/login"]);
-    this.cookieService.delete('token');
-  }
   toggleCart() {
     this.showCart = !this.showCart; // Cambiar el valor de showCart al hacer clic en el botón
   }
@@ -153,5 +169,9 @@ export class CatalogComponent implements OnInit {
   // Cuando el usuario hace clic en un producto para ver los detalles
   showProductDetails(product: AllProductsModel) {
     this.selectedProduct = product;
+  }
+
+  closeProductInformation() {
+    this.selectedProduct = null;
   }
 }
