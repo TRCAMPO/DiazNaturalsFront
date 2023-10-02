@@ -38,7 +38,7 @@ export class DeleteProductComponent implements OnInit{
     this.authService.getPresentation().subscribe(data => {
       this.presentations = data;
     });
-    this.authService.getSuppliers().subscribe(data => {
+    this.authService.getSuppliersAll().subscribe(data => {
       this.suppliers = data;
     });
   }
