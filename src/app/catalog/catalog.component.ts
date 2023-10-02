@@ -5,7 +5,6 @@ import { ToastrService } from "ngx-toastr";
 import {AllProductsModel} from "./AllProductsModel";
 import { CookieService } from "ngx-cookie-service";
 import {cart} from "../cart/cart.model";
-import {ProductInformationComponent} from "../product-information/product-information.component";
 import {CategoryModel} from "../create-product/category.model";
 import {PresentationsModel} from "../create-product/presentation.model";
 import {SuppliersModel} from "../create-product/suppliers.model";
