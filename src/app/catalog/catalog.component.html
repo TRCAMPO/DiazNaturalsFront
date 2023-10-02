@@ -15,17 +15,17 @@
   <!-- Filtros -->
   <select [(ngModel)]="selectedCategory">
     <option value="">Todas las categorías</option>
-    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    <option *ngFor="let category of categories" [value]="category.nameCategory">{{ category.nameCategory }}</option>
   </select>
 
   <select [(ngModel)]="selectedPresentation">
     <option value="">Todas las presentaciones</option>
-    <option *ngFor="let presentation of presentations" [value]="presentation">{{ presentation }}</option>
+    <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
   </select>
 
   <select [(ngModel)]="selectedProvider">
     <option value="">Todos los proveedores</option>
-    <option *ngFor="let provider of providers" [value]="provider">{{ provider }}</option>
+    <option *ngFor="let provider of providers" [value]="provider.nameSupplier">{{ provider.nameSupplier }}</option>
   </select>
 
   <select [(ngModel)]="selectedSort">
@@ -66,7 +66,7 @@
 
 <!-- Componente Product Information -->
 <div *ngIf="selectedProduct">
-  <app-product-information [productInfo]="selectedProduct"></app-product-information>
+  <app-product-information [productInfo]="selectedProduct" (closeProductInformation)="closeProductInformation()"></app-product-information>
 </div>
 
 
