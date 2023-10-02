@@ -86,6 +86,10 @@ export class AuthService {
     return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers/active`);
   }
 
+  getSuppliersAll() {
+    return this.http.get<SuppliersModel[]>(`${this.apiUrl}/Suppliers/all`);
+  }
+
   postProduct(formDataProduct: ProductModel) {
     return this.http.post(`${this.apiUrl}/Products`, formDataProduct);
   }
