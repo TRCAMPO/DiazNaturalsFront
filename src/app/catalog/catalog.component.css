@@ -43,16 +43,21 @@ td {
   text-align: center;
 }
 
+/* Cambiar el cursor a una mano al pasar sobre <td> */
 td:hover {
   background-color: #EEEEEE;
 }
 
+
 .catalog-container img {
-  max-width: 250px;
+  width: 250px;
+  height: 200px;
   display: block;
-  height: auto;
   margin: 0 auto;
-  margin-bottom: 0px;
+}
+
+.catalog-container img:hover {
+  cursor: pointer; /* Cambia el cursor a una mano */
 }
 
 /* Estilo para el nombre del producto */
@@ -125,3 +130,79 @@ button:hover {
 .view-cart-button:hover {
   background-color: #6FA535;
 }
+
+/* Estilo base para la barra de filtros */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Aumenta el tamaño del campo de búsqueda de texto */
+.filter-bar input[type="text"] {
+  margin: 5px;
+  padding: 5px; /* Aumenta el padding para hacerlo más grande */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  flex: 2; /* Hacemos que ocupe más espacio que los selectores */
+  max-width: 100%;
+}
+
+/* Reduce el tamaño de los selectores */
+.filter-bar select {
+  margin: 5px;
+  padding: 5px; /* Reducimos el padding para hacerlo más pequeño */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  flex: 1; /* Ocupa menos espacio que el campo de búsqueda de texto */
+  max-width: 100%;
+}
+
+/* Resto del código sin cambios */
+.filter-bar button {
+  background-color: #316335;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.filter-bar button:hover {
+  background-color: #6FA535;
+}
+
+/* Estilo para los iconos de Font Awesome en los select */
+.filter-bar select::after {
+  font-family: "FontAwesome";
+  content: "\f0d7"; /* Flecha hacia abajo */
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  pointer-events: none;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Ajustes para elementos en dispositivos móviles */
+  .filter-bar input[type="text"],
+  .filter-bar select {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+

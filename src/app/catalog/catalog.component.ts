@@ -5,8 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import {AllProductsModel} from "./AllProductsModel";
 import { CookieService } from "ngx-cookie-service";
 import {cart} from "../cart/cart.model";
-
-
+import {ProductInformationComponent} from "../product-information/product-information.component";
 
 @Component({
   selector: 'app-catalog',
@@ -18,17 +17,35 @@ export class CatalogComponent implements OnInit {
   imageUrl: string | null = null;
   showCart: boolean = false;
   dataCart: cart[] = [];
+  currentPage = 1;
+  elementeForPage = 1;
   // @ts-ignore
   cartProduct: cart= null;
   // @ts-ignore
   private blob: Blob;
-  products: AllProductsModel[] = []; // Ajusta el tipo de products
-  productChunks: AllProductsModel[][] = []; // Ajusta el tipo de productChunks
+  products: AllProductsModel[] = [];
+  productChunks: AllProductsModel[][] = [];
+  filteredProducts: AllProductsModel[] = [];
+  // @ts-ignore
+  selectedProduct: AllProductsModel | null = null;
+
+  // Filtros
+  searchTerm: string = '';
+  selectedCategory: string = '';
+  selectedPresentation: string = '';
+  selectedProvider: string = '';
+  selectedSort: string = 'asc'; // Por defecto, ordenar de menor a mayor
+
+  // Valores para los filtros (categoría, presentación, proveedor)
+  categories: string[] = []; // Debes llenar esto con las categorías disponibles
+  presentations: string[] = []; // Debes llenar esto con las presentaciones disponibles
+  providers: string[] = []; // Debes llenar esto con los proveedores disponibles
 
   constructor(
     public authService: AuthService,
     public route: Router,
     public cookieService: CookieService,
+    private toast: ToastrService
   ) {}
 
   ngOnInit() {
@@ -49,6 +66,36 @@ export class CatalogComponent implements OnInit {
       });
       this.productChunks = this.chunkArray(this.products, 3);
     });
+
+    // Llena las categorías, presentaciones y proveedores disponibles
+    this.categories = this.getUniqueValues(this.products.map(product => product.category));
+    this.presentations = this.getUniqueValues(this.products.map(product => product.presentation));
+    this.providers = this.getUniqueValues(this.products.map(product => product.supplier));
+  }
+
+  // Función para obtener valores únicos de una lista
+  getUniqueValues(arr: string[]): string[] {
+    return Array.from(new Set(arr));
+  }
+
+  // Aplica los filtros y actualiza la lista de productos filtrados
+  applyFilters() {
+    this.filteredProducts = this.products
+      .filter(product =>
+        product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+        (this.selectedCategory === '' || product.category === this.selectedCategory) &&
+        (this.selectedPresentation === '' || product.presentation === this.selectedPresentation) &&
+        (this.selectedProvider === '' || product.supplier === this.selectedProvider)
+      );
+
+    if (this.selectedSort === 'asc') {
+      this.filteredProducts.sort((a, b) => a.price - b.price);
+    } else if (this.selectedSort === 'desc') {
+      this.filteredProducts.sort((a, b) => b.price - a.price);
+    }
+
+    // Divide los productos filtrados en grupos de tres por tabla
+    this.productChunks = this.chunkArray(this.filteredProducts, 3);
   }
 
   formatImageName(name:string){
@@ -73,7 +120,6 @@ export class CatalogComponent implements OnInit {
     this.showCart = !this.showCart; // Cambiar el valor de showCart al hacer clic en el botón
   }
   addModel(item: AllProductsModel){
-    console.log(item)
     const newCartProduct: cart = {
       name: item.name,
       image: item.imageNewUrl,
@@ -82,7 +128,9 @@ export class CatalogComponent implements OnInit {
       quantity: 1,
       supplier: item.supplier
     };
-    console.log(newCartProduct)
+    console.log("Todos los productos" + item);
+    console.log("Constante" + newCartProduct);
+    this.toast.success("Se ha agregado el producto correctamente", "Producto Añadido");
     this.addOrUpdateProductToCart(newCartProduct);
   }
   addOrUpdateProductToCart(product: cart) {
@@ -100,5 +148,10 @@ export class CatalogComponent implements OnInit {
     localStorage.setItem('products', cartItemsJSON);
     console.log(this.dataCart);
     console.log(this.dataCart.length);
+  }
+
+  // Cuando el usuario hace clic en un producto para ver los detalles
+  showProductDetails(product: AllProductsModel) {
+    this.selectedProduct = product;
   }
 }

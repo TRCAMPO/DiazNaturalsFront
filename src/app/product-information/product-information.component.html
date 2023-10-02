@@ -1,0 +1,19 @@
+<!-- product-information.component.html -->
+
+<div class="product-information-overlay">
+  <button (click)="closeProductInformation()">
+    <i class="fa fa-sign-out"></i> <!-- Icono de salida -->
+  </button>
+  <div class="product-information-container">
+    <img [src]="productInfo?.imageNewUrl" [alt]="productInfo?.name">
+    <h2>{{ productInfo?.name }}</h2>
+    <p><span class="subtitle-product-info">Proveedor:</span> {{ productInfo?.supplier }}</p>
+    <p><span class="subtitle-product-info">Presentación:</span> {{ productInfo?.presentation }}</p>
+    <p><span class="subtitle-product-info">Categoría:</span> {{ productInfo?.category }}</p>
+    <p><span class="subtitle-product-info">Precio:</span> $ {{ productInfo?.price }} COP</p>
+    <span class="subtitle-product-info">Descripción:</span> <p>{{ productInfo?.description }}</p>
+  </div>
+</div>
+
+
+
