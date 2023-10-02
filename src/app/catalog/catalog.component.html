@@ -8,11 +8,41 @@
 
 <body>
 <h1>Catálogo de Productos</h1>
+<div class="filter-bar">
+  <!-- Barra de búsqueda -->
+  <input type="text" placeholder="Buscar por nombre" [(ngModel)]="searchTerm">
+
+  <!-- Filtros -->
+  <select [(ngModel)]="selectedCategory">
+    <option value="">Todas las categorías</option>
+    <option *ngFor="let category of categories" [value]="category.nameCategory">{{ category.nameCategory }}</option>
+  </select>
+
+  <select [(ngModel)]="selectedPresentation">
+    <option value="">Todas las presentaciones</option>
+    <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+  </select>
+
+  <select [(ngModel)]="selectedProvider">
+    <option value="">Todos los proveedores</option>
+    <option *ngFor="let provider of providers" [value]="provider.nameSupplier">{{ provider.nameSupplier }}</option>
+  </select>
+
+  <select [(ngModel)]="selectedSort">
+    <option value="asc">Precio de menor a mayor</option>
+    <option value="desc">Precio de mayor a menor</option>
+  </select>
+
+  <button (click)="applyFilters()">
+    <i class="fa fa-search"></i> <!-- Icono de búsqueda -->
+  </button>
+</div>
+
 <div class="catalog-container">
   <table>
-    <tr *ngFor="let productRow of productChunks">
+    <tr *ngFor="let productRow of productChunks | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage }">
       <td *ngFor="let product of productRow">
-        <img [src]="product.imageNewUrl" [alt]="product.name">
+        <img [src]="product.imageNewUrl" [alt]="product.name" (click)="showProductDetails(product)">
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p>{{ product.price }}</p>
@@ -20,17 +50,26 @@
       </td>
     </tr>
   </table>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
 </div>
 
 <div class="button-view-cart-container">
   <!-- Icono de carrito de compras en lugar del texto -->
-  <button class="view-cart-button"  (click)="toggleCart()">
+  <button class="view-cart-button" (click)="toggleCart()">
     <i class="fa fa-shopping-cart"></i> <!-- Icono de carrito de compras -->
   </button>
 </div>
+
 <div *ngIf="showCart">
-  <app-cart >></app-cart>
+  <app-cart></app-cart>
 </div>
+
+<!-- Componente Product Information -->
+<div *ngIf="selectedProduct">
+  <app-product-information [productInfo]="selectedProduct" (closeProductInformation)="closeProductInformation()"></app-product-information>
+</div>
+
+
 <footer>
   <app-footer></app-footer>
 </footer>
