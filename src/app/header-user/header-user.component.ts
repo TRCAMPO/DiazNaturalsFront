@@ -18,5 +18,6 @@ export class HeaderUserComponent {
     this.authService.token = "";
     this.route.navigate(["/login"]);
     this.cookieService.delete('token');
+    localStorage.removeItem('products');
   }
 }

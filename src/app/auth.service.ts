@@ -28,8 +28,11 @@ import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
 })
 export class AuthService {
 
- private apiUrl = 'https://www.DiazNaturals.somee.com/api';
+
+  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
  // private apiUrl = 'https://localhost:7167/api';
+
+  private sessionStartTime: number = 0;
 
   formDataUser: UserModel = new UserModel();
   formPassword: PasswordModel = new PasswordModel();
@@ -52,10 +55,26 @@ export class AuthService {
   formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.startSession();
+  }
 
   login(user: UserModel) {
     return this.http.post(`${this.apiUrl}/AccesControll/Validar`, user);
+  }
+
+  startSession() {
+    this.sessionStartTime = Date.now(); // Registra la hora de inicio
+    const sessionDurationInMilliseconds = 58 * 60 * 1000; // 58 minutos en milisegundos
+
+    setTimeout(() => {
+      this.endSession(); // Finaliza la sesión después de 58 minutos
+    }, sessionDurationInMilliseconds);
+  }
+
+  // Finaliza la sesión y borra el contenido del almacenamiento local
+  endSession(){
+    localStorage.clear(); // Borra todo el contenido del almacenamiento local
   }
 
   isLoggedIn() {

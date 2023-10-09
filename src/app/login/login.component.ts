@@ -47,6 +47,8 @@ export class LoginComponent {
             }
 
             this.authService.formDataUser = new UserModel();
+
+            this.authService.startSession();
           },
           () => {
             this.error = 'Credenciales inválidas';
