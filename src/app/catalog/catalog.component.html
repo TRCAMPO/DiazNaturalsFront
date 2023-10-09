@@ -40,17 +40,19 @@
 
 <div class="catalog-container">
   <table>
-    <tr *ngFor="let productRow of productChunks | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage }">
+    <tr *ngFor="let productRow of productChunks | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'catalog' }">
       <td *ngFor="let product of productRow">
         <img [src]="product.imageNewUrl" [alt]="product.name" (click)="showProductDetails(product)">
         <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
-        <p>{{ product.price }}</p>
+        <p>{{ product.presentation }}</p>
+        <p>{{ product.supplier }}</p>
+        <p>{{product.category }}</p>
+        <p>{{ product.price | currency:'$ ':'symbol':'1.0-0' }} COP</p>
         <button (click)="addModel(product)">Añadir al Carrito</button>
       </td>
     </tr>
   </table>
-  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="catalog"></pagination-controls>
 </div>
 
 <div class="button-view-cart-container">

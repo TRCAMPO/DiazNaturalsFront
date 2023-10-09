@@ -7,10 +7,10 @@
   <div class="product-information-container">
     <img [src]="productInfo?.imageNewUrl" [alt]="productInfo?.name">
     <h2>{{ productInfo?.name }}</h2>
-    <p><span class="subtitle-product-info">Proveedor:</span> {{ productInfo?.supplier }}</p>
     <p><span class="subtitle-product-info">Presentación:</span> {{ productInfo?.presentation }}</p>
+    <p><span class="subtitle-product-info">Proveedor:</span> {{ productInfo?.supplier }}</p>
     <p><span class="subtitle-product-info">Categoría:</span> {{ productInfo?.category }}</p>
-    <p><span class="subtitle-product-info">Precio:</span> $ {{ productInfo?.price }} COP</p>
+    <p><span class="subtitle-product-info">Precio:</span> {{ productInfo?.price | currency:'$ ':'symbol':'1.0-0' }} COP</p>
     <span class="subtitle-product-info">Descripción:</span> <p>{{ productInfo?.description }}</p>
   </div>
 </div>
