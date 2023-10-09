@@ -151,6 +151,10 @@ export class CatalogComponent implements OnInit {
     this.addOrUpdateProductToCart(newCartProduct);
   }
   addOrUpdateProductToCart(product: cart) {
+    const data = localStorage.getItem('products');
+    if (data) {
+      this.dataCart = JSON.parse(data);
+    }
     const existingProductIndex = this.dataCart.findIndex(item =>
       item.name === product.name &&
       item.supplier === product.supplier &&
