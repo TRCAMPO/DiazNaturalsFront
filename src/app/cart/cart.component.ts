@@ -13,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationControlsDirective } from 'ngx-pagination';
 
 import {cart} from "./cart.model";
+import {CartService} from "./cart.service";
 //import {ResisableComponentService} from "../resisable-component.service";
 
 @Component({
@@ -27,10 +28,13 @@ export class CartComponent implements AfterViewInit, OnInit{
   products: cart[] = [];
   currentPage = 1;
   elementeForPage = 3;
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef)  {
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService)  {
 
   }
   ngOnInit() {
+    this.cartService.cartUpdated$.subscribe(() => {
+      this.updateCart();
+    });
     const cartItemsJSON = localStorage.getItem('products');
     if (cartItemsJSON) {
       this.products = JSON.parse(cartItemsJSON);
@@ -40,8 +44,8 @@ export class CartComponent implements AfterViewInit, OnInit{
   }
 
   onQuantityChange( item: any) {
-    if (item.quantity < 0) {
-      item.quantity = 0;
+    if (item.quantity < 1) {
+      item.quantity = 1;
     }
     this.updateQuantity(item.quantity, item.name, item.supplier, item.presentation);
     this.all();
@@ -92,4 +96,11 @@ export class CartComponent implements AfterViewInit, OnInit{
     return value;
   }
 
+  updateCart() {
+    // Vuelve a obtener los productos del carrito desde localStorage
+    const cartItemsJSON = localStorage.getItem('products');
+    if (cartItemsJSON) {
+      this.products = JSON.parse(cartItemsJSON);
+    }
+  }
 }
