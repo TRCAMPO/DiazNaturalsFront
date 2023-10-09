@@ -8,6 +8,7 @@ import {cart} from "../cart/cart.model";
 import {CategoryModel} from "../create-product/category.model";
 import {PresentationsModel} from "../create-product/presentation.model";
 import {SuppliersModel} from "../create-product/suppliers.model";
+import {CartService} from "../cart/cart.service";
 
 @Component({
   selector: 'app-catalog',
@@ -45,7 +46,8 @@ export class CatalogComponent implements OnInit {
     public authService: AuthService,
     public route: Router,
     public cookieService: CookieService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private cartService: CartService
   ) {
   }
 
@@ -161,6 +163,7 @@ export class CatalogComponent implements OnInit {
     }
     const cartItemsJSON = JSON.stringify(this.dataCart);
     localStorage.setItem('products', cartItemsJSON);
+    this.cartService.cartUpdated$.next();
     console.log(this.dataCart);
     console.log(this.dataCart.length);
   }

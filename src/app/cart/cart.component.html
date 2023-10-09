@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage }">
+    <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
       <td class="table-img">
         <img [src]="item.image" alt="Imagen del producto" style="width: 98px; height: 98px; margin-left: 2px;" >
       </td>
@@ -23,15 +23,15 @@
       <td>
         <input type="number"  [(ngModel)]="item.quantity" (change)="onQuantityChange(item)">
       </td>
-      <td>{{item.price}}</td>
+      <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
       <td>
         <button  (click)="deleteproduct(item.name, item.supplier, item.presentation)"><i class="fa fa-trash"></i></button>
       </td>
     </tr>
     </tbody>
   </table>
-  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage"></pagination-controls>
-  <p class="text-end">Total:    $ {{all()}} COP</p>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="cart"></pagination-controls>
+  <p class="text-end">Total:     {{all() | currency:'$ ':'symbol':'1.0-0' }} COP</p>
   <div class="text-end">
     <button class="button-buy-cart">Comprar</button>
   </div>
