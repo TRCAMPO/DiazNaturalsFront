@@ -137,3 +137,9 @@ button:hover {
 .button-buy-cart:hover {
   background-color: #316335; /* Cambiar color de fondo al pasar sobre el botón */
 }
+
+.quantity-cart-input {
+  max-width: 100px; /* Ajusta el ancho máximo según tus preferencias */
+  width: 100%; /* Opcional: utiliza el ancho completo dentro del máximo */
+  text-align: center;
+}
