@@ -21,7 +21,7 @@
       <td>{{ item.supplier }}</td>
       <td>{{ item.presentation }}</td>
       <td>
-        <input type="number"  [(ngModel)]="item.quantity" (change)="onQuantityChange(item)">
+        <input class="quantity-cart-input" type="number"  [(ngModel)]="item.quantity" (change)="onQuantityChange(item)">
       </td>
       <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
       <td>
