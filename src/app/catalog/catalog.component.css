@@ -7,10 +7,12 @@ body {
   display: contents;
   justify-content: center;
   align-items: center;
+  font-family: "sans-serif";
 }
 
 .button-container-image {
   display: flex;
+  font-family: "sans-serif";
   justify-content: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
   padding: 20px 0; /* Espacio arriba y abajo */
@@ -20,6 +22,7 @@ body {
 /* Estilo para el encabezado */
 h1 {
   text-align: center;
+  font-family: "sans-serif";
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -28,6 +31,7 @@ h1 {
 .catalog-container {
   max-width: 1200px;
   margin: 0 auto;
+  font-family: "sans-serif";
   padding: 20px;
 }
 
@@ -35,12 +39,14 @@ h1 {
 table {
   width: 100%;
   border-collapse: collapse;
+  font-family: "sans-serif";
 }
 
 /* Estilo para las celdas de la tabla */
 td {
   padding: 10px;
   text-align: center;
+  font-family: "sans-serif";
 }
 
 /* Cambiar el cursor a una mano al pasar sobre <td> */
@@ -63,28 +69,32 @@ td:hover {
 /* Estilo para el nombre del producto */
 h2 {
   font-size: 18px;
+  font-family: "sans-serif";
   margin: 5px 0;
 }
 
 /* Estilo para la descripción del producto */
 p {
-  font-size: 14px;
-  margin: 5px 0;
+  font-size: 15px;
+  margin: 4px 0;
+  font-family: "sans-serif";
 }
 
 /* Estilo para el precio del producto */
 p.price {
   font-weight: bold;
+  font-family: "sans-serif";
 }
 
 /* Estilo para el botón "Añadir al Carrito" */
 button {
   background-color: #6FA535;
   color: #fff;
+  font-family: "sans-serif";
   padding: 5px 10px;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   transition: background-color 0.3s;
 }
 
@@ -96,23 +106,27 @@ button:hover {
 /* Estilo para la separación entre productos */
 .catalog-container table tr {
   margin-bottom: 20px;
+  font-family: "sans-serif";
 }
 
 /* Estilos para hacerlo responsive */
 @media (max-width: 768px) {
   table {
     display: block;
+    font-family: "sans-serif";
   }
   td {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "sans-serif";
     text-align: center;
   }
 }
 
 .button-view-cart-container {
   position: fixed;
+  font-family: "sans-serif";
   bottom: 10px;
   right: 10px;
 }
@@ -123,6 +137,7 @@ button:hover {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
+  font-family: "sans-serif";
   font-size: 16px;
   transition: background-color 0.3s;
 }
@@ -133,7 +148,9 @@ button:hover {
 
 /* Estilo base para la barra de filtros */
 .filter-bar {
+  font-size: 15px;
   display: flex;
+  font-family: "sans-serif";
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
@@ -148,21 +165,25 @@ button:hover {
 /* Aumenta el tamaño del campo de búsqueda de texto */
 .filter-bar input[type="text"] {
   margin: 5px;
+  font-family: "sans-serif";
   padding: 5px; /* Aumenta el padding para hacerlo más grande */
   border: 1px solid #ccc;
   border-radius: 3px;
   flex: 2; /* Hacemos que ocupe más espacio que los selectores */
   max-width: 100%;
+  font-size: 15px;
 }
 
 /* Reduce el tamaño de los selectores */
 .filter-bar select {
   margin: 5px;
+  font-family: "sans-serif";
   padding: 5px; /* Reducimos el padding para hacerlo más pequeño */
   border: 1px solid #ccc;
   border-radius: 3px;
   flex: 1; /* Ocupa menos espacio que el campo de búsqueda de texto */
   max-width: 100%;
+  font-size: 15px;
 }
 
 /* Resto del código sin cambios */
@@ -172,6 +193,7 @@ button:hover {
   padding: 5px 10px;
   border: none;
   cursor: pointer;
+  font-family: "sans-serif";
   font-size: 16px;
   border-radius: 3px;
   transition: background-color 0.3s;
@@ -183,26 +205,31 @@ button:hover {
 
 /* Estilo para los iconos de Font Awesome en los select */
 .filter-bar select::after {
-  font-family: "FontAwesome";
+  font-family: "sans-serif";
   content: "\f0d7"; /* Flecha hacia abajo */
   position: absolute;
   top: 8px;
   right: 10px;
   pointer-events: none;
+  font-size: 15px;
 }
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .filter-bar {
+    font-family: "sans-serif";
     flex-direction: column;
     align-items: flex-start;
+    font-size: 15px;
   }
 
   /* Ajustes para elementos en dispositivos móviles */
   .filter-bar input[type="text"],
   .filter-bar select {
+    font-family: "sans-serif";
     width: 100%;
     margin-right: 0;
+    font-size: 15px;
   }
 }
 
