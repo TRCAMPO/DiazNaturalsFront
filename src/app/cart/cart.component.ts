@@ -47,6 +47,9 @@ export class CartComponent implements AfterViewInit, OnInit{
     if (item.quantity < 1) {
       item.quantity = 1;
     }
+    if (item.quantity > 100) {
+      item.quantity = 100;
+    }
     this.updateQuantity(item.quantity, item.name, item.supplier, item.presentation);
     this.all();
     this.cdr.detectChanges();
