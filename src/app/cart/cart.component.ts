@@ -84,6 +84,15 @@ export class CartComponent implements AfterViewInit, OnInit{
         if (cartItemsJSON) {
           this.products = JSON.parse(cartItemsJSON);
         }
+        if ((this.currentPage ) * this.elementeForPage >= this.products.length) {
+          const ds= (this.currentPage - 1) * this.elementeForPage >= this.products.length;
+          this.currentPage--;
+          if (this.currentPage < 1) {
+            this.currentPage = 1;
+          }
+        }
+        this.updateCart();
+        this.all();
       }
     }
   }
