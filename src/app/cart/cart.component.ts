@@ -7,13 +7,18 @@ import {
   ViewChild,
   AfterViewInit,
   ViewEncapsulation,
-  OnInit, ChangeDetectorRef
+  OnInit, ChangeDetectorRef, EventEmitter, Output
 } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationControlsDirective } from 'ngx-pagination';
 
 import {cart} from "./cart.model";
 import {CartService} from "./cart.service";
+import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogCreateOrderComponent} from "../confirm-dialog-create-order/confirm-dialog-create-order.component";
+import {Router} from "@angular/router";
+import {ConfirmDialogComponentDeleteProduct} from "../confirm-dialog-delete-product/confirm-dialog.component";
 //import {ResisableComponentService} from "../resisable-component.service";
 
 @Component({
@@ -28,7 +33,8 @@ export class CartComponent implements AfterViewInit, OnInit{
   products: cart[] = [];
   currentPage = 1;
   elementeForPage = 3;
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService)  {
+  @Output() closeCart: EventEmitter<void> = new EventEmitter<void>();
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog)  {
 
   }
   ngOnInit() {
@@ -115,4 +121,21 @@ export class CartComponent implements AfterViewInit, OnInit{
       this.products = JSON.parse(cartItemsJSON);
     }
   }
+
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponentDeleteProduct, {
+      panelClass: 'custom-dialog-overlay',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        localStorage.removeItem('products');
+        this.updateCart();
+        this.all();
+        this.closeCart.emit();
+        console.log("exito");
+      } else {
+      }
+    });
+  }
+
 }
