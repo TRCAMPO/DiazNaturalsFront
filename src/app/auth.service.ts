@@ -67,7 +67,7 @@ export class AuthService {
   startSession() {
     this.sessionStartTime = Date.now(); // Registra la hora de inicio
     const currentTime = new Date().getTime();
-    const sessionDurationInMilliseconds = 1 * 60 * 1000; // 58 minutos en milisegundos
+    const sessionDurationInMilliseconds = 58 * 60 * 1000; // 58 minutos en milisegundos
     const emailUser=this.cookiesService.get('email');
     const time={
       currentTime: currentTime,
