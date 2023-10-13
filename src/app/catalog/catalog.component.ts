@@ -158,6 +158,8 @@ export class CatalogComponent implements OnInit {
     const data = localStorage.getItem('products');
     if (data) {
       this.dataCart = JSON.parse(data);
+    }else{
+      this.dataCart=[];
     }
     const existingProductIndex = this.dataCart.findIndex(item =>
       item.name === product.name &&

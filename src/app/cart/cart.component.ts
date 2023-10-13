@@ -19,6 +19,10 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogCreateOrderComponent} from "../confirm-dialog-create-order/confirm-dialog-create-order.component";
 import {Router} from "@angular/router";
 import {ConfirmDialogComponentDeleteProduct} from "../confirm-dialog-delete-product/confirm-dialog.component";
+import {AuthService} from "../auth.service";
+import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
+import {ToastrService} from "ngx-toastr";
+import {Observable} from "rxjs";
 //import {ResisableComponentService} from "../resisable-component.service";
 
 @Component({
@@ -33,9 +37,10 @@ export class CartComponent implements AfterViewInit, OnInit{
   products: cart[] = [];
   currentPage = 1;
   elementeForPage = 3;
-  @Output() closeCart: EventEmitter<void> = new EventEmitter<void>();
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog)  {
 
+  @Output() closeCart: EventEmitter<void> = new EventEmitter<void>();
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog, public authService: AuthService,private toast: ToastrService)  {
+    this.authService.formDataSearchProduct = new SearchProductModel();
   }
   ngOnInit() {
     this.cartService.cartUpdated$.subscribe(() => {
@@ -79,6 +84,7 @@ export class CartComponent implements AfterViewInit, OnInit{
   }
 
   deleteproduct(name:string, supplier:string, presentation:string){
+    console.log("aqui llego");
     const cartItemsJSON = localStorage.getItem('products');
     if (cartItemsJSON) {
       let products = JSON.parse(cartItemsJSON);
@@ -94,7 +100,6 @@ export class CartComponent implements AfterViewInit, OnInit{
           this.products = JSON.parse(cartItemsJSON);
         }
         if ((this.currentPage ) * this.elementeForPage >= this.products.length) {
-          const ds= (this.currentPage - 1) * this.elementeForPage >= this.products.length;
           this.currentPage--;
           if (this.currentPage < 1) {
             this.currentPage = 1;
@@ -126,16 +131,45 @@ export class CartComponent implements AfterViewInit, OnInit{
     const dialogRef = this.dialog.open(ConfirmDialogComponentDeleteProduct, {
       panelClass: 'custom-dialog-overlay',
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        localStorage.removeItem('products');
-        this.updateCart();
-        this.all();
-        this.closeCart.emit();
-        console.log("exito");
+        try {
+          const correctOrder = await this.check();
+          if (correctOrder) {
+            localStorage.removeItem('products');
+            this.products=[];
+            this.all();
+            this.closeCart.emit();
+          }
+        }catch (error){
+
+        }
       } else {
       }
     });
+  }
+ async check():Promise<boolean> {
+    const cartItemsJSON = localStorage.getItem('products');
+    if (cartItemsJSON) {
+      let products = JSON.parse(cartItemsJSON);
+      // @ts-ignore
+      for (const p of products) {
+        this.authService.formDataSearchProduct.search = p.name;
+        this.authService.formDataSearchProduct.suppliers = p.supplier;
+        this.authService.formDataSearchProduct.presentation = p.presentation;
+        try {
+          await this.searchProduct().toPromise();
+        } catch (error) {
+          this.toast.error("Producto "+ this.authService.formDataSearchProduct.search+ " no encontrado", "Error");
+          console.log("borrando...")
+          this.deleteproduct(p.name, p.supplier, p.presentation);
+          return false;
+        }
+      }
+    }return true;
+  }
+  searchProduct(): Observable<any> {
+    return this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct);
   }
 
 }
