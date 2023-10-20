@@ -33,6 +33,6 @@
   <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="cart"></pagination-controls>
   <p class="text-end">Total:     {{all() | currency:'$ ':'symbol':'1.0-0' }} COP</p>
   <div class="text-end">
-    <button class="button-buy-cart">Comprar</button>
+    <button class="button-buy-cart" (click)="openConfirmationDialog()">Comprar</button>
   </div>
 </div>
