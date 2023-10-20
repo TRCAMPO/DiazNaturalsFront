@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
       const routeName = route.routeConfig?.path;
 
       const allowedRoutesByRole = {
-        admin: ['homePage', 'createProduct', 'editProduct', 'deleteProduct', 'createUser', 'editUser', 'deleteUser', 'createSupplier', 'editSupplier', 'deleteSupplier', 'changePassword', 'listSupplier'],
+        admin: ['homePage', 'createProduct', 'editProduct', 'deleteProduct', 'createUser', 'editUser', 'deleteUser', 'createSupplier', 'editSupplier', 'deleteSupplier', 'changePassword', 'listSupplier', 'listUser'],
 
         client: ['homePageUser', 'catalog', 'changeInformation', 'cart', 'changePassword', 'productInformation'],
       };

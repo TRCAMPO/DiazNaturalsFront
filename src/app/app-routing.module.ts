@@ -21,6 +21,7 @@ import {CartComponent} from "./cart/cart.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {ProductInformationComponent} from "./product-information/product-information.component";
 import {ListSuppliersComponent} from "./list-suppliers/list-suppliers.component";
+import {ListUsersComponent} from "./list-users/list-users.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: "editSupplier", component: EditSupplierComponent, canActivate: [AuthGuard]},
   { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]},
   { path: "listSupplier", component: ListSuppliersComponent, canActivate: [AuthGuard]},
+  { path: "listUser", component: ListUsersComponent, canActivate: [AuthGuard]},
 
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},
