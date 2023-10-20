@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <app-header-admin></app-header-admin>
+</header>
+
+<body>
+<div class="container-edit-supplier">
+  <div class="title-container-edit-supplier">
+    <div class="search-bar-edit-supplier">
+      <div class="title-edit-supplier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usuarios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input-edit-supplier" #name="ngModel" [(ngModel)]="authService.formDataSearchUser.search" placeholder="Buscar proveedor">
+      <div>
+        <span>&nbsp;</span>
+        <button class="search-button-edit-supplier" (click)="searchEditUser()">Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <div #container class="tableProv-container" [ngStyle]="cartStyles">
+    <table>
+      <thead>
+      <tr>
+        <th>Nit</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Departamento</th>
+        <th>Ciudad</th>
+        <th>Dirección</th>
+        <th>Contacto</th>
+        <th>Celular</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of users | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+        <td>{{ item.nitClient }}</td>
+        <td>{{ item.nameClient }}</td>
+        <td>{{ item.emailClient }}</td>
+        <td>{{ item.stateClient }}</td>
+        <td>{{ item.cityClient }}</td>
+        <td>{{ item.addressClient }}</td>
+        <td>{{ item.nameContactClient }}</td>
+        <td>{{ item.phoneClient }}</td>
+        <td>
+          <button class="button-green" (click)="editproduct(item.nameClient)"><i class="fas fa-pencil-alt"></i></button>
+        </td>
+        <td>
+          <button (click)="deleteproduct(item.nameClient)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="currentPage = $event" *ngIf="users.length > elementeForPage" id="cart"></pagination-controls>
+  </div>
+</div>
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+
+</html>
+
+
+
+
+
+
+
+
+
+

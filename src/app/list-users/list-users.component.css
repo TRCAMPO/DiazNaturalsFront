@@ -21,20 +21,18 @@ body {
 
 /* Estilo para el contenedor del carrito */
 .tableProv-container {
-  position: fixed;
+  position: static;
   margin: 0% 0% 0% 0%;
   top: 35px;
   right: 0;
   background-color: #EEEEEE;
-  border: 5px solid #ccc;
+  border: 5px solid #ffffff;
   padding: 10px;
   max-height: 82vh;
   overflow: auto; /* Habilitar desplazamiento si el contenido es demasiado largo */
   /* Establece un ancho predeterminado para pantallas más grandes */
 }
-/*.center-number {
-  text-align: center;
-}*/
+
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
   .tableProv-container {
@@ -143,3 +141,91 @@ button:hover {
   width: 100%; /* Opcional: utiliza el ancho completo dentro del máximo */
   text-align: center;
 }
+
+
+.container-edit-supplier {
+  margin: 0%;
+}
+
+.title-container-edit-supplier {
+  color: #100101; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 24px; /* Tamaño de fuente personalizado */
+  margin: 0%; /* Eliminar el margen predeterminado del título */
+  display: flex;
+  justify-content: initial; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Para centrar contenido verticalmente */
+  margin-bottom: 2%;
+}
+
+.title-edit-supplier {
+  color: #100101; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 200%; /* Tamaño de fuente personalizado */
+  margin: 0; /* Eliminar el margen predeterminado del título */
+}
+
+.header-container-edit-supplier img {
+  max-width: 140px; /* Ajusta el tamaño máximo del logo */
+  display: block; /* Para centrar horizontalmente el logo */
+  margin: 0 auto; /* Para centrar el logo horizontalmente */
+  margin-bottom: 0px; /* Agregar espacio entre el logo y el texto */
+}
+
+
+.search-bar-edit-supplier {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.2%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.search-input-edit-supplier {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.filter-select {
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button-edit-supplier {
+  padding: 5px 10px;
+  background-color: #3e7c95;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0%;
+}
+
+.search-button-edit-supplier:hover {
+  background-color: #1e4b5a;
+}
+
+.button-nav:hover {
+  background-color: #3a7537; /* Cambiamos a un tono más claro al pasar el mouse */
+  border-color: #ffffff; /* Cambiamos el color del borde al pasar el mouse */
+  color: #ffffff; /* Cambiamos el color del texto al pasar el mouse */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .title,
+  .search-input,
+  .filter-select,
+  .search-button {
+    width: 100%;
+    margin-bottom: 10px; /* Espacio entre elementos */
+  }
+}
+
