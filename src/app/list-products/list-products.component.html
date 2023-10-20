@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <app-header-admin></app-header-admin>
+</header>
+
+<body>
+<div class="container-edit-supplier">
+  <div class="title-container-edit-supplier">
+    <div class="search-bar-edit-supplier">
+      <div class="title-edit-supplier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Productos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input-edit-supplier" #name="ngModel" [(ngModel)]="authService.formDataSearchUser.search" placeholder="Buscar proveedor">
+      <div>
+        <span>&nbsp;</span>
+        <button class="search-button-edit-supplier" (click)="searchEditUser()">Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <div #container class="tableProv-container" >
+    <table>
+      <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Proveedor</th>
+        <th>Presentación</th>
+        <th>Cantidad</th>
+        <th>Categoria</th>
+        <th>Precio</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+        <td class="table-img">
+          <img [src]="item.image" alt="Imagen del producto" style="width: 98px; height: 98px; margin-left: 2px;" >
+        </td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.supplier }}</td>
+        <td>{{ item.presentation }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
+        <td>
+          <button class="button-green" (click)="editproduct(item.name)"><i class="fas fa-pencil-alt"></i></button>
+        </td>
+        <td>
+          <button (click)="deleteproduct(item.name)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="cart"></pagination-controls>
+  </div>
+</div>
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
