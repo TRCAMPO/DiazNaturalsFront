@@ -35,7 +35,7 @@ body {
 
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
-  .tableProv-container {
+  .carrito-container {
     width: 100%; /* Ancho completo para pantallas más pequeñas */
     max-height: 100vh; /* Altura completa para ocupar toda la pantalla */
     top: 0;
@@ -121,7 +121,6 @@ button {
 button:hover {
   background-color: #ea170c; /* Cambiar color de fondo al pasar sobre el botón */
 }
-
 .button-green {
   font-family: sans-serif;
   margin-top: 2%;
