@@ -20,6 +20,7 @@ import {ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.co
 import {CartComponent} from "./cart/cart.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {ProductInformationComponent} from "./product-information/product-information.component";
+import {ListSuppliersComponent} from "./list-suppliers/list-suppliers.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: "createSupplier", component: CreateSupplierComponent, canActivate: [AuthGuard]},
   { path: "editSupplier", component: EditSupplierComponent, canActivate: [AuthGuard]},
   { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]},
+  { path: "listSupplier", component: ListSuppliersComponent, canActivate: [AuthGuard]},
 
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},
