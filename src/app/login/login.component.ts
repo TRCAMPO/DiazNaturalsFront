@@ -42,6 +42,7 @@ export class LoginComponent {
             this.cookieService.set('email', this.authService.formDataUser.email);
             if (token.typeUser === 'client') {
               this.route.navigate(['/homePageUser']);
+              this.validTimeLocalStorage();
             } else if (token.typeUser === 'admin') {
               this.route.navigate(['/homePage']);
             }
@@ -57,6 +58,22 @@ export class LoginComponent {
         );
     } else{
       this.toast.info("Por favor coloque su correo correctamente","Formato Incorrecto Correo");
+    }
+  }
+  validTimeLocalStorage() {
+    // @ts-ignore
+    const storedData = JSON.parse(localStorage.getItem('time'));
+    if (storedData) {
+      const currentTime = new Date().getTime();
+      const emailUser = storedData.emailUser;
+      const storedTime = storedData.currentTime;
+      if(this.cookieService.get('email') === emailUser) {
+        if (currentTime - storedTime > 3480000) {
+          localStorage.removeItem('products');
+        }
+      }else{
+        localStorage.removeItem('products');
+      }
     }
   }
 
