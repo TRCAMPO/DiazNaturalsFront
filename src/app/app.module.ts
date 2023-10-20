@@ -49,6 +49,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProductInformationComponent } from './product-information/product-information.component';
 import { ListSuppliersComponent } from './list-suppliers/list-suppliers.component';
 import { ListUsersComponent } from './list-users/list-users.component';
+import { ConfirmDialogCreateOrderComponent } from './confirm-dialog-create-order/confirm-dialog-create-order.component';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import { ListUsersComponent } from './list-users/list-users.component';
     ChangePasswordComponent,
     ProductInformationComponent,
     ListSuppliersComponent,
-    ListUsersComponent
+    ListUsersComponent,
+    ConfirmDialogCreateOrderComponent
+
 
   ],
   imports: [

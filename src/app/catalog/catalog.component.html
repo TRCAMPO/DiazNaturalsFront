@@ -63,7 +63,7 @@
 </div>
 
 <div *ngIf="showCart">
-  <app-cart></app-cart>
+  <app-cart (closeCart)="onCartClosed($event)"></app-cart>
 </div>
 
 <!-- Componente Product Information -->
