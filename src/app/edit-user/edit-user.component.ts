@@ -10,6 +10,7 @@ import {StateModel} from "../create-user/state.model";
 import {CytiModel} from "../create-user/city.model";
 import {UserModelClient} from "../create-user/userClient.model";
 import {SupplierSearchModel} from "../edit-supplier/supplierSearch.model";
+import {SharedDataServiceUser} from "../list-users/shareDataServiceUser";
 
 @Component({
   selector: 'app-edit-user',
@@ -32,8 +33,16 @@ export class EditUserComponent implements OnInit{
     this.authService.getCitys().subscribe(data => {
       this.citysOrigin = data;
     });
+    this.sharedDataService.currentProductData.subscribe(data => {
+      // Verifica si data tiene algún valor antes de asignarlo
+      if (data) {
+        this.authService.formDataSearchUser.search = data;
+        this.searchUserClient2();
+      }
+    });
+    this.sharedDataService.clearProductData();
   }
-  constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(private sharedDataService: SharedDataServiceUser, private cdr: ChangeDetectorRef, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataUserClient = new UserModelClient();
     this.authService.formDataStates = new StateModel();
     this.authService.formDataCitys = new CytiModel();
@@ -164,6 +173,31 @@ export class EditUserComponent implements OnInit{
           this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
           this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
           this.toast.success("Se encontro el Usuario", "Usuario Encontrado");
+          this.cangeColor();
+          this.activateCamp();
+        },
+        (error) => {
+          this.toast.error("No se pudo encontrar el Usuario", "Error en la Búsqueda");
+        }
+      );
+    }else {
+      this.toast.info("Por favor escriba el nombre del Usuario", "Ingrese el Usuario");
+    }
+  }
+
+  searchUserClient2() {
+    this.authService.formDataUserClient = new UserModelClient();
+    this.authService.formDataCitys = new CytiModel();
+    this.authService.formDataStates = new StateModel();
+    if(this.authService.formDataSearchUser.search !== null && this.authService.formDataSearchUser.search !== "") {
+      this.authService.getUserByName(this.authService.formDataSearchUser.search).subscribe(
+        (data) => {
+          this.authService.formDataUserClient = data;
+          // @ts-ignore
+          this.authService.formDataStates.id = this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id;
+
+          this.authService.formDataCitys.name = this.authService.formDataUserClient.cityClient;
+          this.showCitys(this.states.find(state => state.name == this.authService.formDataUserClient.stateClient)?.id);
           this.cangeColor();
           this.activateCamp();
         },

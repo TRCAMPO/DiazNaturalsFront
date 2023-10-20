@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SupplierModel} from "../create-supplier/supplier.model";
 import {ConfirmDialogEditSupplierComponent} from "../confirm-dialog-edit-supplier/confirm-dialog-edit-supplier.component";
 import {SupplierSearchModel} from "./supplierSearch.model";
+import {SharedDataService} from "../list-suppliers/shareDataService";
 
 
 @Component({
@@ -14,12 +15,23 @@ import {SupplierSearchModel} from "./supplierSearch.model";
   templateUrl: './edit-supplier.component.html',
   styleUrls: ['./edit-supplier.component.css', './edit-supplier2.component.css']
 })
-export class EditSupplierComponent {
+export class EditSupplierComponent implements OnInit{
   backgroundColor: string = "rgba(0, 0, 0, 0.12)";
   disabledInput: boolean = true;
-  constructor(public dialog: MatDialog, public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
+  constructor(private sharedDataService: SharedDataService, public dialog: MatDialog, public authService: AuthService, private route: Router, private dataService : DataService, private toast: ToastrService) {
     this.authService.formDataSupplier = new SupplierModel();
     this.authService.formDataSearchSupplier = new SupplierSearchModel();
+  }
+
+  ngOnInit() {
+    this.sharedDataService.currentProductData.subscribe(data => {
+      // Verifica si data tiene algún valor antes de asignarlo
+      if (data) {
+        this.authService.formDataSearchSupplier.search = data;
+        this.searchEditSupplier2();
+      }
+    });
+    this.sharedDataService.clearProductData();
   }
 
   activateCamp() {
@@ -156,4 +168,24 @@ export class EditSupplierComponent {
       this.toast.info("No ha ingresado el proveedor", "Ingrese el Proveedor");
     }
   }
+
+  searchEditSupplier2() {
+    this.authService.formDataSupplier = new SupplierModel();
+    if(this.authService.formDataSearchSupplier.search !== '' && this.authService.formDataSearchSupplier.search !== null) {
+      this.authService.getSupplierByName(this.authService.formDataSearchSupplier.search).subscribe(
+        (data) => {
+          this.authService.formDataSupplier = data;
+          // @ts-ignore
+          this.activateCamp();
+          this.cangeColor();
+        },
+        () => {
+          this.toast.error("No se pudo encontrar el proveedor", "Error en la Búsqueda");
+        }
+      );
+    } else {
+      this.toast.info("No ha ingresado el proveedor", "Ingrese el Proveedor");
+    }
+  }
+
 }
