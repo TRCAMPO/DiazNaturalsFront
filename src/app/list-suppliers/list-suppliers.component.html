@@ -29,7 +29,7 @@
         <th>Dirección</th>
         <th>Correo</th>
         <th>Editar</th>
-        <th>Borrar</th>
+        <th>Eliminar</th>
       </tr>
       </thead>
       <tbody>
@@ -40,10 +40,10 @@
         <td>{{ item.addressSupplier }}</td>
         <td>{{ item.emailSupplier }}</td>
         <td>
-          <button  (click)="editproduct()"><i class="fa fa-trash"></i></button>
+          <button class="button-green" (click)="editproduct()"><i class="fas fa-pencil-alt"></i></button>
         </td>
         <td>
-          <button  (click)="deleteproduct()"><i class="fa fa-trash"></i></button>
+          <button (click)="deleteproduct()"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
       </tbody>
