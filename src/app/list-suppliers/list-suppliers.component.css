@@ -20,7 +20,7 @@ body {
 }
 
 /* Estilo para el contenedor del carrito */
-.tableProv-container {
+.carrito-container {
   position: static;
   margin: 0% 0% 0% 0%;
   top: 35px;
@@ -35,7 +35,7 @@ body {
 
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
-  .tableProv-container {
+  .carrito-container {
     width: 100%; /* Ancho completo para pantallas más pequeñas */
     max-height: 100vh; /* Altura completa para ocupar toda la pantalla */
     top: 0;
@@ -122,7 +122,7 @@ button:hover {
   background-color: #ea170c; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
-.button-green {
+.button-buy-cart {
   font-family: sans-serif;
   margin-top: 2%;
   padding: 10px 20px;
@@ -132,7 +132,7 @@ button:hover {
   cursor: pointer;
 }
 
-.button-green:hover {
+.button-buy-cart:hover {
   background-color: #316335; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
