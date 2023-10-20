@@ -20,7 +20,6 @@ import {AllProductsModel} from "../catalog/AllProductsModel";
   styleUrls: ['./list-products.component.css']
 })
 export class ListProductsComponent implements OnInit{
-  @Input() cartStyles: any;
   products: AllProductsModel[] = [];
   productsOrigin: AllProductsModel[] = [];
   currentPage = 1;

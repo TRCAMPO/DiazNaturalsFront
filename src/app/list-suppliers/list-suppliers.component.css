@@ -20,7 +20,7 @@ body {
 }
 
 /* Estilo para el contenedor del carrito */
-.carrito-container {
+.tableProv-container {
   position: static;
   margin: 0% 0% 0% 0%;
   top: 35px;
@@ -122,7 +122,7 @@ button:hover {
   background-color: #ea170c; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
-.button-buy-cart {
+.button-green {
   font-family: sans-serif;
   margin-top: 2%;
   padding: 10px 20px;
@@ -132,7 +132,7 @@ button:hover {
   cursor: pointer;
 }
 
-.button-buy-cart:hover {
+.button-green:hover {
   background-color: #316335; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
