@@ -40,10 +40,10 @@
         <td>{{ item.addressSupplier }}</td>
         <td>{{ item.emailSupplier }}</td>
         <td>
-          <button class="button-green" (click)="editproduct()"><i class="fas fa-pencil-alt"></i></button>
+          <button class="button-green" (click)="editproduct(item.nameSupplier)"><i class="fas fa-pencil-alt"></i></button>
         </td>
         <td>
-          <button (click)="deleteproduct()"><i class="fa fa-trash"></i></button>
+          <button (click)="deleteproduct(item.nameSupplier)"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
       </tbody>
