@@ -192,4 +192,8 @@ export class AuthService {
   getUserByEmail(search: string) {
     return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/searchEmail?search=${search}`);
   }
+
+  getUsers() {
+    return this.http.get<UserModelClient[]>(`${this.apiUrl}/Clients/active`);
+  }
 }
