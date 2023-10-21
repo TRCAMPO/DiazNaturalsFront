@@ -12,6 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog-edit-product/confirm-dialog.component";
 import {switchMap} from "rxjs";
 import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
+import {SharedDataServiceProducts} from "../list-products/shareDataServiceProducts";
 
 @Component({
   selector: 'app-edit-product',
@@ -31,12 +32,13 @@ export class EditProductComponent implements OnInit{
   disabledInput: boolean = true;
   backgroundColor: string = "rgba(0, 0, 0, 0.12)";
 
-  constructor(public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
-    this.authService.formDataProduct = new ProductModel();
-    this.authService.formDataSearchProduct = new SearchProductModel();
+  constructor(private sharedDataServiceProducts: SharedDataServiceProducts, public dialog: MatDialog, public authService: AuthService, public sanitizer: DomSanitizer, private route: Router, private dataService : DataService, private toast: ToastrService) {
+
   }
 
   ngOnInit() {
+    this.authService.formDataProduct = new ProductModel();
+    this.authService.formDataSearchProduct = new SearchProductModel();
     this.authService.getCategories().subscribe(data => {
       this.categories = data;
     });
@@ -46,6 +48,14 @@ export class EditProductComponent implements OnInit{
     this.authService.getSuppliersAll().subscribe(data => {
       this.suppliers = data;
     });
+    this.sharedDataServiceProducts.currentProductData.subscribe(data => {
+      // Verifica si data tiene algún valor antes de asignarlo
+      if (data) {
+        this.authService.formDataSearchProduct = data;
+        this.searchProduct2();
+      }
+    });
+    this.sharedDataServiceProducts.clearProductData();
   }
 
   cangeColor() {
@@ -202,12 +212,35 @@ export class EditProductComponent implements OnInit{
     } else if (!this.isValidateSpacesSearchPresentation()) {
       this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
     } else {
-      this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
+      this.authService.getProductByNamePresentationSupplier(this.authService.formDataSearchProduct).subscribe(
         (data) => {
           this.authService.formDataProduct = data;
           this.loadImage(this.authService.formDataProduct.image);
           this.activateCamp();
           this.toast.success("Se encontro el producto", "Producto Encontrado");
+          this.cangeColor();
+        },
+        () => {
+          // Manejar errores si ocurren
+          this.toast.error("No se pudo encontrar el producto", "Error en la Búsqueda");
+        }
+      );
+    }
+  }
+
+  searchProduct2() {
+    if (this.authService.formDataSearchProduct.search == "" || this.authService.formDataSearchProduct.search == null) {
+      this.toast.info("No ha ingresado el producto", "Ingrese el Producto");
+    } else if (!this.isValidateSpacesSearchSuppliers()) {
+      this.toast.info("No ha seleccionado el proveedor", "Ingrese el Proveedor");
+    } else if (!this.isValidateSpacesSearchPresentation()) {
+      this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
+    } else {
+      this.authService.getProductByNamePresentationSupplier(this.authService.formDataSearchProduct).subscribe(
+        (data) => {
+          this.authService.formDataProduct = data;
+          this.loadImage(this.authService.formDataProduct.image);
+          this.activateCamp();
           this.cangeColor();
         },
         () => {

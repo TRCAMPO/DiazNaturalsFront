@@ -110,7 +110,6 @@ th {
 
 button {
   font-family: sans-serif;
-  margin-top: 2%;
   padding: 10px 20px;
   background-color: #f64339; /* Color de fondo del botón */
   color: #fff; /* Color del texto del botón */
@@ -229,3 +228,51 @@ button:hover {
   }
 }
 
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.2%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.titulo {
+  color: #100101; /* Color de texto blanco */
+  font-family: serif; /* Fuente serif */
+  font-size: 200%; /* Tamaño de fuente personalizado */
+  margin: 0; /* Eliminar el margen predeterminado del título */
+}
+
+.search-button {
+  padding: 5px 10px;
+  background-color: #3e7c95;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0%;
+}
+
+.search-button:hover {
+  background-color: #1e4b5a;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.2%;
+  width: 100%;
+  flex-wrap: wrap;
+  color: #100101;
+  font-family: serif;
+  font-size: 24px;
+}
+
+.search-input {
+  flex-grow: 0.9;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
