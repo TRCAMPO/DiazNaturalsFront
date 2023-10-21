@@ -169,7 +169,7 @@ export class CartComponent implements AfterViewInit, OnInit{
     }return true;
   }
   searchProduct(): Observable<any> {
-    return this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct);
+    return this.authService.getProductByNamePresentationSupplier(this.authService.formDataSearchProduct);
   }
 
 }
