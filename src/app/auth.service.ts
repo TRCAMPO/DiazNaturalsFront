@@ -145,7 +145,7 @@ export class AuthService {
     return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
   }
 
-  getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
+  getProductByNamePresentationSupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
 

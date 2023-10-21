@@ -89,7 +89,7 @@
                 <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
                 <p class="mb-0 parrafo-responsivo2" *ngIf="!imageUrl">Imagen del producto a eliminar</p>
                 <div class="preview-container my-3" *ngIf="imageUrl">
-                  <img [src]="sanitizer.bypassSecurityTrustUrl(imageUrl)" alt="Uploaded Image" class="preview-image rounded">
+                  <img style="width: 300px; height: 200px; margin-left: 2px;" [src]="sanitizer.bypassSecurityTrustUrl(imageUrl)" alt="Uploaded Image" class="preview-image rounded">
                 </div>
               </div>
             </div>

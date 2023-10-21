@@ -128,7 +128,7 @@ export class DeleteProductComponent implements OnInit{
     } else if (!this.isValidateSpacesSearchPresentation()) {
       this.toast.info("No ha seleccionado la presentación", "Ingrese la presentación");
     } else {
-      this.authService.getProductByNameCategorySupplier(this.authService.formDataSearchProduct).subscribe(
+      this.authService.getProductByNamePresentationSupplier(this.authService.formDataSearchProduct).subscribe(
         (data) => {
           this.authService.formDataProduct = data;
           this.loadImage(this.authService.formDataProduct.image);
