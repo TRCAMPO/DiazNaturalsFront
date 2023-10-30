@@ -19,8 +19,8 @@
       <div>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;Estado:</span>
         <select class="filter-select" [(ngModel)]="authService.formDataSearchOrder.state">
-          <option value="" selected>Todas las presentaciones</option>
-          <option *ngFor="let statu of status" [value]="statu">{{ statu.nameStatus }}</option>
+          <option value="" selected>Todos los estados</option>
+          <option *ngFor="let statu of status" [value]="statu.nameStatus">{{ statu.nameStatus }}</option>
         </select>
       </div>
       <div>
@@ -42,7 +42,7 @@
         <th>Teléfono</th>
         <th>Dirección</th>
         <th>Contacto</th>
-        <th>Fecha de inicio</th>
+        <th>Fecha</th>
         <th>Estado del pedido</th>
         <th>Precio</th>
         <th>Visualizar</th>
