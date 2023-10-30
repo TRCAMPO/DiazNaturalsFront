@@ -12,6 +12,7 @@ export class OrdersModel {
   imageOrder: string = "";
   statusOrder: string = "";
   totalPriceOrder: number = 0;
+  imageNewUrl: string = "";
 
 
 

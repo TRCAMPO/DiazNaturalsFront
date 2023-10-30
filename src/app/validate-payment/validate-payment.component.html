@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <header>
   <app-header-admin></app-header-admin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </header>
 
 <body>
 <div class="container">
   <div class="title-container">
-    <h1 class="titulo">Validar Pago</h1>
+    <h1 class="titulo">Detalles del Pedido</h1>
   </div>
 
-  <div class="login-item">
-    <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
-      <form>
+  <div class="order-details">
+    <div class="order-info">
+      <h2>Información del Pedido</h2>
+      <p><strong>ID del Pedido:</strong> {{ orderDetails.idOrder }}</p>
+      <p><strong>NIT del Cliente:</strong> {{ orderDetails.nitClient }}</p>
+      <p><strong>Nombre del Cliente:</strong> {{ orderDetails.nameClient }}</p>
+      <p><strong>Estado del Cliente:</strong> {{ orderDetails.stateClient }}</p>
+      <p><strong>Ciudad del Cliente:</strong> {{ orderDetails.cityClient }}</p>
+      <p><strong>Dirección del Cliente:</strong> {{ orderDetails.addressClient }}</p>
+      <p><strong>Teléfono del Cliente:</strong> {{ orderDetails.phoneClient }}</p>
+      <p><strong>Nombre de Contacto:</strong> {{ orderDetails.nameContactClient }}</p>
+      <p><strong>Fecha de Inicio:</strong> {{ orderDetails.startDateOrder | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Total:</strong> {{ orderDetails.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</p>
+      <p><strong>Estado del Pedido:</strong> {{ orderDetails.statusOrder }}</p>
+    </div>
 
+    <div class="order-image">
+      <label class="lock">Imagen del Pedido</label>
+      <div
+        class="image-container"
+      >
+        <img [src]="orderDetails.imageOrder" alt="Imagen del Pedido" class="preview-image rounded" />
+      </div>
+    </div>
+  </div>
 
-
-        <div class="button-container">
-          <input type="submit" class="custom-button" (click)="openConfirmationDialogPayment()" value="Validar Pago">
-          <input type="submit" class="custom-buttonC" (click)="changePagePayment()" value="Cancelar">
-        </div>
-      </form>
-    </form>
-
+  <div class="button-container">
+    <input type="submit" class="custom-button" (click)="openConfirmationDialogPayment()" value="Validar Pago">
+    <input type="submit" class="custom-buttonC" (click)="changePage()" value="Cancelar">
   </div>
 </div>
 </body>

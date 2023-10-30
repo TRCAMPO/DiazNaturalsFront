@@ -12,6 +12,7 @@ import {ConfirmDialogDeleteSupplierComponent} from "../confirm-dialog-delete-sup
 import {MatDialog} from "@angular/material/dialog";
 import {OrdersModel} from "./ordersModel";
 import {StatusModel} from "./status.model";
+import {OrderSearchModel} from "./OrderSearchModel";
 
 @Component({
   selector: 'app-list-orders',
@@ -87,6 +88,12 @@ export class ListOrdersComponent implements OnInit{
     }
   }
 
+  editproduct(item: OrdersModel){
+    // Utiliza el servicio para establecer los datos
+    this.sharedDataService.setProductData(item);
+    // Navega a la pantalla de editar producto
+    this.router.navigate(['/validatePayment']);
+  }
 
   onSubmit() {
     this.authService.formDataDeleteSupplier.nitSupplier = this.authService.formDataSupplier.nitSupplier;
