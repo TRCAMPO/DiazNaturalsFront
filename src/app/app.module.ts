@@ -47,6 +47,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProductInformationComponent } from './product-information/product-information.component';
+import { ValidatePaymentComponent } from './validate-payment/validate-payment.component';
+import { ValidatePaymentUserComponent } from './validate-payment-user/validate-payment-user.component';
 import { ListSuppliersComponent } from './list-suppliers/list-suppliers.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { ConfirmDialogCreateOrderComponent } from './confirm-dialog-create-order/confirm-dialog-create-order.component';
@@ -85,6 +87,9 @@ import { ListOrdersComponent } from './list-orders/list-orders.component';
     FooterComponent,
     CartComponent,
     ChangePasswordComponent,
+    ProductInformationComponent,
+    ValidatePaymentComponent,
+    ValidatePaymentUserComponent,
     ProductInformationComponent,
     ListSuppliersComponent,
     ListUsersComponent,

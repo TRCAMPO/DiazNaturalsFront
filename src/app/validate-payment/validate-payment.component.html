@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <app-header-admin></app-header-admin>
+</header>
+
+<body>
+<div class="container">
+  <div class="title-container">
+    <h1 class="titulo">Validar Pago</h1>
+  </div>
+
+  <div class="login-item">
+    <form action="" method="post" class="form form-login" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
+      <form>
+
+
+
+        <div class="button-container">
+          <input type="submit" class="custom-button" (click)="openConfirmationDialogPayment()" value="Validar Pago">
+          <input type="submit" class="custom-buttonC" (click)="changePagePayment()" value="Cancelar">
+        </div>
+      </form>
+    </form>
+
+  </div>
+</div>
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+</html>
