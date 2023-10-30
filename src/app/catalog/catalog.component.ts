@@ -136,7 +136,11 @@ export class CatalogComponent implements OnInit {
   toggleCart() {
     this.showCart = !this.showCart; // Cambiar el valor de showCart al hacer clic en el botón
   }
-  addModel(item: AllProductsModel){
+  onCartClosed(event: any) {
+    // Realiza las acciones necesarias cuando se cierra el carrito
+    this.showCart = false; // Cerrar el carrito
+  }
+    addModel(item: AllProductsModel){
     const newCartProduct: cart = {
       name: item.name,
       image: item.imageNewUrl,
@@ -154,6 +158,8 @@ export class CatalogComponent implements OnInit {
     const data = localStorage.getItem('products');
     if (data) {
       this.dataCart = JSON.parse(data);
+    }else{
+      this.dataCart=[];
     }
     const existingProductIndex = this.dataCart.findIndex(item =>
       item.name === product.name &&

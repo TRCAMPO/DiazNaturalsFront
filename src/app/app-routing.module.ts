@@ -22,6 +22,9 @@ import {ChangePasswordComponent} from "./change-password/change-password.compone
 import {ProductInformationComponent} from "./product-information/product-information.component";
 import {ValidatePaymentComponent} from "./validate-payment/validate-payment.component";
 import {ValidatePaymentUserComponent} from "./validate-payment-user/validate-payment-user.component";
+import {ListSuppliersComponent} from "./list-suppliers/list-suppliers.component";
+import {ListUsersComponent} from "./list-users/list-users.component";
+import {ListProductsComponent} from "./list-products/list-products.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -38,6 +41,9 @@ const routes: Routes = [
   { path: "createSupplier", component: CreateSupplierComponent, canActivate: [AuthGuard]},
   { path: "editSupplier", component: EditSupplierComponent, canActivate: [AuthGuard]},
   { path: "deleteSupplier", component: DeleteSupplierComponent, canActivate: [AuthGuard]},
+  { path: "listSupplier", component: ListSuppliersComponent, canActivate: [AuthGuard]},
+  { path: "listUser", component: ListUsersComponent, canActivate: [AuthGuard]},
+  { path: "listProducts", component: ListProductsComponent, canActivate: [AuthGuard]},
 
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},

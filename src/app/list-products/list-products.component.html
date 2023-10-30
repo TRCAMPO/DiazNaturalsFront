@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <app-header-admin></app-header-admin>
+</header>
+
+<body>
+<div class="container-edit-supplier">
+  <div class="search-bar">
+    <div class="titulo">Productos&nbsp;&nbsp;</div>
+    <div>Buscar:&nbsp;</div>
+    <input type="text" class="search-input" #name="ngModel" [(ngModel)]="authService.formDataSearchProduct.search" placeholder="Buscar producto">
+    <div>
+      <span>&nbsp;&nbsp;&nbsp;Proveedor:</span>
+      <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.suppliers">
+        <option value="" selected>Todos los proveedores</option>
+        <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+      </select>
+    </div>
+    <div>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;Presentación:</span>
+      <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.presentation">
+        <option value="" selected>Todas las presentaciones</option>
+        <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+      </select>
+    </div>
+    <span>&nbsp;</span>
+    <button class="search-button" (click)="searchProduct()" >Buscar</button>
+  </div>
+
+
+  <div #container class="tableProv-container" >
+    <table>
+      <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Proveedor</th>
+        <th>Presentación</th>
+        <th>Cantidad</th>
+        <th>Categoria</th>
+        <th>Precio</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+        <td class="table-img">
+          <img [src]="item.imageNewUrl" alt="Imagen del producto" style="width: 50px; height: 50px; margin-left: 1px;" >
+        </td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.supplier }}</td>
+        <td>{{ item.presentation }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
+        <td>
+          <button class="button-green" (click)="editproduct(item.name, item.presentation, item.supplier)"><i class="fas fa-pencil-alt"></i></button>
+        </td>
+        <td>
+          <button (click)="deleteproduct(item.name, item.presentation, item.supplier)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="cart"></pagination-controls>
+  </div>
+</div>
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

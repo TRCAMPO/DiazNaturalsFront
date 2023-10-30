@@ -49,6 +49,11 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProductInformationComponent } from './product-information/product-information.component';
 import { ValidatePaymentComponent } from './validate-payment/validate-payment.component';
 import { ValidatePaymentUserComponent } from './validate-payment-user/validate-payment-user.component';
+import { ListSuppliersComponent } from './list-suppliers/list-suppliers.component';
+import { ListUsersComponent } from './list-users/list-users.component';
+import { ConfirmDialogCreateOrderComponent } from './confirm-dialog-create-order/confirm-dialog-create-order.component';
+import { ListProductsComponent } from './list-products/list-products.component';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +88,13 @@ import { ValidatePaymentUserComponent } from './validate-payment-user/validate-p
     ChangePasswordComponent,
     ProductInformationComponent,
     ValidatePaymentComponent,
-    ValidatePaymentUserComponent
+    ValidatePaymentUserComponent,
+    ProductInformationComponent,
+    ListSuppliersComponent,
+    ListUsersComponent,
+    ConfirmDialogCreateOrderComponent,
+    ListProductsComponent
+
 
   ],
   imports: [

@@ -22,6 +22,7 @@ import {UserDeleteModelClient} from "./delete-user/userDelete.model";
 import {SupplierModel} from "./create-supplier/supplier.model";
 import {DeleteSupplierModel} from "./delete-supplier/DeleteSupplier.model";
 import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -55,8 +56,7 @@ export class AuthService {
   formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
 
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
   }
 
@@ -66,8 +66,15 @@ export class AuthService {
 
   startSession() {
     this.sessionStartTime = Date.now(); // Registra la hora de inicio
+    const currentTime = new Date().getTime();
     const sessionDurationInMilliseconds = 58 * 60 * 1000; // 58 minutos en milisegundos
-
+    const emailUser=this.cookiesService.get('email');
+    const time={
+      currentTime: currentTime,
+      emailUser: emailUser,
+    };
+    const timeJSON = JSON.stringify(time);
+    localStorage.setItem('time', timeJSON);
     setTimeout(() => {
       this.endSession(); // Finaliza la sesión después de 58 minutos
     }, sessionDurationInMilliseconds);
@@ -138,7 +145,7 @@ export class AuthService {
     return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
   }
 
-  getProductByNameCategorySupplier(formDataSearchSend: SearchProductModel) {
+  getProductByNamePresentationSupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
 
@@ -192,5 +199,9 @@ export class AuthService {
 
   getUserByEmail(search: string) {
     return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/searchEmail?search=${search}`);
+  }
+
+  getUsers() {
+    return this.http.get<UserModelClient[]>(`${this.apiUrl}/Clients/active`);
   }
 }
