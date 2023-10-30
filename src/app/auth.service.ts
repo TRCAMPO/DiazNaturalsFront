@@ -214,6 +214,10 @@ export class AuthService {
     return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all`);
   }
 
+  getOrdersUser(){
+    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/client`);
+  }
+
   getStatesOrders() {
     return this.http.get<StatusModel[]>(`${this.apiUrl}/Status`);
   }

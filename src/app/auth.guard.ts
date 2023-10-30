@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
         admin: ['homePage', 'createProduct', 'editProduct', 'deleteProduct', 'createUser', 'editUser', 'deleteUser', 'createSupplier', 'editSupplier', 'deleteSupplier', 'changePassword', 'validatePayment', 'listSupplier', 'listUser', 'listProducts', 'listOrders'],
 
 
-        client: ['homePageUser', 'catalog', 'changeInformation', 'cart', 'changePassword', 'productInformation', 'validatePaymentUser'],
+        client: ['homePageUser', 'catalog', 'changeInformation', 'cart', 'changePassword', 'productInformation', 'validatePaymentUser', 'listOrdersUser'],
       };
 
       // Verifica si el rol actual tiene permiso para acceder a la ruta actual
