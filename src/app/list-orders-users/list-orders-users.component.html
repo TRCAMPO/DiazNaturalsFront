@@ -11,7 +11,7 @@
     <div class="search-bar-edit-supplier">
       <div class="title-edit-supplier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pedidos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
       <div>Buscar:&nbsp;</div>
-      <input type="text" class="search-input-edit-supplier" #name="ngModel" [(ngModel)]="authService.formDataSearchOrder.search" placeholder="Buscar pedido por id, nit o cliente">
+      <input type="text" class="search-input-edit-supplier" #name="ngModel" [(ngModel)]="authService.formDataSearchOrder.search" placeholder="Buscar por pedido por id">
       <div>
         <span>&nbsp;&nbsp;&nbsp;Fecha:</span>
         <input type="date" class="filter-select" [(ngModel)]="authService.formDataSearchOrder.date">
@@ -61,10 +61,13 @@
         <td>{{ item.startDateOrder | date:'dd-MM-yyyy' }}</td>
         <td>{{ item.statusOrder }}</td>
         <td>{{ item.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</td>
-        <td>
-          <button class="button-green" (click)="editproduct(item)"><i class="fas fa-pencil-alt"></i></button>
+        <!--<td>
+          <button class="button-green" (click)="editproduct(item.nameSupplier)"><i class="fas fa-pencil-alt"></i></button>
         </td>
-      </tr>>
+        <td>
+          <button (click)="deleteproduct(item.nameSupplier)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>-->
       </tbody>
     </table>
     <pagination-controls (pageChange)="currentPage = $event" *ngIf="orders.length > elementeForPage" id="cart"></pagination-controls>
@@ -77,9 +80,6 @@
 </footer>
 
 </html>
-
-
-
 
 
 
