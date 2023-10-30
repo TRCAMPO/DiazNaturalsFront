@@ -4,14 +4,13 @@ import {
   OnInit
 } from '@angular/core';
 import {AuthService} from "../auth.service";
-import {SupplierModel} from "../create-supplier/supplier.model";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {SharedDataServiceOrders} from "./shareDataServiceOrders";
-import {ConfirmDialogDeleteSupplierComponent} from "../confirm-dialog-delete-supplier/confirm-dialog-delete-supplier.component";
 import {MatDialog} from "@angular/material/dialog";
 import {OrdersModel} from "./ordersModel";
 import {StatusModel} from "./status.model";
+import {OrderSearchModel} from "./OrderSearchModel";
 
 @Component({
   selector: 'app-list-orders',
@@ -33,7 +32,7 @@ export class ListOrdersComponent implements OnInit{
       (data) => {
         this.orders = data;
         this.ordersOrigin = data;
-        // @ts-ignore
+
       },
       () => {
         this.toast.error("No se pudieron encontrar pedidos", "Error en la Búsqueda");
@@ -51,6 +50,15 @@ export class ListOrdersComponent implements OnInit{
     this.authService.formDataOrder = new OrdersModel();
     this.orders = this.ordersOrigin;
 
+    // Filtrar por fecha
+    if (this.authService.formDataSearchOrder.date) {
+      const selectedDate = new Date(this.authService.formDataSearchOrder.date);
+      this.orders = this.orders.filter(order => {
+        const orderDate = new Date(order.startDateOrder);
+        return orderDate.getDate() === selectedDate.getDate();
+      });
+    }
+
     // Filtrar por proveedor
     if (this.authService.formDataSearchOrder.search) {
       this.orders = this.orders.filter(order =>
@@ -58,65 +66,16 @@ export class ListOrdersComponent implements OnInit{
         order.nitClient.toString().includes(this.authService.formDataSearchOrder.search) ||
         order.idOrder.toString().includes(this.authService.formDataSearchOrder.search)
       );
-    } else {
-      // Obtener todas las órdenes si no hay término de búsqueda
-      this.authService.getOrders().subscribe(
-        (data) => {
-          this.orders = data;
-        },
-        () => {
-          this.toast.error("No se pudieron encontrar ordenes", "Error en la Búsqueda");
-        }
-      );
-    }
-
-    // Filtrar por fecha
-    if (this.authService.formDataSearchOrder.date) {
-      const selectedDate = new Date(this.authService.formDataSearchOrder.date);
-      this.orders = this.orders.filter(order => {
-        const orderDate = new Date(order.startDateOrder); // Asegúrate de tener la propiedad correcta para la fecha en tu modelo
-        console.log(orderDate.toDateString());
-        console.log(selectedDate.toDateString());
-        return orderDate.toDateString() === selectedDate.toDateString();
-      });
     }
 
     // Filtrar por estado
     if (this.authService.formDataSearchOrder.state) {
-      this.orders = this.orders.filter(order => order.statusOrder === this.authService.formDataSearchOrder.state);
+      this.orders = this.orders.filter(order =>{ return order.statusOrder === this.authService.formDataSearchOrder.state;});
     }
   }
 
-
-  onSubmit() {
-    this.authService.formDataDeleteSupplier.nitSupplier = this.authService.formDataSupplier.nitSupplier;
-    this.authService.formDataDeleteSupplier.isActive = false;
-    this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
-    this.authService.patchSupplier(this.authService.formDataDeleteSupplier).subscribe(
-      response => {
-        this.toast.success("Proveedor eliminado correctamente", "Proveedor Eliminado");
-        this.resetForm();
-      },
-      error => {
-        this.toast.error("Surgio un problema en la eliminación", "Usuario no Eliminado");
-      }
-    );
-  }
-
-  openConfirmationDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogDeleteSupplierComponent, {
-      panelClass: 'custom-dialog-overlay', // Clase CSS personalizada
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.onSubmit();
-      } else {
-      }
-    });
-  }
-
   resetForm() {
-    this.authService.formDataSupplier = new SupplierModel();
+    this.authService.formDataSearchOrder = new OrderSearchModel();
     this.authService.getOrders().subscribe(
       (data) => {
         this.orders = data;
@@ -124,7 +83,7 @@ export class ListOrdersComponent implements OnInit{
         // @ts-ignore
       },
       () => {
-        this.toast.error("No se pudieron encontrar proveedores", "Error en la Búsqueda");
+        this.toast.error("No se pudieron encontrar pedidos", "Error en la Búsqueda");
       }
     );
   }

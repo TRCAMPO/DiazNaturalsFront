@@ -19,8 +19,8 @@
       <div>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;Estado:</span>
         <select class="filter-select" [(ngModel)]="authService.formDataSearchOrder.state">
-          <option value="" selected>Todas las presentaciones</option>
-          <option *ngFor="let statu of status" [value]="statu">{{ statu.nameStatus }}</option>
+          <option value="" selected>Todos los estados</option>
+          <option *ngFor="let statu of status" [value]="statu.nameStatus">{{ statu.nameStatus }}</option>
         </select>
       </div>
       <div>
@@ -42,11 +42,10 @@
         <th>Teléfono</th>
         <th>Dirección</th>
         <th>Contacto</th>
-        <th>Fecha de inicio</th>
+        <th>Fecha</th>
         <th>Estado del pedido</th>
         <th>Precio</th>
         <th>Visualizar</th>
-        <th>Dar check</th>
       </tr>
       </thead>
       <tbody>
@@ -59,9 +58,9 @@
         <td>{{ item.phoneClient }}</td>
         <td>{{ item.addressClient }}</td>
         <td>{{ item.nameContactClient }}</td>
-        <td>{{ item.startDateOrder }}</td>
+        <td>{{ item.startDateOrder | date:'dd-MM-yyyy' }}</td>
         <td>{{ item.statusOrder }}</td>
-        <td>{{ item.totalPriceOrder }}</td>
+        <td>{{ item.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</td>
         <!--<td>
           <button class="button-green" (click)="editproduct(item.nameSupplier)"><i class="fas fa-pencil-alt"></i></button>
         </td>
