@@ -23,6 +23,9 @@ import {SupplierModel} from "./create-supplier/supplier.model";
 import {DeleteSupplierModel} from "./delete-supplier/DeleteSupplier.model";
 import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
 import {CookieService} from "ngx-cookie-service";
+import {OrdersModel} from "./list-orders/ordersModel";
+import {OrderSearchModel} from "./list-orders/OrderSearchModel";
+import {StatusModel} from "./list-orders/status.model";
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +58,8 @@ export class AuthService {
   formDataSupplier: SupplierModel = new SupplierModel();
   formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
+  formDataSearchOrder: OrderSearchModel = new OrderSearchModel();
+  formDataOrder: OrdersModel = new OrdersModel();
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -203,5 +208,13 @@ export class AuthService {
 
   getUsers() {
     return this.http.get<UserModelClient[]>(`${this.apiUrl}/Clients/active`);
+  }
+
+  getOrders(){
+    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all`);
+  }
+
+  getStatesOrders() {
+    return this.http.get<StatusModel[]>(`${this.apiUrl}/Status`);
   }
 }
