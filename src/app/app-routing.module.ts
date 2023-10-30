@@ -25,6 +25,7 @@ import {ValidatePaymentUserComponent} from "./validate-payment-user/validate-pay
 import {ListSuppliersComponent} from "./list-suppliers/list-suppliers.component";
 import {ListUsersComponent} from "./list-users/list-users.component";
 import {ListProductsComponent} from "./list-products/list-products.component";
+import {ListOrdersComponent} from "./list-orders/list-orders.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: "listSupplier", component: ListSuppliersComponent, canActivate: [AuthGuard]},
   { path: "listUser", component: ListUsersComponent, canActivate: [AuthGuard]},
   { path: "listProducts", component: ListProductsComponent, canActivate: [AuthGuard]},
+  { path: "listOrders", component: ListOrdersComponent, canActivate: [AuthGuard]},
 
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},
