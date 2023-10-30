@@ -16,9 +16,9 @@ export class AuthGuard implements CanActivate {
       const routeName = route.routeConfig?.path;
 
       const allowedRoutesByRole = {
-        admin: ['homePage', 'createProduct', 'editProduct', 'deleteProduct', 'createUser', 'editUser', 'deleteUser', 'createSupplier', 'editSupplier', 'deleteSupplier', 'changePassword'],
+        admin: ['homePage', 'createProduct', 'editProduct', 'deleteProduct', 'createUser', 'editUser', 'deleteUser', 'createSupplier', 'editSupplier', 'deleteSupplier', 'changePassword', 'validatePayment'],
 
-        client: ['homePageUser', 'catalog', 'changeInformation', 'cart', 'changePassword', 'productInformation'],
+        client: ['homePageUser', 'catalog', 'changeInformation', 'cart', 'changePassword', 'productInformation', 'validatePaymentUser'],
       };
 
       // Verifica si el rol actual tiene permiso para acceder a la ruta actual

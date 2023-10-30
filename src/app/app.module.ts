@@ -47,6 +47,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProductInformationComponent } from './product-information/product-information.component';
+import { ValidatePaymentComponent } from './validate-payment/validate-payment.component';
+import { ValidatePaymentUserComponent } from './validate-payment-user/validate-payment-user.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { ProductInformationComponent } from './product-information/product-infor
     FooterComponent,
     CartComponent,
     ChangePasswordComponent,
-    ProductInformationComponent
+    ProductInformationComponent,
+    ValidatePaymentComponent,
+    ValidatePaymentUserComponent
 
   ],
   imports: [

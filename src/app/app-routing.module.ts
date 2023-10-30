@@ -20,6 +20,8 @@ import {ChangeDatesUserComponent} from "./change-dates-user/change-dates-user.co
 import {CartComponent} from "./cart/cart.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {ProductInformationComponent} from "./product-information/product-information.component";
+import {ValidatePaymentComponent} from "./validate-payment/validate-payment.component";
+import {ValidatePaymentUserComponent} from "./validate-payment-user/validate-payment-user.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -42,7 +44,9 @@ const routes: Routes = [
   { path: "changeInformation", component: ChangeDatesUserComponent, canActivate: [AuthGuard]},
   { path: "cart", component: CartComponent, canActivate: [AuthGuard]},
   { path: "changePassword", component: ChangePasswordComponent, canActivate: [AuthGuard]},
-  { path: "productInformation", component: ProductInformationComponent, canActivate: [AuthGuard]}
+  { path: "productInformation", component: ProductInformationComponent, canActivate: [AuthGuard]},
+  { path: "validatePayment", component: ValidatePaymentComponent, canActivate: [AuthGuard]},
+  { path: "validatePaymentUser", component: ValidatePaymentUserComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

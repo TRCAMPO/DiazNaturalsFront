@@ -55,6 +55,7 @@ export class AuthService {
   formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
 
+
   constructor(private http: HttpClient) {
     this.startSession();
   }
