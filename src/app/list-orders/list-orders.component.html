@@ -46,7 +46,6 @@
         <th>Estado del pedido</th>
         <th>Precio</th>
         <th>Visualizar</th>
-        <th>Dar check</th>
       </tr>
       </thead>
       <tbody>
@@ -59,9 +58,9 @@
         <td>{{ item.phoneClient }}</td>
         <td>{{ item.addressClient }}</td>
         <td>{{ item.nameContactClient }}</td>
-        <td>{{ item.startDateOrder }}</td>
+        <td>{{ item.startDateOrder | date:'dd-MM-yyyy' }}</td>
         <td>{{ item.statusOrder }}</td>
-        <td>{{ item.totalPriceOrder }}</td>
+        <td>{{ item.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</td>
         <!--<td>
           <button class="button-green" (click)="editproduct(item.nameSupplier)"><i class="fas fa-pencil-alt"></i></button>
         </td>
