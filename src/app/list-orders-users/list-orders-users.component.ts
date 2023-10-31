@@ -87,10 +87,17 @@ export class ListOrdersUsersComponent implements OnInit{
   }
 
   editproduct(item: OrdersModel) {
+    console.log(item.imageOrder);
     // Utiliza el servicio para establecer los datos
     this.sharedDataService.setProductData(item);
-    // Navega a la pantalla de editar producto
-    this.router.navigate(['/validatePaymentUser']);
+
+    if (item.imageOrder === "SinComprobanteDePago.jpeg") {
+      // Si la imagen es "SinComprobantedePago.jpeg", navega a validatePaymentUser.
+      this.router.navigate(['/validatePaymentUser']);
+    } else {
+      // Si la imagen no es "SinComprobantedePago.jpeg", navega a validatedOrder.
+      this.router.navigate(['/validatedOrder']);
+    }
   }
 }
 
