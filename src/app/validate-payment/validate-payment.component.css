@@ -1,0 +1,186 @@
+/* Agrega tus estilos CSS personalizados aquí */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-info {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.order-image {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.drop-box {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.preview-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-container-image {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.button-container-image button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: #f64339;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container-image button:hover {
+  background-color: #ea170c;
+}
+
+.custom-buttonC {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #f64339;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 1%;
+}
+
+.custom-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #6FA535;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #316335;
+}
+
+.custom-buttonC:hover {
+  background-color: #ea170c;
+}
+
+.status-container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos en el centro si es necesario */
+}
+
+/* Estilo para el contenedor del carrito */
+.tableProv-container {
+  position: static;
+  margin: 0% 0% 0% 0%;
+  top: 35px;
+  right: 0;
+  background-color: #EEEEEE;
+  border: 5px solid #ffffff;
+  padding: 10px;
+  max-height: 82vh;
+  overflow: auto; /* Habilitar desplazamiento si el contenido es demasiado largo */
+  /* Establece un ancho predeterminado para pantallas más grandes */
+}
+
+.table-img {
+  max-width: 100px; /* Ancho máximo de la imagen */
+  max-height: 100px; /* Alto máximo de la imagen */
+  width: auto; /* Permitir que el ancho se ajuste automáticamente */
+  height: auto; /* Permitir que el alto se ajuste automáticamente */
+  display: block; /* Evitar el espacio adicional debajo de la imagen */
+  margin: 0 auto; /* Centrar la imagen horizontalmente en su contenedor */
+}
+/* Estilo para las filas impares de la tabla */
+tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* Color de fondo para filas impares */
+}
+
+thead {
+  font-family: sans-serif;
+  background-color: #3E7C95; /* Color de fondo para los nombres de las columnas */
+}
+
+th {
+  color: #FFFFFF;
+  font-size: 16px;
+  text-align: center;
+  font-family: sans-serif;
+  font-style: normal;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center; /* Alinear el texto al centro en celdas */
+  border: 1px solid #ccc; /* Borde de celdas */
+  white-space: nowrap; /* Evitar que el contenido se divida en múltiples líneas */
+  overflow: hidden; /* Ocultar contenido que desborda la celda */
+  text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para contenido oculto */
+}
+
+/* Estilo para la tabla */
+table {
+  width: 100%; /* Ancho de la tabla del 100% */
+  border-collapse: collapse;
+  border: 1px solid #ccc; /* Borde de la tabla */
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* Variables */
+:root {
+  --background-purple: #EEEEEE;
+  --subtle-white: #f9f9f9;
+  --subtle-grey: #f2f2f2;
+  --masked-grey: #ffffff;
+  --blue: #F03861;
+  --open-sans: 'Open Sans', sans-serif;
+}
+
+body {
+  font-family: sans-serif;
+  display: contents;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-select {
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}

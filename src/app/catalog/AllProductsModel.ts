@@ -8,4 +8,5 @@ export class AllProductsModel {
   description:string = '';
   image:string = '';
   imageNewUrl:string = '';
+  quantity: any;
 }

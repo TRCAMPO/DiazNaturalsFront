@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <app-header-user></app-header-user>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</header>
+
+<body>
+<div class="container">
+  <div class="title-container">
+    <h1 class="titulo">Detalles del Pedido</h1>
+  </div>
+
+  <div class="order-details">
+    <div class="order-info">
+      <h2>Información del Pedido</h2>
+      <p><strong>ID del Pedido:</strong> {{ orderDetails.idOrder }}</p>
+      <p><strong>NIT del Cliente:</strong> {{ orderDetails.nitClient }}</p>
+      <p><strong>Nombre del Cliente:</strong> {{ orderDetails.nameClient }}</p>
+      <p><strong>Estado del Cliente:</strong> {{ orderDetails.stateClient }}</p>
+      <p><strong>Ciudad del Cliente:</strong> {{ orderDetails.cityClient }}</p>
+      <p><strong>Dirección del Cliente:</strong> {{ orderDetails.addressClient }}</p>
+      <p><strong>Teléfono del Cliente:</strong> {{ orderDetails.phoneClient }}</p>
+      <p><strong>Nombre de Contacto:</strong> {{ orderDetails.nameContactClient }}</p>
+      <p><strong>Fecha de Inicio:</strong> {{ orderDetails.startDateOrder | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Total:</strong> {{ orderDetails.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</p>
+      <p><strong>Estado del Pedido:</strong> {{ orderDetails.statusOrder }}</p>
+    </div>
+
+    <div class="order-image">
+      <h2 class="lock">Imagen del Comprobante</h2>
+      <div
+        class="drop-box border rounded p-5 text-center"
+        (dragover)="handleDragOver($event)"
+        (drop)="handleDrop($event)"
+      >
+        <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+        <p class="mb-0 parrafo-responsivo2" *ngIf="!imageUrlOrder">Suelta la imagen aquí o haz clic para cargar</p>
+        <div class="preview-container my-3" *ngIf="imageUrlOrder">
+          <img [src]="imageUrlOrder" alt="Uploaded Image" class="preview-image rounded" />
+        </div>
+      </div>
+      <div class="button-container-image">
+        <button [disabled]="disabledInput" class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
+        <input [disabled]="disabledInput" type="file" #fileInput style="display: none" (change)="handleFileInput($event)" />
+        <button [disabled]="disabledInput" class="custom-buttonC-selec" [disabled]="!imageUrlOrder" (click)="clearPreview()">Eliminar imagen</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <input type="submit" class="custom-button" (click)="sendVoucher()" value="Subir Comprobante" />
+    <input type="submit" class="custom-buttonC" (click)="changePageOrder()" value="Cancelar" />
+  </div>
+
+
+<h2 class="lock">Productos</h2>
+<div #container class="tableProv-container" >
+  <table>
+    <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Proveedor</th>
+      <th>Presentación</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+      <td class="table-img">
+        <img [src]="item.imageNewUrl" alt="Imagen del producto" style="width: 50px; height: 50px; margin-left: 1px;" >
+      </td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.supplier }}</td>
+      <td>{{ item.presentation }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="cart"></pagination-controls>
+</div>
+
+</div>
+
+
+
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+</html>

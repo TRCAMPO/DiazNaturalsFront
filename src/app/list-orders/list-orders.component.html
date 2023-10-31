@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <app-header-admin></app-header-admin>
+</header>
+
+<body>
+<div class="container-edit-supplier">
+  <div class="title-container-edit-supplier">
+    <div class="search-bar-edit-supplier">
+      <div class="title-edit-supplier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pedidos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div>Buscar:&nbsp;</div>
+      <input type="text" class="search-input-edit-supplier" #name="ngModel" [(ngModel)]="authService.formDataSearchOrder.search" placeholder="Buscar pedido por id, nit o cliente">
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;Fecha:</span>
+        <input type="date" class="filter-select" [(ngModel)]="authService.formDataSearchOrder.date">
+      </div>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;Estado:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchOrder.state">
+          <option value="" selected>Todos los estados</option>
+          <option *ngFor="let statu of status" [value]="statu.nameStatus">{{ statu.nameStatus }}</option>
+        </select>
+      </div>
+      <div>
+        <span>&nbsp;</span>
+        <button class="search-button-edit-supplier" (click)="searchOrders()">Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <div #container class="tableProv-container" [ngStyle]="cartStyles">
+    <table>
+      <thead>
+      <tr>
+        <th>Id Orden</th>
+        <th>Nit</th>
+        <th>Cliente</th>
+        <th>Departamento</th>
+        <th>Ciudad</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Contacto</th>
+        <th>Fecha</th>
+        <th>Estado del pedido</th>
+        <th>Precio</th>
+        <th>Visualizar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of orders | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+        <td>{{ item.idOrder }}</td>
+        <td>{{ item.nitClient }}</td>
+        <td>{{ item.nameClient }}</td>
+        <td>{{ item.stateClient }}</td>
+        <td>{{ item.cityClient }}</td>
+        <td>{{ item.phoneClient }}</td>
+        <td>{{ item.addressClient }}</td>
+        <td>{{ item.nameContactClient }}</td>
+        <td>{{ item.startDateOrder | date:'dd-MM-yyyy' }}</td>
+        <td>{{ item.statusOrder }}</td>
+        <td>{{ item.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</td>
+        <td>
+          <button class="button-green" (click)="editproduct(item)"><i class="fas fa-eye"></i></button>
+        </td>
+      </tr>>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="currentPage = $event" *ngIf="orders.length > elementeForPage" id="cart"></pagination-controls>
+  </div>
+</div>
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+
+</html>
+
+
+
+
+
+
+
+
+
