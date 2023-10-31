@@ -2,7 +2,7 @@
 <html>
 
 <header>
-  <app-header-admin></app-header-admin>
+  <app-header-user></app-header-user>
 </header>
 
 <body>
@@ -61,13 +61,10 @@
         <td>{{ item.startDateOrder | date:'dd-MM-yyyy' }}</td>
         <td>{{ item.statusOrder }}</td>
         <td>{{ item.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</td>
-        <!--<td>
-          <button class="button-green" (click)="editproduct(item.nameSupplier)"><i class="fas fa-pencil-alt"></i></button>
-        </td>
         <td>
-          <button (click)="deleteproduct(item.nameSupplier)"><i class="fa fa-trash"></i></button>
+          <button class="button-green" (click)="editproduct(item)"><i class="fas fa-eye"></i></button>
         </td>
-      </tr>-->
+      </tr>
       </tbody>
     </table>
     <pagination-controls (pageChange)="currentPage = $event" *ngIf="orders.length > elementeForPage" id="cart"></pagination-controls>

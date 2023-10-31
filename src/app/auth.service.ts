@@ -33,8 +33,8 @@ import {StatusModel} from "./list-orders/status.model";
 export class AuthService {
 
 
-  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
- // private apiUrl = 'https://localhost:7167/api';
+  //private apiUrl = 'https://www.DiazNaturals.somee.com/api';
+  private apiUrl = 'https://localhost:7167/api';
 
   private sessionStartTime: number = 0;
 
@@ -134,12 +134,19 @@ export class AuthService {
     return this.http.post<string>(`${this.apiUrl}/Blob/load`, formData);
   }
 
+
+
   getProductById(number1: number) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/${number1}`);
   }
 
   getImageByName(name:string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/Blob/${name}`, { responseType: 'blob' });
+      return this.http.get(`${this.apiUrl}/Blob/${name}`, { responseType: 'blob' });
+  }
+
+  getImagePayment(name:string): Observable<Blob> {
+    //return this.http.get(`https://localhost:7167/api/Blob/proof/SinComprobanteDePago.jpeg`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/Blob/proof/${name}`, { responseType: 'blob' });
   }
 
   putProduct(formDataProduct: ProductModel) {

@@ -86,5 +86,11 @@ export class ListOrdersUsersComponent implements OnInit{
     this.ngOnInit();
   }
 
+  editproduct(item: OrdersModel) {
+    // Utiliza el servicio para establecer los datos
+    this.sharedDataService.setProductData(item);
+    // Navega a la pantalla de editar producto
+    this.router.navigate(['/validatePaymentUser']);
+  }
 }
 

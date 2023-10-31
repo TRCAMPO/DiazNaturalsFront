@@ -5,6 +5,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { DataService } from "../shared/data.service";
 import { ToastrService } from "ngx-toastr";
+import {SharedDataServiceOrdersUsers} from "../list-orders-users/SharedDataServiceOrdersUsers";
+import {OrdersModel} from "../list-orders/ordersModel";
 
 @Component({
   selector: 'app-validate-payment-user',
@@ -13,7 +15,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class ValidatePaymentUserComponent implements OnInit {
 
-  orderDetails: any; // Objeto para almacenar los detalles del pedido
+  orderDetails: OrdersModel = new OrdersModel(); // Objeto para almacenar los detalles del pedido
   imageFilePaymentUser: File | null = null;
   imageUrlOrder: string | null = null;
   // @ts-ignore
@@ -28,32 +30,30 @@ export class ValidatePaymentUserComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private route: Router,
     private dataService: DataService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private sharedDataService: SharedDataServiceOrdersUsers
   ) {
     // APIs
   }
 
   ngOnInit(): void {
     // Simula una llamada a la API para obtener los detalles del pedido.
-    this.orderDetails = {
-      idOrder: 123,
-      nitClient: "123456789",
-      nameClient: "Nombre del Cliente",
-      stateClient: "Estado del Cliente",
-      cityClient: "Ciudad del Cliente",
-      addressClient: "Dirección del Cliente",
-      phoneClient: "123-456-7890",
-      nameContactClient: "Contacto del Cliente",
-      startDateOrder: new Date(),
-      imageOrder: "nombre_de_la_imagen.jpg",
-      statusOrder: "En proceso",
-      totalPriceOrder: 1000
-    };
+    this.sharedDataService.currentProductData.subscribe((data) => {
+      console.log(data);
+      this.orderDetails = data;
+    });
 
     // Luego, puedes cargar la imagen del pedido si es necesario.
-    if (this.orderDetails?.imageOrder) {
-      this.loadImage(this.orderDetails.imageOrder);
-    }
+    this.authService.getImagePayment(this.formatImageName(this.orderDetails.imageOrder)).subscribe((imageBlob: Blob) => {
+      this.blob = imageBlob;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.orderDetails.imageNewUrl = reader.result as string; // Convierte el Blob en una URL de datos
+      };
+      reader.readAsDataURL(imageBlob); // Lee el Blob como una URL de datos
+    }, error => {
+      console.error('Error al cargar la imagen', error);
+    });
   }
 
   onSubmit() {

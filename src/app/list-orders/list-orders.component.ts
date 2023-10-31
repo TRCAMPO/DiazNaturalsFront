@@ -74,6 +74,29 @@ export class ListOrdersComponent implements OnInit{
     }
   }
 
+  editproduct(item: OrdersModel){
+    // Utiliza el servicio para establecer los datos
+    this.sharedDataService.setProductData(item);
+    // Navega a la pantalla de editar producto
+    this.router.navigate(['/validatePayment']);
+  }
+
+  onSubmit() {
+    this.authService.formDataDeleteSupplier.nitSupplier = this.authService.formDataSupplier.nitSupplier;
+    this.authService.formDataDeleteSupplier.isActive = false;
+    this.authService.formDataSupplier.phoneSupplier = this.authService.formDataSupplier.phoneSupplier+"";
+    this.authService.patchSupplier(this.authService.formDataDeleteSupplier).subscribe(
+      response => {
+        this.toast.success("Proveedor eliminado correctamente", "Proveedor Eliminado");
+        this.resetForm();
+      },
+      error => {
+        this.toast.error("Surgio un problema en la eliminación", "Usuario no Eliminado");
+      }
+    );
+  }
+
+
   resetForm() {
     this.authService.formDataSearchOrder = new OrderSearchModel();
     this.authService.getOrders().subscribe(
