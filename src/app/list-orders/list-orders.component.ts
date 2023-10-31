@@ -6,7 +6,6 @@ import {
 import {AuthService} from "../auth.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
-import {SharedDataServiceOrders} from "./shareDataServiceOrders";
 import {MatDialog} from "@angular/material/dialog";
 import {OrdersModel} from "./ordersModel";
 import {StatusModel} from "./status.model";
@@ -24,7 +23,8 @@ export class ListOrdersComponent implements OnInit{
   currentPage = 1;
   elementeForPage = 5;
   status: StatusModel[] = [];
-  constructor(public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router, private sharedDataService: SharedDataServiceOrders)  {
+  constructor(public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router)  {
+    this.authService.formDataSearchOrder = new OrderSearchModel();
     this.authService.formDataSearchOrder.date = null;
   }
   ngOnInit() {
@@ -75,10 +75,8 @@ export class ListOrdersComponent implements OnInit{
     }
   }
 
-  editproduct(item: OrdersModel){
-    // Utiliza el servicio para establecer los datos
-    this.sharedDataService.setProductData(item);
-    // Navega a la pantalla de editar producto
+  showOrder(item: OrdersModel){
+    localStorage.setItem('orderData', JSON.stringify(item));
     this.router.navigate(['/validatePayment']);
   }
 

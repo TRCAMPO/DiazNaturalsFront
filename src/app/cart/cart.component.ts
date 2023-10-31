@@ -99,7 +99,6 @@ export class CartComponent implements AfterViewInit, OnInit{
   }
 
   deleteproduct(name:string, supplier:string, presentation:string){
-    console.log("aqui llego");
     const cartItemsJSON = localStorage.getItem('products');
     if (cartItemsJSON) {
       let products = JSON.parse(cartItemsJSON);
@@ -151,39 +150,30 @@ export class CartComponent implements AfterViewInit, OnInit{
         try {
           const correctOrder = await this.check();
           if (correctOrder) {
-
             const productsOrderArray: ProductsOrderModel[] = this.products.map((cartItem) => {
               const productOrderItem = new ProductsOrderModel();
-
-              // Utilizamos 'filter' para encontrar el objeto en 'allProducts' que coincida con 'image'
-              const matchingProduct = this.allProducts.filter(product => product.name === cartItem.name)[0];
-
-              // Si encontramos un objeto coincidente, asignamos el 'idProduct' a 'productOrderItem.productId'
+              const matchingProduct = this.allProducts.filter(product => product.name === cartItem.name
+              && product.supplier === cartItem.supplier && product.presentation === cartItem.presentation)[0];
               if (matchingProduct) {
                 productOrderItem.productId = matchingProduct.idProduct;
               } else {
-                // Manejar el caso en el que no se encuentra un producto coincidente
                 console.error(`No se encontró un producto para la imagen ${cartItem.image}`);
               }
-
               productOrderItem.quantity = cartItem.quantity;
-
               return productOrderItem;
             });
+            console.log(productsOrderArray);
             let sendOrder: OrdersModelNew = new OrdersModelNew();
             sendOrder.addCart = productsOrderArray;
             sendOrder.idClient = this.user.idClient;
             sendOrder.totalPriceOrder = this.all();
             sendOrder.startDateOrder = new Date();
-
             this.authService.postOrder(sendOrder).subscribe(
               (response) => {
-                // Manejar la respuesta exitosa aquí
-                console.log('Respuesta exitosa:', response);
+                this.toast.success("Se creo el pedido correctamente", "Pedido Creado");
               },
               (error) => {
-                // Manejar el error aquí
-                console.error('Error en la solicitud:', error);
+                this.toast.error("No se creo el pedido ", "Error")
               }
             );
             localStorage.removeItem('products');
@@ -193,12 +183,12 @@ export class CartComponent implements AfterViewInit, OnInit{
             this.router.navigate(['/listOrdersUser']);
           }
         }catch (error){
-
         }
       } else {
       }
     });
   }
+
  async check():Promise<boolean> {
     const cartItemsJSON = localStorage.getItem('products');
     if (cartItemsJSON) {
