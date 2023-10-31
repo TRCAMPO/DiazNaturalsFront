@@ -23,6 +23,10 @@ import {SupplierModel} from "./create-supplier/supplier.model";
 import {DeleteSupplierModel} from "./delete-supplier/DeleteSupplier.model";
 import {SupplierSearchModel} from "./edit-supplier/supplierSearch.model";
 import {CookieService} from "ngx-cookie-service";
+import {OrdersModel} from "./list-orders/ordersModel";
+import {OrderSearchModel} from "./list-orders/OrderSearchModel";
+import {StatusModel} from "./list-orders/status.model";
+import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +35,7 @@ export class AuthService {
 
 
   private apiUrl = 'https://www.DiazNaturals.somee.com/api';
- // private apiUrl = 'https://localhost:7167/api';
+  //private apiUrl = 'https://localhost:7167/api';
 
   private sessionStartTime: number = 0;
 
@@ -55,6 +59,8 @@ export class AuthService {
   formDataSupplier: SupplierModel = new SupplierModel();
   formDataDeleteSupplier: DeleteSupplierModel = new DeleteSupplierModel();
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
+  formDataSearchOrder: OrderSearchModel = new OrderSearchModel();
+  formDataOrder: OrdersModel = new OrdersModel();
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -129,12 +135,25 @@ export class AuthService {
     return this.http.post<string>(`${this.apiUrl}/Blob/load`, formData);
   }
 
+  uploadImgPayment(imageFile: File|null, name:string, idOrden:number) {
+    const formData = new FormData();
+    const newFileName = name+"_"+idOrden+ ".jpg";
+    // @ts-ignore
+    formData.append('file', imageFile, newFileName);
+    return this.http.post<string>(`${this.apiUrl}/Blob/loadProof`, formData);
+  }
+
   getProductById(number1: number) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/${number1}`);
   }
 
   getImageByName(name:string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/Blob/${name}`, { responseType: 'blob' });
+      return this.http.get(`${this.apiUrl}/Blob/${name}`, { responseType: 'blob' });
+  }
+
+  getImagePayment(name:string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/Blob/proof/${name}`, { responseType: 'blob' });
+
   }
 
   putProduct(formDataProduct: ProductModel) {
@@ -201,7 +220,27 @@ export class AuthService {
     return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/searchEmail?search=${search}`);
   }
 
+  getProductsOrders(search: number) {
+    return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Carts?idOrder=${search}`);
+  }
+
   getUsers() {
     return this.http.get<UserModelClient[]>(`${this.apiUrl}/Clients/active`);
+  }
+
+  getOrders(){
+    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all`);
+  }
+
+  getOrdersUser(){
+    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/client`);
+  }
+
+  getStatesOrders() {
+    return this.http.get<StatusModel[]>(`${this.apiUrl}/Status`);
+  }
+
+  putOrder(orderDetails: ImageUserModel) {
+    return this.http.put(`${this.apiUrl}/Orders/${orderDetails.idOrder}`, orderDetails);
   }
 }
