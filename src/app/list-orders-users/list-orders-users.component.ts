@@ -6,7 +6,6 @@ import {
 import {AuthService} from "../auth.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
-import {SharedDataServiceOrdersUsers} from "./SharedDataServiceOrdersUsers";
 import {MatDialog} from "@angular/material/dialog";
 import {OrdersModel} from "../list-orders/ordersModel";
 import {StatusModel} from "../list-orders/status.model";
@@ -28,9 +27,17 @@ export class ListOrdersUsersComponent implements OnInit{
   elementeForPage = 5;
   status: StatusModel[] = [];
   user: UserModelClient = new UserModelClient();
-  constructor(private cookies: CookieService, public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router, private sharedDataService: SharedDataServiceOrdersUsers)  {
+  constructor(private cookies: CookieService, public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router)  {
+    this.removeStoredData();
+    this.authService.formDataSearchOrder = new OrderSearchModel();
     this.authService.formDataSearchOrder.date = null;
   }
+
+  removeStoredData() {
+    // Elimina el elemento del almacenamiento local por su clave
+    localStorage.removeItem('orderData');
+  }
+
   ngOnInit() {
     this.authService.getUserByEmail(this.cookies.get("email")).pipe(
       mergeMap((user) => {
@@ -66,6 +73,12 @@ export class ListOrdersUsersComponent implements OnInit{
     this.authService.formDataOrder = new OrdersModel();
     this.orders = this.ordersOrigin;
 
+    if (this.authService.formDataSearchOrder.search) {
+      this.orders = this.orders.filter(order =>
+        order.idOrder.toString().includes(this.authService.formDataSearchOrder.search)
+      );
+    }
+
     // Filtrar por fecha
     if (this.authService.formDataSearchOrder.date) {
       const selectedDate = new Date(this.authService.formDataSearchOrder.date);
@@ -87,16 +100,11 @@ export class ListOrdersUsersComponent implements OnInit{
     this.ngOnInit();
   }
 
-  editproduct(item: OrdersModel) {
-    console.log(item.imageOrder);
-    // Utiliza el servicio para establecer los datos
-    this.sharedDataService.setProductData(item);
-
+  showOrder(item: OrdersModel) {
+    localStorage.setItem('orderData', JSON.stringify(item));
     if (item.imageOrder === "SinComprobanteDePago.jpeg") {
-      // Si la imagen es "SinComprobantedePago.jpeg", navega a validatePaymentUser.
       this.router.navigate(['/validatePaymentUser']);
     } else {
-      // Si la imagen no es "SinComprobantedePago.jpeg", navega a validatedOrder.
       this.router.navigate(['/validatedOrder']);
     }
   }
