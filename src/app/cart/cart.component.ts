@@ -39,7 +39,7 @@ export class CartComponent implements AfterViewInit, OnInit{
   elementeForPage = 3;
 
   @Output() closeCart: EventEmitter<void> = new EventEmitter<void>();
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog, public authService: AuthService,private toast: ToastrService)  {
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog, public authService: AuthService,private toast: ToastrService, public router: Router)  {
     this.authService.formDataSearchProduct = new SearchProductModel();
   }
   ngOnInit() {
@@ -128,7 +128,7 @@ export class CartComponent implements AfterViewInit, OnInit{
   }
 
   openConfirmationDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponentDeleteProduct, {
+    const dialogRef = this.dialog.open(ConfirmDialogCreateOrderComponent, {
       panelClass: 'custom-dialog-overlay',
     });
     dialogRef.afterClosed().subscribe(async (result) => {
@@ -140,6 +140,7 @@ export class CartComponent implements AfterViewInit, OnInit{
             this.products=[];
             this.all();
             this.closeCart.emit();
+            this.router.navigate(['/listOrdersUser']);
           }
         }catch (error){
 

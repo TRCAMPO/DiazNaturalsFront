@@ -42,10 +42,8 @@ export class ValidatePaymentComponent implements OnInit {
       this.orderDetails = data;
     });
 
-
-
     // Luego, puedes cargar la imagen del pedido si es necesario.
-    this.authService.getImageByName(this.formatImageName(this.orderDetails.imageOrder)).subscribe((imageBlob: Blob) => {
+    this.authService.getImagePayment(this.formatImageName(this.orderDetails.imageOrder)).subscribe((imageBlob: Blob) => {
       this.blob = imageBlob;
       const reader = new FileReader();
       reader.onload = () => {

@@ -14,17 +14,17 @@
   <div class="order-details">
     <div class="order-info">
       <h2>Información del Pedido</h2>
-      <p><strong>ID del Pedido:</strong> {{ orderDetails?.idOrder }}</p>
-      <p><strong>NIT del Cliente:</strong> {{ orderDetails?.nitClient }}</p>
-      <p><strong>Nombre del Cliente:</strong> {{ orderDetails?.nameClient }}</p>
-      <p><strong>Estado del Cliente:</strong> {{ orderDetails?.stateClient }}</p>
-      <p><strong>Ciudad del Cliente:</strong> {{ orderDetails?.cityClient }}</p>
-      <p><strong>Dirección del Cliente:</strong> {{ orderDetails?.addressClient }}</p>
-      <p><strong>Teléfono del Cliente:</strong> {{ orderDetails?.phoneClient }}</p>
-      <p><strong>Nombre de Contacto:</strong> {{ orderDetails?.nameContactClient }}</p>
-      <p><strong>Fecha de Inicio:</strong> {{ orderDetails?.startDateOrder | date: 'dd/MM/yyyy HH:mm' }}</p>
-      <p><strong>Total:</strong> {{ orderDetails?.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</p>
-      <p><strong>Estado del Pedido:</strong> {{ orderDetails?.statusOrder }}</p>
+      <p><strong>ID del Pedido:</strong> {{ orderDetails.idOrder }}</p>
+      <p><strong>NIT del Cliente:</strong> {{ orderDetails.nitClient }}</p>
+      <p><strong>Nombre del Cliente:</strong> {{ orderDetails.nameClient }}</p>
+      <p><strong>Estado del Cliente:</strong> {{ orderDetails.stateClient }}</p>
+      <p><strong>Ciudad del Cliente:</strong> {{ orderDetails.cityClient }}</p>
+      <p><strong>Dirección del Cliente:</strong> {{ orderDetails.addressClient }}</p>
+      <p><strong>Teléfono del Cliente:</strong> {{ orderDetails.phoneClient }}</p>
+      <p><strong>Nombre de Contacto:</strong> {{ orderDetails.nameContactClient }}</p>
+      <p><strong>Fecha de Inicio:</strong> {{ orderDetails.startDateOrder | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Total:</strong> {{ orderDetails.totalPriceOrder | currency:'$ ':'symbol':'1.0-0' }} COP</p>
+      <p><strong>Estado del Pedido:</strong> {{ orderDetails.statusOrder }}</p>
     </div>
 
     <div class="order-image">

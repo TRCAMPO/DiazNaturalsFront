@@ -19,7 +19,7 @@ export class CatalogComponent implements OnInit {
   showCart: boolean = false;
   dataCart: cart[] = [];
   currentPage = 1;
-  elementeForPage = 1;
+  elementeForPage = 3;
   // @ts-ignore
   cartProduct: cart= null;
   // @ts-ignore
