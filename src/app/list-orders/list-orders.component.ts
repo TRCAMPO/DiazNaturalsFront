@@ -24,6 +24,7 @@ export class ListOrdersComponent implements OnInit{
   elementeForPage = 5;
   status: StatusModel[] = [];
   constructor(public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router)  {
+    this.authService.formDataSearchOrder = new OrderSearchModel();
     this.authService.formDataSearchOrder.date = null;
   }
   ngOnInit() {

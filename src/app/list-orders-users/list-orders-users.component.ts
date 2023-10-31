@@ -28,8 +28,9 @@ export class ListOrdersUsersComponent implements OnInit{
   status: StatusModel[] = [];
   user: UserModelClient = new UserModelClient();
   constructor(private cookies: CookieService, public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router)  {
-    this.authService.formDataSearchOrder.date = null;
     this.removeStoredData();
+    this.authService.formDataSearchOrder = new OrderSearchModel();
+    this.authService.formDataSearchOrder.date = null;
   }
 
   removeStoredData() {
