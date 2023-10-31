@@ -29,7 +29,7 @@ export class ListOrdersUsersComponent implements OnInit{
   status: StatusModel[] = [];
   user: UserModelClient = new UserModelClient();
   constructor(private cookies: CookieService, public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router, private sharedDataService: SharedDataServiceOrdersUsers)  {
-
+    this.authService.formDataSearchOrder.date = null;
   }
   ngOnInit() {
     this.authService.getUserByEmail(this.cookies.get("email")).pipe(
@@ -69,6 +69,7 @@ export class ListOrdersUsersComponent implements OnInit{
     // Filtrar por fecha
     if (this.authService.formDataSearchOrder.date) {
       const selectedDate = new Date(this.authService.formDataSearchOrder.date);
+      selectedDate.setDate(selectedDate.getDate() + 1);
       this.orders = this.orders.filter(order => {
         const orderDate = new Date(order.startDateOrder);
         return orderDate.getDate() === selectedDate.getDate();
