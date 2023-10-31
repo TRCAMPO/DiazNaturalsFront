@@ -55,7 +55,6 @@ export class CatalogComponent implements OnInit {
     this.authService.getAllProductsActive().subscribe((response) => {
       this.products = response;
       this.products.forEach(imgProduct => {
-        console.log(imgProduct.image);
         this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((imageBlob: Blob) => {
           this.blob = imageBlob;
           const reader = new FileReader();
@@ -149,8 +148,6 @@ export class CatalogComponent implements OnInit {
       quantity: 1,
       supplier: item.supplier
     };
-    console.log("Todos los productos" + item);
-    console.log("Constante" + newCartProduct);
     this.toast.success("Se ha agregado el producto correctamente", "Producto Añadido");
     this.addOrUpdateProductToCart(newCartProduct);
   }
@@ -174,8 +171,6 @@ export class CatalogComponent implements OnInit {
     const cartItemsJSON = JSON.stringify(this.dataCart);
     localStorage.setItem('products', cartItemsJSON);
     this.cartService.cartUpdated$.next();
-    console.log(this.dataCart);
-    console.log(this.dataCart.length);
   }
 
   // Cuando el usuario hace clic en un producto para ver los detalles
