@@ -5,7 +5,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
-import {SharedDataServiceOrders} from "../list-orders/shareDataServiceOrders";
 import {OrdersModel} from "../list-orders/ordersModel";
 import {AllProductsModel} from "../catalog/AllProductsModel";
 import {StatusModel} from "../list-orders/status.model";
@@ -33,15 +32,18 @@ export class ValidatePaymentComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private route: Router,
     private dataService: DataService,
-    private toast: ToastrService,
-    private sharedDataService: SharedDataServiceOrders
+    private toast: ToastrService
   ) {
   }
 
   ngOnInit(): void {
-    this.sharedDataService.currentProductData.subscribe((data) => {
-      this.orderDetails = data;
-      this.selectedStatus = this.orderDetails.statusOrder;
+    const storedData = localStorage.getItem('orderData');
+    if (storedData) {
+      this.orderDetails = JSON.parse(storedData);
+    } else {
+      console.log('No hay datos almacenados');
+    }
+    this.selectedStatus = this.orderDetails.statusOrder;
 
       // Después de obtener los detalles del pedido, obtén los productos y la imagen del pedido
       this.authService.getProductsOrders(this.orderDetails.idOrder).subscribe((productsData) => {
@@ -74,21 +76,11 @@ export class ValidatePaymentComponent implements OnInit {
       }, error => {
         console.error('Error al obtener los productos del pedido', error);
       });
-    });
-    this.authService.getStatesOrders().subscribe(
+      this.authService.getStatesOrders().subscribe(
       (data) =>{
         this.statusArray = data;
       },
     );
-  }
-
-
-  onSubmit() {
-    // Implementa la lógica para procesar el envío del formulario si es necesario.
-  }
-
-  openConfirmationDialogPayment() {
-    // Implementa la lógica para abrir un diálogo de confirmación del pedido si es necesario.
   }
 
   changePage() {
@@ -99,28 +91,11 @@ export class ValidatePaymentComponent implements OnInit {
     return name.replace(/ /g, "%20");
   }
 
-  loadImage(nameImage: string) {
-    console.log(nameImage);
-    // Supongamos que obtienes la imagen del pedido desde tu API.
-    this.fetchOrderImage(nameImage); // Implementa esta función para cargar la imagen del pedido.
-  }
-
-  blobToFile(blob: Blob, fileName: string, mimeType: string): File {
-    return new File([blob], fileName, { type: mimeType });
-  }
-
-  fetchOrderDetails() {
-    // Simula una llamada a la API para obtener los detalles del pedido.
-    // Actualiza this.imageFilePaymentUser con los datos del pedido.
-  }
-
-  fetchOrderImage(imageName: string) {
-    // Simula una llamada a la API para obtener la imagen del pedido.
-    // Actualiza this.blob y this.imageUrlOrder con la imagen del pedido.
-  }
-
   changeStatus() {
 
   }
 
+  openConfirmationDialogPayment() {
+
+  }
 }

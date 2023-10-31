@@ -1,11 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from "@angular/material/dialog";
-import { AuthService } from "../auth.service";
-import { DomSanitizer } from "@angular/platform-browser";
-import { Router } from "@angular/router";
-import { DataService } from "../shared/data.service";
-import { ToastrService } from "ngx-toastr";
-import {SharedDataServiceOrdersUsers} from "../list-orders-users/SharedDataServiceOrdersUsers";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
+import {AuthService} from "../auth.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {DataService} from "../shared/data.service";
+import {ToastrService} from "ngx-toastr";
 import {OrdersModel} from "../list-orders/ordersModel";
 import {switchMap} from "rxjs";
 import {ImageUserModel} from "./ImageUser.model";
@@ -36,33 +35,32 @@ export class ValidatePaymentUserComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private route: Router,
     private dataService: DataService,
-    private toast: ToastrService,
-    private sharedDataService: SharedDataServiceOrdersUsers
+    private toast: ToastrService
   ) {
   }
 
   ngOnInit(): void {
-    // Simula una llamada a la API para obtener los detalles del pedido.
-    this.sharedDataService.currentProductData.subscribe((data) => {
-      this.orderDetails = data;
-      this.authService.getProductsOrders(this.orderDetails.idOrder).subscribe((productsData) => {
-        this.products = productsData;
-
-          // Después de obtener la imagen del pedido, puedes iterar sobre los productos.
-          this.products.forEach(imgProduct => {
-            this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((productImageBlob: Blob) => {
-              const productReader = new FileReader();
-              productReader.onload = () => {
-                imgProduct.imageNewUrl = productReader.result as string; // Convierte el Blob en una URL de datos
-              };
-              productReader.readAsDataURL(productImageBlob); // Lee el Blob como una URL de datos
-            }, error => {
-              console.error('Error al cargar la imagen del producto', error);
-            });
-          });
-      }, error => {
-        console.error('Error al obtener los productos del pedido', error);
+    const storedData = localStorage.getItem('orderData');
+    if (storedData) {
+      this.orderDetails = JSON.parse(storedData);
+    } else {
+      console.log('No hay datos almacenados');
+    }
+    this.authService.getProductsOrders(this.orderDetails.idOrder).subscribe((productsData) => {
+      this.products = productsData;
+      this.products.forEach(imgProduct => {
+        this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((productImageBlob: Blob) => {
+          const productReader = new FileReader();
+          productReader.onload = () => {
+            imgProduct.imageNewUrl = productReader.result as string; // Convierte el Blob en una URL de datos
+          };
+          productReader.readAsDataURL(productImageBlob); // Lee el Blob como una URL de datos
+        }, error => {
+          console.error('Error al cargar la imagen del producto', error);
+        });
       });
+    }, error => {
+      console.error('Error al obtener los productos del pedido', error);
     });
 
     // Luego, puedes cargar la imagen del pedido si es necesario.

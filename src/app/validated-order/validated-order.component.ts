@@ -8,7 +8,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
-import {SharedDataServiceOrdersUsers} from "../list-orders-users/SharedDataServiceOrdersUsers";
 
 @Component({
   selector: 'app-validated-order',
@@ -33,15 +32,19 @@ export class ValidatedOrderComponent {
     public sanitizer: DomSanitizer,
     private route: Router,
     private dataService: DataService,
-    private toast: ToastrService,
-    private sharedDataService: SharedDataServiceOrdersUsers
+    private toast: ToastrService
   ) {
   }
 
   ngOnInit(): void {
-    this.sharedDataService.currentProductData.subscribe((data) => {
-      this.orderDetails = data;
-      this.selectedStatus = this.orderDetails.statusOrder;
+    const storedData = localStorage.getItem('orderData');
+    if (storedData) {
+      this.orderDetails = JSON.parse(storedData);
+    } else {
+      console.log('No hay datos almacenados');
+    }
+
+    this.selectedStatus = this.orderDetails.statusOrder;
 
       // Después de obtener los detalles del pedido, obtén los productos y la imagen del pedido
       this.authService.getProductsOrders(this.orderDetails.idOrder).subscribe((productsData) => {
@@ -74,12 +77,6 @@ export class ValidatedOrderComponent {
       }, error => {
         console.error('Error al obtener los productos del pedido', error);
       });
-    });
-    this.authService.getStatesOrders().subscribe(
-      (data) =>{
-        this.statusArray = data;
-      },
-    );
   }
 
   onSubmit() {
