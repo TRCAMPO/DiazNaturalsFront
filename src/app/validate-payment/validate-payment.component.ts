@@ -7,6 +7,8 @@ import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
 import {SharedDataServiceOrders} from "../list-orders/shareDataServiceOrders";
 import {OrdersModel} from "../list-orders/ordersModel";
+import {AllProductsModel} from "../catalog/AllProductsModel";
+import {StatusModel} from "../list-orders/status.model";
 
 @Component({
   selector: 'app-validate-payment',
@@ -16,11 +18,14 @@ import {OrdersModel} from "../list-orders/ordersModel";
 export class ValidatePaymentComponent implements OnInit {
 
   orderDetails: OrdersModel = new OrdersModel(); // Objeto para almacenar los detalles del pedido
-  imageFilePaymentUser: File | null = null;
-  imageUrlOrder: string | null = null;
   // @ts-ignore
   private blob: Blob;
   disabledInput: boolean = true;
+  selectedStatus: any;
+  statusArray: StatusModel[] = [];
+  products: AllProductsModel[] = [];
+  currentPage = 1;
+  elementeForPage = 5;
 
   constructor(
     public dialog: MatDialog,
@@ -31,29 +36,52 @@ export class ValidatePaymentComponent implements OnInit {
     private toast: ToastrService,
     private sharedDataService: SharedDataServiceOrders
   ) {
-    // APIs
   }
 
   ngOnInit(): void {
-    // Simula una llamada a la API para obtener los detalles del pedido.
-
     this.sharedDataService.currentProductData.subscribe((data) => {
-      console.log(data);
       this.orderDetails = data;
-    });
+      this.selectedStatus = this.orderDetails.statusOrder;
 
-    // Luego, puedes cargar la imagen del pedido si es necesario.
-    this.authService.getImagePayment(this.formatImageName(this.orderDetails.imageOrder)).subscribe((imageBlob: Blob) => {
-      this.blob = imageBlob;
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.orderDetails.imageNewUrl = reader.result as string; // Convierte el Blob en una URL de datos
-      };
-      reader.readAsDataURL(imageBlob); // Lee el Blob como una URL de datos
-    }, error => {
-      console.error('Error al cargar la imagen', error);
+      // Después de obtener los detalles del pedido, obtén los productos y la imagen del pedido
+      this.authService.getProductsOrders(this.orderDetails.idOrder).subscribe((productsData) => {
+        this.products = productsData;
+
+        // Luego, puedes cargar la imagen del pedido si es necesario.
+        this.authService.getImagePayment(this.formatImageName(this.orderDetails.imageOrder)).subscribe((imageBlob: Blob) => {
+          this.blob = imageBlob;
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.orderDetails.imageNewUrl = reader.result as string; // Convierte el Blob en una URL de datos
+          };
+          reader.readAsDataURL(imageBlob); // Lee el Blob como una URL de datos
+
+          // Después de obtener la imagen del pedido, puedes iterar sobre los productos.
+          this.products.forEach(imgProduct => {
+            this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((productImageBlob: Blob) => {
+              const productReader = new FileReader();
+              productReader.onload = () => {
+                imgProduct.imageNewUrl = productReader.result as string; // Convierte el Blob en una URL de datos
+              };
+              productReader.readAsDataURL(productImageBlob); // Lee el Blob como una URL de datos
+            }, error => {
+              console.error('Error al cargar la imagen del producto', error);
+            });
+          });
+        }, error => {
+          console.error('Error al cargar la imagen del pedido', error);
+        });
+      }, error => {
+        console.error('Error al obtener los productos del pedido', error);
+      });
     });
+    this.authService.getStatesOrders().subscribe(
+      (data) =>{
+        this.statusArray = data;
+      },
+    );
   }
+
 
   onSubmit() {
     // Implementa la lógica para procesar el envío del formulario si es necesario.
@@ -90,4 +118,9 @@ export class ValidatePaymentComponent implements OnInit {
     // Simula una llamada a la API para obtener la imagen del pedido.
     // Actualiza this.blob y this.imageUrlOrder con la imagen del pedido.
   }
+
+  changeStatus() {
+
+  }
+
 }

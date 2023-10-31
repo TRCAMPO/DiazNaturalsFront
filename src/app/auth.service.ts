@@ -26,6 +26,7 @@ import {CookieService} from "ngx-cookie-service";
 import {OrdersModel} from "./list-orders/ordersModel";
 import {OrderSearchModel} from "./list-orders/OrderSearchModel";
 import {StatusModel} from "./list-orders/status.model";
+import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,8 @@ import {StatusModel} from "./list-orders/status.model";
 export class AuthService {
 
 
-  //private apiUrl = 'https://www.DiazNaturals.somee.com/api';
-  private apiUrl = 'https://localhost:7167/api';
+  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
+  //private apiUrl = 'https://localhost:7167/api';
 
   private sessionStartTime: number = 0;
 
@@ -134,7 +135,13 @@ export class AuthService {
     return this.http.post<string>(`${this.apiUrl}/Blob/load`, formData);
   }
 
-
+  uploadImgPayment(imageFile: File|null, name:string, idOrden:number) {
+    const formData = new FormData();
+    const newFileName = name+"_"+idOrden+ ".jpg";
+    // @ts-ignore
+    formData.append('file', imageFile, newFileName);
+    return this.http.post<string>(`${this.apiUrl}/Blob/loadProof`, formData);
+  }
 
   getProductById(number1: number) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/${number1}`);
@@ -145,8 +152,8 @@ export class AuthService {
   }
 
   getImagePayment(name:string): Observable<Blob> {
-    //return this.http.get(`https://localhost:7167/api/Blob/proof/SinComprobanteDePago.jpeg`, { responseType: 'blob' });
     return this.http.get(`${this.apiUrl}/Blob/proof/${name}`, { responseType: 'blob' });
+
   }
 
   putProduct(formDataProduct: ProductModel) {
@@ -213,6 +220,10 @@ export class AuthService {
     return this.http.get<UserModelClient>(`${this.apiUrl}/Clients/searchEmail?search=${search}`);
   }
 
+  getProductsOrders(search: number) {
+    return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Carts?idOrder=${search}`);
+  }
+
   getUsers() {
     return this.http.get<UserModelClient[]>(`${this.apiUrl}/Clients/active`);
   }
@@ -227,5 +238,9 @@ export class AuthService {
 
   getStatesOrders() {
     return this.http.get<StatusModel[]>(`${this.apiUrl}/Status`);
+  }
+
+  putOrder(orderDetails: ImageUserModel) {
+    return this.http.put(`${this.apiUrl}/Orders/${orderDetails.idOrder}`, orderDetails);
   }
 }

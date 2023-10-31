@@ -7,6 +7,9 @@ import { DataService } from "../shared/data.service";
 import { ToastrService } from "ngx-toastr";
 import {SharedDataServiceOrdersUsers} from "../list-orders-users/SharedDataServiceOrdersUsers";
 import {OrdersModel} from "../list-orders/ordersModel";
+import {switchMap} from "rxjs";
+import {ImageUserModel} from "./ImageUser.model";
+import {AllProductsModel} from "../catalog/AllProductsModel";
 
 @Component({
   selector: 'app-validate-payment-user',
@@ -23,6 +26,9 @@ export class ValidatePaymentUserComponent implements OnInit {
   // @ts-ignore
   private blob: Blob;
   disabledInput: boolean = true;
+  currentPage = 1;
+  elementeForPage = 5;
+  products: AllProductsModel[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -33,14 +39,30 @@ export class ValidatePaymentUserComponent implements OnInit {
     private toast: ToastrService,
     private sharedDataService: SharedDataServiceOrdersUsers
   ) {
-    // APIs
   }
 
   ngOnInit(): void {
     // Simula una llamada a la API para obtener los detalles del pedido.
     this.sharedDataService.currentProductData.subscribe((data) => {
-      console.log(data);
       this.orderDetails = data;
+      this.authService.getProductsOrders(this.orderDetails.idOrder).subscribe((productsData) => {
+        this.products = productsData;
+
+          // Después de obtener la imagen del pedido, puedes iterar sobre los productos.
+          this.products.forEach(imgProduct => {
+            this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((productImageBlob: Blob) => {
+              const productReader = new FileReader();
+              productReader.onload = () => {
+                imgProduct.imageNewUrl = productReader.result as string; // Convierte el Blob en una URL de datos
+              };
+              productReader.readAsDataURL(productImageBlob); // Lee el Blob como una URL de datos
+            }, error => {
+              console.error('Error al cargar la imagen del producto', error);
+            });
+          });
+      }, error => {
+        console.error('Error al obtener los productos del pedido', error);
+      });
     });
 
     // Luego, puedes cargar la imagen del pedido si es necesario.
@@ -56,30 +78,12 @@ export class ValidatePaymentUserComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    // Implementa la lógica para procesar el envío del formulario si es necesario.
-  }
-
-  openConfirmationDialogOrder() {
-    // Implementa la lógica para abrir un diálogo de confirmación del pedido si es necesario.
-  }
-
   changePageOrder() {
     this.route.navigate(['/homePageUser']);
   }
 
   formatImageName(name: string) {
     return name.replace(/ /g, "%20");
-  }
-
-  loadImage(nameImage: string) {
-    console.log(nameImage);
-    // Supongamos que obtienes la imagen del pedido desde tu API.
-    this.fetchOrderImage(nameImage); // Implementa esta función para cargar la imagen del pedido.
-  }
-
-  blobToFile(blob: Blob, fileName: string, mimeType: string): File {
-    return new File([blob], fileName, { type: mimeType });
   }
 
   handleDragOver(event: DragEvent) {
@@ -114,13 +118,32 @@ export class ValidatePaymentUserComponent implements OnInit {
     }
   }
 
-  fetchOrderDetails() {
-    // Simula una llamada a la API para obtener los detalles del pedido.
-    // Actualiza this.imageFilePaymentUser con los datos del pedido.
+  sendVoucher() {
+    console.log('Iniciando sendVoucher');
+    const imageModer:ImageUserModel = new ImageUserModel();
+    imageModer.idOrder = this.orderDetails.idOrder;
+    imageModer.imageOrder = this.orderDetails.imageOrder;
+    this.authService.uploadImgPayment(this.imageFilePaymentUser, this.orderDetails.nameClient, this.orderDetails.idOrder)
+      .pipe(
+        switchMap((res: any) => {
+          console.log('Respuesta de uploadImgPayment:', res);
+          this.toast.success('Imagen subida con éxito', 'Comprobante');
+          this.authService.formDataUrl = res;
+          this.orderDetails.imageOrder = this.authService.formDataUrl.fileName;
+          return this.authService.putOrder(imageModer);
+        })
+      )
+      .subscribe(
+        (response) => {
+          this.toast.success('Comprobante enviado', 'Comprobante');
+          // Manejar la respuesta aquí
+        },
+        (error) => {
+          this.toast.success('Error en el envio del comprobante', 'Comprobante');
+          // Manejar el error aquí
+        }
+      );
+    this.route.navigate(["/listOrdersUser"]);
   }
 
-  fetchOrderImage(imageName: string) {
-    // Simula una llamada a la API para obtener la imagen del pedido.
-    // Actualiza this.blob y this.imageUrlOrder con la imagen del pedido.
-  }
 }
