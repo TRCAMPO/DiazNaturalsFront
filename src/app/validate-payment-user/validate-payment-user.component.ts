@@ -119,16 +119,15 @@ export class ValidatePaymentUserComponent implements OnInit {
   }
 
   sendVoucher() {
-    console.log('Iniciando sendVoucher');
     const imageModer:ImageUserModel = new ImageUserModel();
     imageModer.idOrder = this.orderDetails.idOrder;
     imageModer.imageOrder = this.orderDetails.imageOrder;
     this.authService.uploadImgPayment(this.imageFilePaymentUser, this.orderDetails.nameClient, this.orderDetails.idOrder)
       .pipe(
         switchMap((res: any) => {
-          console.log('Respuesta de uploadImgPayment:', res);
           this.toast.success('Imagen subida con éxito', 'Comprobante');
           this.authService.formDataUrl = res;
+          imageModer.imageOrder = this.authService.formDataUrl.fileName;
           this.orderDetails.imageOrder = this.authService.formDataUrl.fileName;
           return this.authService.putOrder(imageModer);
         })
