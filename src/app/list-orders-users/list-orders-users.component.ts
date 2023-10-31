@@ -66,6 +66,12 @@ export class ListOrdersUsersComponent implements OnInit{
     this.authService.formDataOrder = new OrdersModel();
     this.orders = this.ordersOrigin;
 
+    if (this.authService.formDataSearchOrder.search) {
+      this.orders = this.orders.filter(order =>
+        order.idOrder.toString().includes(this.authService.formDataSearchOrder.search)
+      );
+    }
+
     // Filtrar por fecha
     if (this.authService.formDataSearchOrder.date) {
       const selectedDate = new Date(this.authService.formDataSearchOrder.date);
