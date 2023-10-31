@@ -22,7 +22,13 @@ import {ConfirmDialogComponentDeleteProduct} from "../confirm-dialog-delete-prod
 import {AuthService} from "../auth.service";
 import {SearchProductModel} from "../confirm-dialog-delete-product/searchProductModel";
 import {ToastrService} from "ngx-toastr";
-import {Observable} from "rxjs";
+import {mergeMap, Observable} from "rxjs";
+import {OrdersModelNew} from "./OrdersModelNew";
+import {CookieService} from "ngx-cookie-service";
+import {UserModelClient} from "../create-user/userClient.model";
+import {ProductsOrderModel} from "./productsOrder.model";
+import {AllProductsModel} from "../catalog/AllProductsModel";
+import {ProductModel} from "../create-product/product.model";
 //import {ResisableComponentService} from "../resisable-component.service";
 
 @Component({
@@ -35,11 +41,13 @@ export class CartComponent implements AfterViewInit, OnInit{
   @Input() cartStyles: any;
   @ViewChild('container') container: ElementRef | undefined;
   products: cart[] = [];
+  allProducts:ProductModel[] = []
   currentPage = 1;
   elementeForPage = 3;
+  user:UserModelClient = new UserModelClient();
 
   @Output() closeCart: EventEmitter<void> = new EventEmitter<void>();
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog, public authService: AuthService,private toast: ToastrService, public router: Router)  {
+  constructor(private cookies:CookieService, private renderer: Renderer2, private cdr: ChangeDetectorRef, private cartService: CartService, public dialog: MatDialog, public authService: AuthService,private toast: ToastrService, public router: Router)  {
     this.authService.formDataSearchProduct = new SearchProductModel();
   }
   ngOnInit() {
@@ -50,6 +58,13 @@ export class CartComponent implements AfterViewInit, OnInit{
     if (cartItemsJSON) {
       this.products = JSON.parse(cartItemsJSON);
     }
+    this.authService.getUserByEmail(this.cookies.get("email")).subscribe(
+      (user) => {
+        this.user = user;
+      });
+    this.authService.getAll2Products().subscribe((data) =>{
+      this.allProducts = data;
+    });
   }
   ngAfterViewInit() {
   }
@@ -136,6 +151,41 @@ export class CartComponent implements AfterViewInit, OnInit{
         try {
           const correctOrder = await this.check();
           if (correctOrder) {
+
+            const productsOrderArray: ProductsOrderModel[] = this.products.map((cartItem) => {
+              const productOrderItem = new ProductsOrderModel();
+
+              // Utilizamos 'filter' para encontrar el objeto en 'allProducts' que coincida con 'image'
+              const matchingProduct = this.allProducts.filter(product => product.name === cartItem.name)[0];
+
+              // Si encontramos un objeto coincidente, asignamos el 'idProduct' a 'productOrderItem.productId'
+              if (matchingProduct) {
+                productOrderItem.productId = matchingProduct.idProduct;
+              } else {
+                // Manejar el caso en el que no se encuentra un producto coincidente
+                console.error(`No se encontró un producto para la imagen ${cartItem.image}`);
+              }
+
+              productOrderItem.quantity = cartItem.quantity;
+
+              return productOrderItem;
+            });
+            let sendOrder: OrdersModelNew = new OrdersModelNew();
+            sendOrder.addCart = productsOrderArray;
+            sendOrder.idClient = this.user.idClient;
+            sendOrder.totalPriceOrder = this.all();
+            sendOrder.startDateOrder = new Date();
+
+            this.authService.postOrder(sendOrder).subscribe(
+              (response) => {
+                // Manejar la respuesta exitosa aquí
+                console.log('Respuesta exitosa:', response);
+              },
+              (error) => {
+                // Manejar el error aquí
+                console.error('Error en la solicitud:', error);
+              }
+            );
             localStorage.removeItem('products');
             this.products=[];
             this.all();
