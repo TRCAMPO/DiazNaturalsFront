@@ -25,7 +25,7 @@ export class ListOrdersComponent implements OnInit{
   elementeForPage = 5;
   status: StatusModel[] = [];
   constructor(public dialog: MatDialog, private toast: ToastrService, public authService: AuthService, public router: Router, private sharedDataService: SharedDataServiceOrders)  {
-
+    this.authService.formDataSearchOrder.date = null;
   }
   ngOnInit() {
     this.authService.getOrders().subscribe(
@@ -50,15 +50,6 @@ export class ListOrdersComponent implements OnInit{
     this.authService.formDataOrder = new OrdersModel();
     this.orders = this.ordersOrigin;
 
-    // Filtrar por fecha
-    if (this.authService.formDataSearchOrder.date) {
-      const selectedDate = new Date(this.authService.formDataSearchOrder.date);
-      this.orders = this.orders.filter(order => {
-        const orderDate = new Date(order.startDateOrder);
-        return orderDate.getDate() === selectedDate.getDate();
-      });
-    }
-
     // Filtrar por proveedor
     if (this.authService.formDataSearchOrder.search) {
       this.orders = this.orders.filter(order =>
@@ -66,6 +57,16 @@ export class ListOrdersComponent implements OnInit{
         order.nitClient.toString().includes(this.authService.formDataSearchOrder.search) ||
         order.idOrder.toString().includes(this.authService.formDataSearchOrder.search)
       );
+    }
+
+    //Filtrar por fecha
+    if (this.authService.formDataSearchOrder.date) {
+      const selectedDate = new Date(this.authService.formDataSearchOrder.date);
+      selectedDate.setDate(selectedDate.getDate() + 1);
+      this.orders = this.orders.filter(order => {
+        const orderDate = new Date(order.startDateOrder);
+        return orderDate.getDate() === selectedDate.getDate();
+      });
     }
 
     // Filtrar por estado

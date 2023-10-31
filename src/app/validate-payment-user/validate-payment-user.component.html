@@ -41,8 +41,8 @@
         </div>
       </div>
       <div class="button-container-image">
-        <button [disabled]="disabledInput" class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
-        <input [disabled]="disabledInput" type="file" #fileInput style="display: none" (change)="handleFileInput($event)" />
+        <button class="custom-button-selec" (click)="fileInput.click()">Seleccionar imagen</button>
+        <input type="file" #fileInput style="display: none" (change)="handleFileInput($event)" />
         <button [disabled]="disabledInput" class="custom-buttonC-selec" [disabled]="!imageUrlOrder" (click)="clearPreview()">Eliminar imagen</button>
       </div>
     </div>

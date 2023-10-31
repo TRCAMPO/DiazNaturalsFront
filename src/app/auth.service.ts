@@ -27,6 +27,7 @@ import {OrdersModel} from "./list-orders/ordersModel";
 import {OrderSearchModel} from "./list-orders/OrderSearchModel";
 import {StatusModel} from "./list-orders/status.model";
 import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
+import {OrdersModelNew} from "./cart/OrdersModelNew";
 
 @Injectable({
   providedIn: 'root'
@@ -172,6 +173,10 @@ export class AuthService {
     return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Products/all`);
   }
 
+  getAll2Products() {
+    return this.http.get<ProductModel[]>(`${this.apiUrl}/Products/all`);
+  }
+
   getAllProductsActive() {
     return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Products/active`);
   }
@@ -242,5 +247,9 @@ export class AuthService {
 
   putOrder(orderDetails: ImageUserModel) {
     return this.http.put(`${this.apiUrl}/Orders/${orderDetails.idOrder}`, orderDetails);
+  }
+
+  postOrder(order:OrdersModelNew) {
+    return this.http.post(`${this.apiUrl}/Orders`, order);
   }
 }

@@ -55,6 +55,7 @@ import { ConfirmDialogCreateOrderComponent } from './confirm-dialog-create-order
 import { ListProductsComponent } from './list-products/list-products.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListOrdersUsersComponent } from './list-orders-users/list-orders-users.component';
+import { ValidatedOrderComponent } from './validated-order/validated-order.component';
 
 
 @NgModule({
@@ -97,7 +98,8 @@ import { ListOrdersUsersComponent } from './list-orders-users/list-orders-users.
     ConfirmDialogCreateOrderComponent,
     ListProductsComponent,
     ListOrdersComponent,
-    ListOrdersUsersComponent
+    ListOrdersUsersComponent,
+    ValidatedOrderComponent
 
 
   ],
