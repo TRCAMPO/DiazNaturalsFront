@@ -37,8 +37,8 @@ import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
 export class AuthService {
 
 
-  //private apiUrl = 'https://www.DiazNaturals.somee.com/api';
-  private apiUrl = 'https://localhost:7167/api';
+  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
+  //private apiUrl = 'https://localhost:7167/api';
 
   private sessionStartTime: number = 0;
 
