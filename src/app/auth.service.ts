@@ -28,6 +28,8 @@ import {OrderSearchModel} from "./list-orders/OrderSearchModel";
 import {StatusModel} from "./list-orders/status.model";
 import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
 import {OrdersModelNew} from "./cart/OrdersModelNew";
+import {OrderHistory} from "./validate-payment/OrderHistoryModel";
+import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +64,7 @@ export class AuthService {
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
   formDataSearchOrder: OrderSearchModel = new OrderSearchModel();
   formDataOrder: OrdersModel = new OrdersModel();
+  formDataOrderHistory: OrderHistory = new OrderHistory();
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -169,6 +172,9 @@ export class AuthService {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
 
+  getValidateProductByNamePresentationSupplier(formDataSearchSend: ValidateQuantity) {
+    return this.http.get<ProductModel>(`${this.apiUrl}/Products/ValidateQuantity?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}&quantityProduct=${formDataSearchSend.quantityProduct}`);
+  }
   getAllProducts() {
     return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Products/all`);
   }
@@ -234,7 +240,7 @@ export class AuthService {
   }
 
   getOrders(){
-    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all`);
+    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all/last`);
   }
 
   getOrdersUser(){
@@ -245,11 +251,19 @@ export class AuthService {
     return this.http.get<StatusModel[]>(`${this.apiUrl}/Status`);
   }
 
+  getStatesOrders2(name: string) {
+    return this.http.get<StatusModel[]>(`${this.apiUrl}/Status/Search/${name}`);
+  }
+
   putOrder(orderDetails: ImageUserModel) {
     return this.http.put(`${this.apiUrl}/Orders/${orderDetails.idOrder}`, orderDetails);
   }
 
   postOrder(order:OrdersModelNew) {
     return this.http.post(`${this.apiUrl}/Orders`, order);
+  }
+
+  postOrderHistory(orderHistory : OrderHistory){
+    return this.http.post(`${this.apiUrl}/OrderHistories`, orderHistory)
   }
 }
