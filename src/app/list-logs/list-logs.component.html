@@ -21,12 +21,12 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Ejemplos de datos estáticos, reemplázalos con datos reales desde tu aplicación -->
+    <!-- Ejemplos de datos estáticos, reemplázalos con datos reales desde tu aplicación
     <tr>
       <td>1</td>
       <td>2023-11-01</td>
       <td>2023-11-07</td>
-      <td><button class="download-btn" (click)="downloadFile()"><i class="fas fa-download"></i></button></td>
+      <td><button class="download-btn" nameLogDownloadLog="log202311122151.txt" (click)="downloadFile()"><i class="fas fa-download"></i></button></td>
     </tr>
     <tr>
       <td>2</td>
@@ -69,9 +69,18 @@
       <td>2023-12-20</td>
       <td>2023-12-26</td>
       <td><button class="download-btn" (click)="downloadFile()"><i class="fas fa-download"></i></button></td>
+    </tr>-->
+    <tr *ngFor="let item of dataLogs | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+      <td>{{ item.orderLog }}</td>
+      <td>{{ item.nameInit }}</td>
+      <td>{{ item.nameEnd }}</td>
+      <td>
+        <button class="download-btn" (click)="downloadFile(item.nameOriginal)"><i class="fas fa-download"></i></button>
+      </td>
     </tr>
     </tbody>
   </table>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="dataLogs.length > elementeForPage" id="cart"></pagination-controls>
 </div>
 
 </body>
