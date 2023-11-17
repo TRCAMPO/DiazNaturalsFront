@@ -30,6 +30,8 @@ import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
 import {OrdersModelNew} from "./cart/OrdersModelNew";
 import {OrderHistory} from "./validate-payment/OrderHistoryModel";
 import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
+import {NameLogs} from "./list-logs/NameLogs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +39,8 @@ import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
 export class AuthService {
 
 
-  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
-  //private apiUrl = 'https://localhost:7167/api';
+  //private apiUrl = 'https://www.DiazNaturals.somee.com/api';
+  private apiUrl = 'https://localhost:7167/api';
 
   private sessionStartTime: number = 0;
 
@@ -265,5 +267,12 @@ export class AuthService {
 
   postOrderHistory(orderHistory : OrderHistory){
     return this.http.post(`${this.apiUrl}/OrderHistories`, orderHistory)
+  }
+  getNameLogs() {
+    return this.http.get<any[]>(`${this.apiUrl}/Logs`);
+  }
+
+  getDataLogs(name:string) {
+    return this.http.get(`${this.apiUrl}/Logs/DownloadLogs/${name}`, { responseType: 'blob' });
   }
 }
