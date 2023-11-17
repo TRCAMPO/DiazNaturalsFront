@@ -1,0 +1,64 @@
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 800px;
+  max-height: 450px;
+  margin: 50px auto;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: sans-serif;
+  table-layout: fixed; /* Establece el ancho de las columnas de manera uniforme */
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  width: 25%; /* Establece el ancho deseado (25% para 4 columnas) */
+}
+
+th {
+  background-color: #3E7C95;
+  color: white;
+}
+
+.download-btn {
+  text-decoration: none;
+  padding: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #316335;
+}
+
+h2 {
+  margin-top: auto;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* Añade un poco de espacio en la parte inferior de la tabla para separar del footer */
+table {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}

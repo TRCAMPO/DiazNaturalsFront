@@ -91,7 +91,7 @@ export class ValidatePaymentComponent implements OnInit {
   }
 
   changePage() {
-    this.route.navigate(['/homePage']);
+    this.route.navigate(['/listOrders']);
   }
 
   formatImageName(name: string) {
