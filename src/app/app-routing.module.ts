@@ -28,6 +28,7 @@ import {ListProductsComponent} from "./list-products/list-products.component";
 import {ListOrdersComponent} from "./list-orders/list-orders.component";
 import {ListOrdersUsersComponent} from "./list-orders-users/list-orders-users.component";
 import {ValidatedOrderComponent} from "./validated-order/validated-order.component";
+import {ListLogsComponent} from "./list-logs/list-logs.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -59,7 +60,7 @@ const routes: Routes = [
   { path: "validatePaymentUser", component: ValidatePaymentUserComponent, canActivate: [AuthGuard]},
   { path: "listOrdersUser", component: ListOrdersUsersComponent, canActivate: [AuthGuard]},
   { path: "validatedOrder", component: ValidatedOrderComponent, canActivate: [AuthGuard]},
-
+  { path: "listLogs", component: ListLogsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
