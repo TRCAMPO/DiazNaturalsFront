@@ -57,6 +57,7 @@ import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListOrdersUsersComponent } from './list-orders-users/list-orders-users.component';
 import { ValidatedOrderComponent } from './validated-order/validated-order.component';
 import { ListLogsComponent } from './list-logs/list-logs.component';
+import { ModifyQuantitiesComponent } from './modify-quantities/modify-quantities.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { ListLogsComponent } from './list-logs/list-logs.component';
     ListOrdersComponent,
     ListOrdersUsersComponent,
     ValidatedOrderComponent,
-    ListLogsComponent
+    ListLogsComponent,
+    ModifyQuantitiesComponent
 
 
   ],

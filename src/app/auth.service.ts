@@ -39,8 +39,8 @@ import {NameLogs} from "./list-logs/NameLogs";
 export class AuthService {
 
 
-  //private apiUrl = 'https://www.DiazNaturals.somee.com/api';
-  private apiUrl = 'https://localhost:7167/api';
+  private apiUrl = 'https://www.DiazNaturals.somee.com/api';
+  //private apiUrl = 'https://localhost:7167/api';
 
   private sessionStartTime: number = 0;
 
@@ -67,6 +67,9 @@ export class AuthService {
   formDataSearchOrder: OrderSearchModel = new OrderSearchModel();
   formDataOrder: OrdersModel = new OrdersModel();
   formDataOrderHistory: OrderHistory = new OrderHistory();
+  formSearchProduct: ProductModel = new ProductModel();
+  // @ts-ignore
+  formDataAmount: number| null;
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -168,6 +171,10 @@ export class AuthService {
 
   patchProduct(formDataProduct: DeleteProductModel) {
     return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
+  }
+
+  patchQuantity(formDataProduct: SearchProductModel, number:number) {
+    return this.http.patch(`${this.apiUrl}/Products/UpdateQuantity?quantity=${number}`,formDataProduct);
   }
 
   getProductByNamePresentationSupplier(formDataSearchSend: SearchProductModel) {
