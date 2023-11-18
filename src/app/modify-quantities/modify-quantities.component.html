@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <app-header-admin></app-header-admin>
+</header>
+
+<body>
+  <div class="container-edit-supplier">
+    <div class="titulo">
+      <h1 class="titulo">Gestión de Inventario</h1>
+    </div>
+
+    <div class="search-bar">
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;Producto:</span>
+        <select class="filter-select" [(ngModel)]="authService.formSearchProduct.name">
+          <option value="" selected>Seleccione uno</option>
+          <option *ngFor="let product of productsOriginTwo" [value]="product.name">{{ product.name }}</option>
+        </select>
+      </div>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;Proveedor:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.suppliers">
+          <option value="" selected>Seleccione uno</option>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.nameSupplier">{{ supplier.nameSupplier }}</option>
+        </select>
+      </div>
+      <div>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;Presentación:</span>
+        <select class="filter-select" [(ngModel)]="authService.formDataSearchProduct.presentation">
+          <option value="" selected>Seleccione uno</option>
+          <option *ngFor="let presentation of presentations" [value]="presentation.namePresentation">{{ presentation.namePresentation }}</option>
+        </select>
+      </div>
+      <span>&nbsp;</span>
+      <button class="search-button" (click)="searchProduct()" >Buscar</button>
+    </div>
+
+
+    <div #container class="tableProv-container" >
+      <table>
+        <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Proveedor</th>
+          <th>Presentación</th>
+          <th>Cantidad</th>
+          <th>Categoria</th>
+          <th>Precio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of products | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+          <td class="table-img">
+            <img [src]="item.imageNewUrl" alt="Imagen del producto" style="width: 50px; height: 50px; margin-left: 1px;" >
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.supplier }}</td>
+          <td>{{ item.presentation }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <br>
+    <div class="button-container">
+      <div class="increment-container">
+        <span>Incrementar cantidad:&nbsp;&nbsp;&nbsp;</span>
+        <input type="number" class="search-input" [(ngModel)]="authService.formDataAmount" placeholder="Ingrese la cantidad">
+      </div>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <input type="submit" class="custom-button" (click)="onSubmit()" value="Agregar">
+      <input type="submit" class="custom-buttonC" (click)="resetForm()" value="Cancelar">
+    </div>
+    <br>
+    <br>
+  </div>
+  </body>
+<footer>
+  <app-footer></app-footer>
+</footer>
+</html>
+
+
+
+
