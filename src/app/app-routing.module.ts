@@ -29,6 +29,7 @@ import {ListOrdersComponent} from "./list-orders/list-orders.component";
 import {ListOrdersUsersComponent} from "./list-orders-users/list-orders-users.component";
 import {ValidatedOrderComponent} from "./validated-order/validated-order.component";
 import {ListLogsComponent} from "./list-logs/list-logs.component";
+import {ModifyQuantitiesComponent} from "./modify-quantities/modify-quantities.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: "listUser", component: ListUsersComponent, canActivate: [AuthGuard]},
   { path: "listProducts", component: ListProductsComponent, canActivate: [AuthGuard]},
   { path: "listOrders", component: ListOrdersComponent, canActivate: [AuthGuard]},
+  { path: "modifyQuantities", component: ModifyQuantitiesComponent, canActivate: [AuthGuard]},
 
   { path: "homePageUser", component: HomePageUserComponent, canActivate: [AuthGuard]},
   { path: "catalog", component: CatalogComponent, canActivate: [AuthGuard]},

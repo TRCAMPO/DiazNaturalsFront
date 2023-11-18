@@ -30,6 +30,8 @@ import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
 import {OrdersModelNew} from "./cart/OrdersModelNew";
 import {OrderHistory} from "./validate-payment/OrderHistoryModel";
 import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
+import {NameLogs} from "./list-logs/NameLogs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +67,9 @@ export class AuthService {
   formDataSearchOrder: OrderSearchModel = new OrderSearchModel();
   formDataOrder: OrdersModel = new OrdersModel();
   formDataOrderHistory: OrderHistory = new OrderHistory();
+  formSearchProduct: ProductModel = new ProductModel();
+  // @ts-ignore
+  formDataAmount: number| null;
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -168,6 +173,10 @@ export class AuthService {
     return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
   }
 
+  patchQuantity(formDataProduct: SearchProductModel, number:number) {
+    return this.http.patch(`${this.apiUrl}/Products/UpdateQuantity?quantity=${number}`,formDataProduct);
+  }
+
   getProductByNamePresentationSupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
@@ -265,5 +274,12 @@ export class AuthService {
 
   postOrderHistory(orderHistory : OrderHistory){
     return this.http.post(`${this.apiUrl}/OrderHistories`, orderHistory)
+  }
+  getNameLogs() {
+    return this.http.get<any[]>(`${this.apiUrl}/Logs`);
+  }
+
+  getDataLogs(name:string) {
+    return this.http.get(`${this.apiUrl}/Logs/DownloadLogs/${name}`, { responseType: 'blob' });
   }
 }
