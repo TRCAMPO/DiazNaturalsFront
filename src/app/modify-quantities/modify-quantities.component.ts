@@ -102,16 +102,10 @@ export class ModifyQuantitiesComponent implements OnInit{
         this.products = this.products.filter(product =>
           product.name.includes(this.authService.formSearchProduct.name)
         );
-      } else if (this.authService.formSearchProduct.name && this.authService.formDataSearchProduct.presentation && this.authService.formDataSearchProduct.suppliers) {
-        // Obtener todos los productos activos si no hay búsqueda de texto
-        this.authService.getAllProductsActive().subscribe(
-          (data) => {
-            this.products = data;
-          },
-          () => {
-            this.toast.error("No se pudieron encontrar productos", "Error en la Búsqueda");
-          }
-        );
+      }
+      if (this.products.length == 0) {
+        this.products = [];
+        this.toast.info("No se ha encontrado ningun producto", "No se encontro el producto")
       }
     }
 
@@ -127,34 +121,38 @@ export class ModifyQuantitiesComponent implements OnInit{
 
 
   onSubmit() {
-    if (this.authService.formDataAmount && this.authService.formDataAmount > 0) {
-      this.authService.formDataDelete.idProduct = this.authService.formDataProduct.idProduct;
-      this.authService.formDataSearchProduct.search = this.authService.formSearchProduct.name;
-      const prod = this.authService.formDataSearchProduct;
-      this.authService.patchQuantity(prod, this.authService.formDataAmount)
-        .pipe(
-          catchError(error => {
-            // Manejo de errores aquí, puedes mostrar un mensaje de error o realizar otras acciones necesarias.
-            console.error('Error en la solicitud PATCH:', error);
-            return []; // Otra opción es retornar un observable vacío o un valor por defecto
-          })
-        )
-        .subscribe(response => {
-          // Manejo de la respuesta exitosa aquí, si es necesario.
-          console.log('Respuesta exitosa:', response);
-          this.loadTwo(); // Llama a loadTwo() después de la respuesta exitosa.
-        }, error => {
-          // Manejo de errores de la subscripción
-          console.error('Error en la subscripción:', error);
-        });
-      this.authService.formDataAmount = null;
-    } else {
-      this.toast.error("Ingrese un número mayor a 0", "Número Inválido");
+    if(this.products.length > 0){
+      if (this.authService.formDataAmount && this.authService.formDataAmount > 0) {
+        this.authService.formDataDelete.idProduct = this.authService.formDataProduct.idProduct;
+        this.authService.formDataSearchProduct.search = this.authService.formSearchProduct.name;
+        const prod = this.authService.formDataSearchProduct;
+        this.authService.patchQuantity(prod, this.authService.formDataAmount)
+          .pipe(
+            catchError(error => {
+              // Manejo de errores aquí, puedes mostrar un mensaje de error o realizar otras acciones necesarias.
+              console.error('Error en la solicitud PATCH:', error);
+              return []; // Otra opción es retornar un observable vacío o un valor por defecto
+            })
+          )
+          .subscribe(response => {
+            // Manejo de la respuesta exitosa aquí, si es necesario.
+            console.log('Respuesta exitosa:', response);
+            this.loadTwo(); // Llama a loadTwo() después de la respuesta exitosa.
+          }, error => {
+            // Manejo de errores de la subscripción
+            console.error('Error en la subscripción:', error);
+          });
+        this.authService.formDataAmount = null;
+      } else {
+        this.toast.error("Ingrese un número mayor a 0", "Número Inválido");
+      }
+      setTimeout(() => {
+        this.loadTwo();
+      }, 2000);
+      this.toast.success("Se agrego la cantidad", "Cantidad Agregada")
+    }else {
+      this.toast.error("No ha buscado un producto", "Error Incrementando cantidad")
     }
-    setTimeout(() => {
-      this.loadTwo();
-    }, 2000);
-    this.toast.success("Se agrego la cantidad", "Cantidad Agregada")
   }
 
 
