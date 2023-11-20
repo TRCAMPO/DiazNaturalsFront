@@ -1,0 +1,29 @@
+<div #container class="notifications-popup" [ngStyle]="notificationsStyles">
+  <div class="notification-header">
+    <i class="fas fa-warning"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span>Productos con Bajas Existencias en Stock</span>
+  </div>
+  <div class="notification-list">
+    <table>
+      <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Proveedor</th>
+        <th>Presentación</th>
+        <th>Categoría</th>
+        <th>Cantidad</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let notification of allNotifications | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'notifications' }">
+        <td>{{ notification.name }}</td>
+        <td>{{ notification.supplier }}</td>
+        <td>{{ notification.presentation }}</td>
+        <td>{{ notification.category }}</td>
+        <td>{{ notification.amount }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="currentPage = $event" *ngIf="allNotifications.length > elementeForPage" id="notifications"></pagination-controls>
+  </div>
+</div>
