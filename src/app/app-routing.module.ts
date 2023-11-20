@@ -29,6 +29,7 @@ import {ListOrdersComponent} from "./list-orders/list-orders.component";
 import {ListOrdersUsersComponent} from "./list-orders-users/list-orders-users.component";
 import {ValidatedOrderComponent} from "./validated-order/validated-order.component";
 import {ListLogsComponent} from "./list-logs/list-logs.component";
+import {NotificationsComponent} from "./notifications/notifications.component";
 import {ModifyQuantitiesComponent} from "./modify-quantities/modify-quantities.component";
 
 const routes: Routes = [
@@ -63,6 +64,7 @@ const routes: Routes = [
   { path: "listOrdersUser", component: ListOrdersUsersComponent, canActivate: [AuthGuard]},
   { path: "validatedOrder", component: ValidatedOrderComponent, canActivate: [AuthGuard]},
   { path: "listLogs", component: ListLogsComponent, canActivate: [AuthGuard]},
+  { path: "notifications", component: NotificationsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

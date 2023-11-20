@@ -35,17 +35,13 @@
     </div>
   </div>
 
-  <div class="button-container">
-    <input type="submit" class="custom-button" (click)="openConfirmationDialogPayment()" value="Validar Pago">
-    <input type="submit" class="custom-buttonC" (click)="changePage()" value="Cancelar">
-  </div>
-
   <div class="status-container">
     <h3><strong>Estado del pedido:</strong></h3>
     <select [(ngModel)]="selectedStatus" class="filter-select">
       <option *ngFor="let status of statusArray" [value]="status.nameStatus">{{ status.nameStatus }}</option>
     </select>
-    <button class="custom-button" (click)="changeStatus()">Cambiar Estado</button>
+    <button class="custom-button" (click)="changeStatus()" *ngIf="isStatusDisabled()">Cambiar Estado</button>
+    <button class="cancel-button" (click)="changeStatusToCanceled()" *ngIf="isStatusDisabled()">Cancelar Pedido</button>
   </div>
 
   <h2 class="lock">Productos</h2>
@@ -70,7 +66,7 @@
         <td>{{ item.supplier }}</td>
         <td>{{ item.presentation }}</td>
         <td>{{ item.quantity }}</td>
-        <td>{{item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
+        <td>{{ item.price | currency:'$ ':'symbol':'1.0-0' }} COP</td>
       </tr>
       </tbody>
     </table>

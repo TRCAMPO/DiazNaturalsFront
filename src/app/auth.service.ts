@@ -31,6 +31,8 @@ import {OrdersModelNew} from "./cart/OrdersModelNew";
 import {OrderHistory} from "./validate-payment/OrderHistoryModel";
 import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
 import {NameLogs} from "./list-logs/NameLogs";
+import {NotificationsModel} from "./notifications/notifications.model";
+import {ProgressModel} from "./validate-payment-user/progress.model";
 
 
 @Injectable({
@@ -70,6 +72,8 @@ export class AuthService {
   formSearchProduct: ProductModel = new ProductModel();
   // @ts-ignore
   formDataAmount: number| null;
+  formDataNotifications: NotificationsModel = new NotificationsModel();
+
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -281,5 +285,13 @@ export class AuthService {
 
   getDataLogs(name:string) {
     return this.http.get(`${this.apiUrl}/Logs/DownloadLogs/${name}`, { responseType: 'blob' });
+  }
+
+  getLowQuantity() {
+    return this.http.get<NotificationsModel[]>(`${this.apiUrl}/Products/lowQuantity`);
+  }
+
+  getHistoricalProgress(idOrder: number) {
+    return this.http.get<ProgressModel[]>(`${this.apiUrl}/OrderHistories/client/Order?idOrder=${idOrder}`);
   }
 }

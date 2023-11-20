@@ -3,13 +3,27 @@
 <header>
   <app-header-admin></app-header-admin>
 </header>
-<body>
-  <div class="main-content">
-    <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo2.jpeg?alt=media&token=4aea6661-b735-477a-a6ca-f3f0143765a2" alt="Imagen principal">
-  </div>
-  <footer>
-    <app-footer></app-footer>
-  </footer>
-</body>
 
+<body>
+<div class="main-content">
+
+  <div class="notification-container">
+    <button class="notification-icon" (click)="openNotifications()">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge">{{ lowQuantities.length }}</span>
+    </button>
+  </div>
+
+  <div *ngIf="showNotifications">
+    <app-notifications (closeNotifications)="onNotificationsClosed($event)"></app-notifications>
+  </div>
+
+
+  <img src="https://firebasestorage.googleapis.com/v0/b/diaznaturals-ba4b1.appspot.com/o/Logo2.jpeg?alt=media&token=4aea6661-b735-477a-a6ca-f3f0143765a2" alt="Imagen principal">
+</div>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+</body>
 </html>

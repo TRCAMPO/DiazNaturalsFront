@@ -3,6 +3,4 @@ export class ValidateQuantity {
   suppliers:string = "";
   presentation:string = "";
   quantityProduct:number =0;
-
-
 }
