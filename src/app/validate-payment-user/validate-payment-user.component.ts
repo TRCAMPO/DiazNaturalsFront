@@ -9,11 +9,13 @@ import {OrdersModel} from "../list-orders/ordersModel";
 import {switchMap} from "rxjs";
 import {ImageUserModel} from "./ImageUser.model";
 import {AllProductsModel} from "../catalog/AllProductsModel";
+import {OrderHistory} from "../validate-payment/OrderHistoryModel";
+import {ProgressModel} from "./progress.model";
 
 @Component({
   selector: 'app-validate-payment-user',
   templateUrl: './validate-payment-user.component.html',
-  styleUrls: ['./validate-payment-user.component.css']
+  styleUrls: ['./validate-payment-user.component.css', './validate-payment-user.component2.css']
 })
 export class ValidatePaymentUserComponent implements OnInit {
 
@@ -28,6 +30,7 @@ export class ValidatePaymentUserComponent implements OnInit {
   currentPage = 1;
   elementeForPage = 5;
   products: AllProductsModel[] = [];
+  orderHistoryUser = new OrderHistory();
 
   constructor(
     public dialog: MatDialog,
@@ -76,8 +79,18 @@ export class ValidatePaymentUserComponent implements OnInit {
     });
   }
 
-  changePageOrder() {
-    this.route.navigate(['/homePageUser']);
+  cancelAnOrder() {
+    this.orderHistoryUser.idOrder = this.orderDetails.idOrder;
+    this.orderHistoryUser.nameStatus = "Pedido Cancelado";
+    this.orderHistoryUser.dateOrderHistory = new Date();
+    console.log(this.orderHistoryUser);
+    this.authService.postOrderHistory(this.orderHistoryUser).subscribe(response => {
+      this.toast.success("Pedido Cancelado Correctamente", "Cancelación de Pedido");
+      this.route.navigate(['listOrdersUser']);
+    },
+      error => {
+        this.toast.success("Surgió un problema al hacer la actualización", "Cancelación de Pedido");
+    });
   }
 
   formatImageName(name: string) {

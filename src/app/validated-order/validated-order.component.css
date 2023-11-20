@@ -176,29 +176,3 @@ table {
   text-align: center;
   font-family: sans-serif;
 }
-
-/* Variables */
-:root {
-  --background-purple: #EEEEEE;
-  --subtle-white: #f9f9f9;
-  --subtle-grey: #f2f2f2;
-  --masked-grey: #ffffff;
-  --blue: #F03861;
-  --open-sans: 'Open Sans', sans-serif;
-}
-
-body {
-  font-family: sans-serif;
-  display: contents;
-  justify-content: center;
-  align-items: center;
-}
-
-.filter-select {
-  margin-left: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-

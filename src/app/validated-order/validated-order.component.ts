@@ -8,11 +8,12 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {DataService} from "../shared/data.service";
 import {ToastrService} from "ngx-toastr";
+import {ProgressModel} from "../validate-payment-user/progress.model";
 
 @Component({
   selector: 'app-validated-order',
   templateUrl: './validated-order.component.html',
-  styleUrls: ['./validated-order.component.css']
+  styleUrls: ['./validated-order.component.css', './validated-order.component2.css']
 })
 export class ValidatedOrderComponent {
 
@@ -25,6 +26,7 @@ export class ValidatedOrderComponent {
   products: AllProductsModel[] = [];
   currentPage = 1;
   elementeForPage = 5;
+  progress: ProgressModel[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -77,6 +79,11 @@ export class ValidatedOrderComponent {
       }, error => {
         console.error('Error al obtener los productos del pedido', error);
       });
+
+    this.authService.getHistoricalProgress(this.orderDetails.idOrder).subscribe(response => {
+      this.progress = response;
+    });
+    console.log(this.progress);
   }
 
   onSubmit() {
@@ -88,7 +95,8 @@ export class ValidatedOrderComponent {
   }
 
   changePageOrder() {
-    this.route.navigate(['/homePageUser']);
+    // console.log(this.authService.getHistoricalProgress(this.orderDetails.idOrder));
+    this.route.navigate(['/listOrdersUser']);
   }
 
   formatImageName(name: string) {

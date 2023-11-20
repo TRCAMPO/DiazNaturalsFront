@@ -41,7 +41,6 @@ export class ModifyQuantitiesComponent implements OnInit{
       this.productsOrigin = response;
       this.productsOriginTwo = response;
       this.productsOrigin.forEach(imgProduct => {
-        console.log(imgProduct.image);
         this.authService.getImageByName(this.formatImageName(imgProduct.image)).subscribe((imageBlob: Blob) => {
           this.blob = imageBlob;
           const reader = new FileReader();
@@ -168,6 +167,7 @@ export class ModifyQuantitiesComponent implements OnInit{
     });
   }
 
+  
   resetForm() {
     this.authService.formDataProduct = new ProductModel();
     this.products = [];

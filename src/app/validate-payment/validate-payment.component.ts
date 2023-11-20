@@ -31,7 +31,7 @@ export class ValidatePaymentComponent implements OnInit {
   elementeForPage = 5;
   orderHistory = new OrderHistory();
   validateQuantity: ValidateQuantity[]=[];
-  productsNotPassedValidation: ValidateQuantity[]=[]
+  productsNotPassedValidation: ValidateQuantity[]=[];
 
   constructor(
     public dialog: MatDialog,
@@ -110,7 +110,7 @@ export class ValidatePaymentComponent implements OnInit {
            this.route.navigate(['/listOrders']);
          },
          error => {
-           this.toast.success("Surgio un problema al hacer la actualizacion", "Estado de pedido");
+           this.toast.success("Surgió un problema al hacer la actualizacion", "Estado de pedido");
          }
        );
      } else {
@@ -154,6 +154,26 @@ export class ValidatePaymentComponent implements OnInit {
        ).subscribe();
      }
    }
+
+  changeStatusToCanceled() {
+    this.orderHistory.idOrder = this.orderDetails.idOrder;
+    this.orderHistory.nameStatus = "Pedido Cancelado";
+    this.orderHistory.dateOrderHistory = new Date();
+    console.log(this.orderHistory);
+    this.authService.postOrderHistory(this.orderHistory).subscribe(response => {
+        this.toast.success("Pedido Cancelado correctamente", "Estado de pedido");
+        this.route.navigate(['/listOrders']);
+      },
+      error => {
+        this.toast.success("Surgió un problema al hacer la actualizacion", "Estado de pedido");
+      }
+    );
+  }
+
+  isStatusDisabled(): boolean {
+    const disabledStatuses = ["Pedido Cancelado", "Pedido rechazado", "Despachado"];
+    return !disabledStatuses.includes(this.orderDetails.statusOrder);
+  }
 
   extractDataForValidate(){
     for (const product of this.products) {

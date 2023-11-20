@@ -58,3 +58,44 @@ body {
     padding: 10px 0; /* Ajusta el espacio en el contenedor de botones en pantallas más pequeñas */
   }
 }
+
+/* Estilos para el ícono de notificación y las notificaciones emergentes */
+.notification-container {
+  position: relative;
+}
+
+.notification-icon {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  width: 50px; /* Ajusta el tamaño según lo necesites */
+  height: 50px; /* Ajusta el tamaño según lo necesites */
+  background-color: #FFFFFF; /* Color de fondo del botón */
+  border-radius: 50%; /* Hacer el botón circular */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Agregar sombra */
+  border: none; /* Opcional: elimina el borde si no es necesario */
+  outline: none; /* Opcional: elimina el contorno al hacer clic */
+  transition: transform 0.3s, box-shadow 0.3s; /* Agrega transiciones */
+}
+
+.notification-icon:hover {
+  transform: scale(1.1); /* Cambia el tamaño al pasar el cursor */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5); /* Cambia la sombra al pasar el cursor */
+}
+
+.notification-icon i {
+  font-size: 24px;
+  color: #3E7C95; /* Color del ícono de notificación */
+}
+
+.notification-badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px; /* Ajusta el tamaño del padding */
+  position: absolute;
+  top: -10px;
+  right: -5px;
+}
