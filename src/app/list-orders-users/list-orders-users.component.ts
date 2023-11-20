@@ -102,7 +102,7 @@ export class ListOrdersUsersComponent implements OnInit{
 
   showOrder(item: OrdersModel) {
     localStorage.setItem('orderData', JSON.stringify(item));
-    if (item.imageOrder === "SinComprobanteDePago.jpeg") {
+    if (item.statusOrder === "Pendiente por pago") {
       this.router.navigate(['/validatePaymentUser']);
     } else {
       this.router.navigate(['/validatedOrder']);

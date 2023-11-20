@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+  <app-header-admin></app-header-admin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</header>
+
+<body>
+<div class="container">
+  <h2>Registro de Logs Mensuales</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Archivo Log</th>
+      <th>Fecha y Hora de Inicio</th>
+      <th>Fecha y Hora de Fin</th>
+      <th>Descargar Archivo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of dataLogs | paginate: { itemsPerPage: elementeForPage, currentPage: currentPage, id: 'cart' }">
+      <td>{{ item.orderLog }}</td>
+      <td>{{ item.nameInit }}</td>
+      <td>{{ item.nameEnd }}</td>
+      <td>
+        <button class="download-btn" (click)="downloadFile(item.nameOriginal)"><i class="fas fa-download"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="currentPage = $event" *ngIf="dataLogs.length > elementeForPage" id="cart"></pagination-controls>
+</div>
+
+</body>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+
+</html>

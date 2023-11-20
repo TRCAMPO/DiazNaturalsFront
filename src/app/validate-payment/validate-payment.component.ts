@@ -8,6 +8,10 @@ import {ToastrService} from "ngx-toastr";
 import {OrdersModel} from "../list-orders/ordersModel";
 import {AllProductsModel} from "../catalog/AllProductsModel";
 import {StatusModel} from "../list-orders/status.model";
+import {OrderHistory} from "./OrderHistoryModel";
+import {ValidateQuantity} from "./ValidateQuantity";
+import {catchError, forkJoin, mergeMap, of, switchMap, tap} from "rxjs";
+import {Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-validate-payment',
@@ -25,6 +29,9 @@ export class ValidatePaymentComponent implements OnInit {
   products: AllProductsModel[] = [];
   currentPage = 1;
   elementeForPage = 5;
+  orderHistory = new OrderHistory();
+  validateQuantity: ValidateQuantity[]=[];
+  productsNotPassedValidation: ValidateQuantity[]=[];
 
   constructor(
     public dialog: MatDialog,
@@ -76,7 +83,7 @@ export class ValidatePaymentComponent implements OnInit {
       }, error => {
         console.error('Error al obtener los productos del pedido', error);
       });
-      this.authService.getStatesOrders().subscribe(
+      this.authService.getStatesOrders2(this.selectedStatus).subscribe(
       (data) =>{
         this.statusArray = data;
       },
@@ -84,17 +91,100 @@ export class ValidatePaymentComponent implements OnInit {
   }
 
   changePage() {
-    this.route.navigate(['/homePage']);
+    this.route.navigate(['/listOrders']);
   }
 
   formatImageName(name: string) {
     return name.replace(/ /g, "%20");
   }
 
-  changeStatus() {
+   changeStatus() {
+     //this.authService.formDataOrderHistory = new OrderHistory()
+     this.orderHistory.idOrder = this.orderDetails.idOrder;
+     this.orderHistory.nameStatus = this.selectedStatus;
+     this.orderHistory.dateOrderHistory = new Date();
+     console.log(this.orderHistory);
+     if (this.selectedStatus != "Despachado") {
+       this.authService.postOrderHistory(this.orderHistory).subscribe(response => {
+           this.toast.success("Estado actualizado correctamente", "Estado de pedido");
+           this.route.navigate(['/listOrders']);
+         },
+         error => {
+           this.toast.success("Surgió un problema al hacer la actualizacion", "Estado de pedido");
+         }
+       );
+     } else {
+       console.log("entro 1")
+       this.extractDataForValidate();
+       const validationObservables = this.validateQuantity.map(product => {
+         return this.authService.getValidateProductByNamePresentationSupplier(product)
+           .pipe(
+             catchError(error => {
+               // Captura el error y registra el producto no validado
+               this.productsNotPassedValidation.push(product);
+               this.toast.error("Cantidad Insuficiente de " + product.search +" "+ product.suppliers+" "+ product.presentation+" ", "Error en proceso");
+               return of({error}); // Emite un objeto que indica un error
+             })
+           );
+       });
+// Combinar todas las observables de validación
+       forkJoin(validationObservables).pipe(
+         switchMap(validationResults => {
+           // @ts-ignore
+           const validationPassed = validationResults.every(result => !result.error); // Verifica si todos los productos pasaron la validación
+           if (validationPassed) {
+             console.log('Todas las validaciones fueron exitosas');
+             // Realizar la actualización del estado si todas las validaciones pasaron
+             return this.authService.postOrderHistory(this.orderHistory);
+           } else {
+             // @ts-ignore
+             console.error('Los siguientes productos no pasaron la validación:', productsNotPassedValidation);
+             return of(false); // Emitir un valor falso para indicar que no se debe realizar la actualización
+           }
+         }),
+         tap(updateResult => {
+           if (updateResult === false) {
+             this.toast.error("Surgió un problema al hacer la actualización", "Error en proceso");
 
+           } else {
+            this.toast.success("Estado actualizado correctamente", "Estado de pedido");
+             this.route.navigate(['/listOrders']);
+           }
+         })
+       ).subscribe();
+     }
+   }
+
+  changeStatusToCanceled() {
+    this.orderHistory.idOrder = this.orderDetails.idOrder;
+    this.orderHistory.nameStatus = "Pedido Cancelado";
+    this.orderHistory.dateOrderHistory = new Date();
+    console.log(this.orderHistory);
+    this.authService.postOrderHistory(this.orderHistory).subscribe(response => {
+        this.toast.success("Pedido Cancelado correctamente", "Estado de pedido");
+        this.route.navigate(['/listOrders']);
+      },
+      error => {
+        this.toast.success("Surgió un problema al hacer la actualizacion", "Estado de pedido");
+      }
+    );
   }
 
+  isStatusDisabled(): boolean {
+    const disabledStatuses = ["Pedido Cancelado", "Pedido rechazado", "Despachado"];
+    return !disabledStatuses.includes(this.orderDetails.statusOrder);
+  }
+
+  extractDataForValidate(){
+    for (const product of this.products) {
+      const validateQuantity: ValidateQuantity = new ValidateQuantity();
+      validateQuantity.search = product.name;
+      validateQuantity.suppliers = product.supplier;
+      validateQuantity.presentation = product.presentation;
+      validateQuantity.quantityProduct = product.quantity;
+      this.validateQuantity.push(validateQuantity);
+    }
+  }
   openConfirmationDialogPayment() {
 
   }

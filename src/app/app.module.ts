@@ -56,6 +56,9 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListOrdersUsersComponent } from './list-orders-users/list-orders-users.component';
 import { ValidatedOrderComponent } from './validated-order/validated-order.component';
+import { ListLogsComponent } from './list-logs/list-logs.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { ModifyQuantitiesComponent } from './modify-quantities/modify-quantities.component';
 
 
 @NgModule({
@@ -99,7 +102,10 @@ import { ValidatedOrderComponent } from './validated-order/validated-order.compo
     ListProductsComponent,
     ListOrdersComponent,
     ListOrdersUsersComponent,
-    ValidatedOrderComponent
+    ValidatedOrderComponent,
+    ListLogsComponent,
+    NotificationsComponent,
+    ModifyQuantitiesComponent
 
 
   ],

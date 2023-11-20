@@ -28,6 +28,11 @@ import {OrderSearchModel} from "./list-orders/OrderSearchModel";
 import {StatusModel} from "./list-orders/status.model";
 import {ImageUserModel} from "./validate-payment-user/ImageUser.model";
 import {OrdersModelNew} from "./cart/OrdersModelNew";
+import {OrderHistory} from "./validate-payment/OrderHistoryModel";
+import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
+import {NameLogs} from "./list-logs/NameLogs";
+import {NotificationsModel} from "./notifications/notifications.model";
+
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +67,12 @@ export class AuthService {
   formDataSearchSupplier: SupplierSearchModel = new SupplierSearchModel();
   formDataSearchOrder: OrderSearchModel = new OrderSearchModel();
   formDataOrder: OrdersModel = new OrdersModel();
+  formDataOrderHistory: OrderHistory = new OrderHistory();
+  formSearchProduct: ProductModel = new ProductModel();
+  // @ts-ignore
+  formDataAmount: number| null;
+  formDataNotifications: NotificationsModel = new NotificationsModel();
+
 
   constructor(private http: HttpClient, public cookiesService: CookieService) {
     this.startSession();
@@ -165,10 +176,17 @@ export class AuthService {
     return this.http.patch(`${this.apiUrl}/Products/EditState?id=${formDataProduct.idProduct}`,formDataProduct);
   }
 
+  patchQuantity(formDataProduct: SearchProductModel, number:number) {
+    return this.http.patch(`${this.apiUrl}/Products/UpdateQuantity?quantity=${number}`,formDataProduct);
+  }
+
   getProductByNamePresentationSupplier(formDataSearchSend: SearchProductModel) {
     return this.http.get<ProductModel>(`${this.apiUrl}/Products/search?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}`);
   }
 
+  getValidateProductByNamePresentationSupplier(formDataSearchSend: ValidateQuantity) {
+    return this.http.get<ProductModel>(`${this.apiUrl}/Products/ValidateQuantity?search=${formDataSearchSend.search}&suppliers=${formDataSearchSend.suppliers}&presentation=${formDataSearchSend.presentation}&quantityProduct=${formDataSearchSend.quantityProduct}`);
+  }
   getAllProducts() {
     return this.http.get<AllProductsModel[]>(`${this.apiUrl}/Products/all`);
   }
@@ -234,7 +252,7 @@ export class AuthService {
   }
 
   getOrders(){
-    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all`);
+    return this.http.get<OrdersModel[]>(`${this.apiUrl}/OrderHistories/all/last`);
   }
 
   getOrdersUser(){
@@ -245,6 +263,10 @@ export class AuthService {
     return this.http.get<StatusModel[]>(`${this.apiUrl}/Status`);
   }
 
+  getStatesOrders2(name: string) {
+    return this.http.get<StatusModel[]>(`${this.apiUrl}/Status/Search/${name}`);
+  }
+
   putOrder(orderDetails: ImageUserModel) {
     return this.http.put(`${this.apiUrl}/Orders/${orderDetails.idOrder}`, orderDetails);
   }
@@ -252,4 +274,21 @@ export class AuthService {
   postOrder(order:OrdersModelNew) {
     return this.http.post(`${this.apiUrl}/Orders`, order);
   }
+
+  postOrderHistory(orderHistory : OrderHistory){
+    return this.http.post(`${this.apiUrl}/OrderHistories`, orderHistory)
+  }
+  getNameLogs() {
+    return this.http.get<any[]>(`${this.apiUrl}/Logs`);
+  }
+
+  getDataLogs(name:string) {
+    return this.http.get(`${this.apiUrl}/Logs/DownloadLogs/${name}`, { responseType: 'blob' });
+  }
+
+  getLowQuantity() {
+    return this.http.get<NotificationsModel[]>(`${this.apiUrl}/Products/lowQuantity`);
+  }
+
+  
 }
