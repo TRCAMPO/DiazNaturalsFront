@@ -10,6 +10,7 @@ import {switchMap} from "rxjs";
 import {ImageUserModel} from "./ImageUser.model";
 import {AllProductsModel} from "../catalog/AllProductsModel";
 import {OrderHistory} from "../validate-payment/OrderHistoryModel";
+import {ProgressModel} from "./progress.model";
 
 @Component({
   selector: 'app-validate-payment-user',
