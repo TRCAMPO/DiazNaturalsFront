@@ -160,7 +160,6 @@ export class ValidatePaymentComponent implements OnInit {
     this.orderHistory.nameStatus = "Pedido Cancelado";
     this.orderHistory.dateOrderHistory = new Date();
     console.log(this.orderHistory);
-    this.orderHistory
     this.authService.postOrderHistory(this.orderHistory).subscribe(response => {
         this.toast.success("Pedido Cancelado correctamente", "Estado de pedido");
         this.route.navigate(['/listOrders']);

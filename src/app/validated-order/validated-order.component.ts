@@ -88,7 +88,7 @@ export class ValidatedOrderComponent {
   }
 
   changePageOrder() {
-    this.route.navigate(['/homePageUser']);
+    this.route.navigate(['/listOrdersUser']);
   }
 
   formatImageName(name: string) {
