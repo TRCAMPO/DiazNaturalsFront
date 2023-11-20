@@ -70,7 +70,7 @@ h2 {
   background-color: #ea170c;
 }
 
-.custom-buttonC {
+.cancel-button {
   margin-top: 10px;
   padding: 10px 20px;
   background-color: #f64339;
@@ -93,7 +93,7 @@ h2 {
   background-color: #316335;
 }
 
-.custom-buttonC:hover {
+.cancel-button:hover {
   background-color: #ea170c;
 }
 

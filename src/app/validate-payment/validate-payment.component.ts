@@ -155,6 +155,11 @@ export class ValidatePaymentComponent implements OnInit {
      }
    }
 
+  changeStatusToCanceled() {
+
+  }
+
+
   extractDataForValidate(){
     for (const product of this.products) {
       const validateQuantity: ValidateQuantity = new ValidateQuantity();

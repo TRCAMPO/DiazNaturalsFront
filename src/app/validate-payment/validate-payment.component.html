@@ -35,17 +35,13 @@
     </div>
   </div>
 
-  <div class="button-container">
-    <input type="submit" class="custom-button" (click)="openConfirmationDialogPayment()" value="Validar Pago">
-    <input type="submit" class="custom-buttonC" (click)="changePage()" value="Cancelar">
-  </div>
-
   <div class="status-container">
     <h3><strong>Estado del pedido:</strong></h3>
     <select [(ngModel)]="selectedStatus" class="filter-select">
       <option *ngFor="let status of statusArray" [value]="status.nameStatus">{{ status.nameStatus }}</option>
     </select>
     <button class="custom-button" (click)="changeStatus()">Cambiar Estado</button>
+    <button class="cancel-button" (click)="changeStatusToCanceled()">Cancelar Pedido</button>
   </div>
 
   <h2 class="lock">Productos</h2>
