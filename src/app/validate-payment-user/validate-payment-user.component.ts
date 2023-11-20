@@ -15,7 +15,7 @@ import {ProgressModel} from "./progress.model";
 @Component({
   selector: 'app-validate-payment-user',
   templateUrl: './validate-payment-user.component.html',
-  styleUrls: ['./validate-payment-user.component.css']
+  styleUrls: ['./validate-payment-user.component.css', './validate-payment-user.component2.css']
 })
 export class ValidatePaymentUserComponent implements OnInit {
 

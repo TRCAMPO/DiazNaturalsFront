@@ -13,7 +13,7 @@ import {ProgressModel} from "../validate-payment-user/progress.model";
 @Component({
   selector: 'app-validated-order',
   templateUrl: './validated-order.component.html',
-  styleUrls: ['./validated-order.component.css']
+  styleUrls: ['./validated-order.component.css', './validated-order.component2.css']
 })
 export class ValidatedOrderComponent {
 
