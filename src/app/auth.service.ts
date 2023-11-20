@@ -289,4 +289,6 @@ export class AuthService {
   getLowQuantity() {
     return this.http.get<NotificationsModel[]>(`${this.apiUrl}/Products/lowQuantity`);
   }
+
+  
 }
