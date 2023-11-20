@@ -32,6 +32,7 @@ import {OrderHistory} from "./validate-payment/OrderHistoryModel";
 import {ValidateQuantity} from "./validate-payment/ValidateQuantity";
 import {NameLogs} from "./list-logs/NameLogs";
 import {NotificationsModel} from "./notifications/notifications.model";
+import {ProgressModel} from "./validate-payment-user/progress.model";
 
 
 @Injectable({
@@ -290,5 +291,7 @@ export class AuthService {
     return this.http.get<NotificationsModel[]>(`${this.apiUrl}/Products/lowQuantity`);
   }
 
-  
+  getHistoricalProgress(idOrder: number) {
+    return this.http.get<ProgressModel[]>(`${this.apiUrl}/OrderHistories/client/Order?idOrder=${idOrder}`);
+  }
 }

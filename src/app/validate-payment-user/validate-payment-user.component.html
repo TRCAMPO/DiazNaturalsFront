@@ -83,6 +83,36 @@
   <pagination-controls (pageChange)="currentPage = $event" *ngIf="products.length > elementeForPage" id="cart"></pagination-controls>
 </div>
 
+  <div class="status-title">
+    <h2>Estado del Pedido</h2>
+  </div>
+
+  <div class="status-container">
+    <div class="status" [ngClass]="{ 'status-highlight': orderDetails.statusOrder === 'Pendiente por pago' }">
+      <span>Pendiente por pago</span>
+    </div>
+    <hr class="status-line" />
+    <div class="status" [ngClass]="{ 'status-highlight': orderDetails.statusOrder === 'Pago verificado' }">
+      <span>Pago verificado</span>
+    </div>
+    <hr class="status-line" />
+    <div class="status" [ngClass]="{ 'status-highlight': orderDetails.statusOrder === 'En proceso de almacen' }">
+      <span>En proceso de almacen</span>
+    </div>
+    <hr class="status-line" />
+    <div class="status" [ngClass]="{ 'status-highlight': orderDetails.statusOrder === 'Despachado' }">
+      <span>Despachado</span>
+    </div>
+    <hr class="status-line" />
+    <div class="status" [ngClass]="{ 'status-highlight': orderDetails.statusOrder === 'Pedido rechazado' }">
+      <span>Pedido rechazado</span>
+    </div>
+    <hr class="status-line" />
+    <div class="status" [ngClass]="{ 'status-highlight': orderDetails.statusOrder === 'Pedido Cancelado' }">
+      <span>Pedido Cancelado</span>
+    </div>
+  </div>
+
 </div>
 
 
