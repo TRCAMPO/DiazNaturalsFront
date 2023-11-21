@@ -110,7 +110,7 @@ export class ValidatePaymentComponent implements OnInit {
            this.route.navigate(['/listOrders']);
          },
          error => {
-           this.toast.success("Surgió un problema al hacer la actualizacion", "Estado de pedido");
+           this.toast.error("Surgió un problema al hacer la actualizacion", "Estado de pedido");
          }
        );
      } else {
